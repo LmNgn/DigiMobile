@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 type LoginInput = {
     email: string,
@@ -15,14 +15,11 @@ function Login() {
     const nav = useNavigate();
     const onSubmit: SubmitHandler<LoginInput> = async (data) => {
         try {
-            // console.log(data);
-            //B1: gửi dữ liệu lên json_server thông qua API
             const response = await axios.post('http://localhost:3000/login', data);
-            if (response.status == 200) { //request xử lý thành công
-                //B2: lưu accessToken vào localStorage
+            if (response.status == 200) { 
                 localStorage.setItem('token', response.data.accessToken);
                 toast.success('Đăng nhập thành công');
-                nav("/");
+                nav("/admin");
             }
         } catch (error) {
             console.log(error);
@@ -66,9 +63,6 @@ function Login() {
                         Đăng nhập
                     </button>
                 </form>
-                <div className="mt-2">
-                    <Link to="/register" className="text-decoration-none fw-normal">Chưa có tài khoản. Đăng ký ngay.</Link>
-                </div>
             </main>
         </div>
     )

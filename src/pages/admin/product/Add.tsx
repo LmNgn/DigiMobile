@@ -1,77 +1,54 @@
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form"
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 type RegisterInput = {
     name: string,
     price: number,
     imageUrl: string,
-    category: string,
-    inStock: boolean
+    inStock: boolean,
+    category: string
 }
-const UpdateProduct = () => {
+const ProductAdd = () => {
     const {
         register,
         handleSubmit,
-        reset,
         watch,
-        formState: { errors },
+        formState: { errors }
     } = useForm<RegisterInput>();
-
-    const { id } = useParams();
-    useEffect(() => {
-        if (!id) return;
-        fetchData(id);
-    }, [id])
-    const fetchData = async (id: string) => {
-        try {
-            const { data } = await axios.get(`http://localhost:3000/products/${id}`);
-            reset({
-                name: data.name,
-                price: data.price,
-                imageUrl: data.imageUrl,
-                category: data.category,
-                inStock: data.inStock
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const nav = useNavigate();
     const onSubmit: SubmitHandler<RegisterInput> = async (data) => {
         try {
-            await axios.put(`http://localhost:3000/products/${id}`, data);
-            toast.success('Sửa sản phẩm thành công');
-            nav("/");
+            await axios.post(`http://localhost:3000/products`, data);
+            toast.success('Thêm sản phẩm thành công.');
+            nav("/admin/product");
         } catch (error) {
-            toast.error('Vui lòng kiểm tra lại thông tin');
             console.log(error);
+            toast.error('Vui lòng kiểm tra lại thông tin.');
         }
     }
     return (
-        <div>
+        <div className="container-fluid">
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Cập nhật thông tin sản phẩm</h1>
+                <h1 className="h2">Thêm sản phẩm</h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <Link to="/" className="btn btn-outline-primary">
+                        <Link to="/admin/product" className="btn btn-outline-primary">
                             Quay lại
                         </Link>
                     </div>
                 </div>
             </div>
 
-            <form className="offset-2 col-md-8" onSubmit={handleSubmit(onSubmit)}>
+            <form className="offset-2 col-md-8 " onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3 row">
                     <label htmlFor="name" className="col-sm-2 col-form-label text-end">
                         Tên sản phẩm
                     </label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" id="name"
-
-
                             {
                             ...register('name', { required: "Không bỏ trống tên" })
                             } />
@@ -87,8 +64,6 @@ const UpdateProduct = () => {
                     </label>
                     <div className="col-sm-10">
                         <input type="number" className="form-control" id="price"
-
-
                             {
                             ...register('price', {
                                 required: "Không bỏ trống tên", min: {
@@ -108,7 +83,6 @@ const UpdateProduct = () => {
                     </label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" id="imageUrl"
-
                             {
                             ...register('imageUrl', {
                                 required: "Không bỏ trống trường này"
@@ -138,7 +112,7 @@ const UpdateProduct = () => {
                         Danh mục
                     </label>
                     <div className="col-sm-10">
-                        <select className="form-control" id="category" {...register("category")}>
+                        <select className="form-control" id="category"  {...register("category")}>
                             <option value="">Chọn danh mục</option>
                             <option value="Điện thoại">Điện thoại</option>
                             <option value="Laptop">Laptop</option>
@@ -148,15 +122,13 @@ const UpdateProduct = () => {
                 <div className="mb-3 row">
                     <div className="col-sm-10 offset-2">
                         <button type="submit" className="btn btn-primary">
-                            Sửa sản phẩm
+                            Thêm sản phẩm
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-
-
     );
 };
 
-export default UpdateProduct;
+export default ProductAdd;

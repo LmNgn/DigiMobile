@@ -1,13 +1,6 @@
 {
+  "categories":[],
   "products": [
-    {
-      "id": 2,
-      "name": "Product 2",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": true,
-      "category": "điện thoại",
-      "price": 200000
-    },
     {
       "id": 3,
       "name": "Product 3",
@@ -57,38 +50,28 @@
   ],
   "users": [
     {
-      "email": "thai@fpt.edu.vn",
-      "password": "$2a$10$dlH5nUNZPp1v4COMU0kcv.2Pn3UzPiJ9n4x0JzSxfauUrAWC4JhaS",
-      "id": 2
-    },
-    {
-      "email": "thaivm3@fe.edu.vn",
-      "password": "$2a$10$UnMEpNfuDnwzII/YA/imk.cSDYhXcqoICmK7DqLl.ljTvAzfq/dnm",
-      "id": 3
-    },
-    {
-      "email": "test2@gmail.com",
-      "password": "$2a$10$Ldu6Hkznkla5461jKPICXunVTmZS2UzKWSWVSDPnzlPXHF4433fpm",
-      "confirmPassword": "qweqwe",
-      "id": 4
-    },
-    {
-      "email": "test23@gmail.com",
-      "password": "$2a$10$qPDRmZG2pvXbLGt1DoyfDeqq1dNDbvXivTX2X9FWcrqhk7JYP.asO",
-      "confirmPassword": "123123",
-      "id": 5
-    },
-    {
-      "email": "test234@gmail.com",
-      "password": "$2a$10$s.LYx2AUKKILiRoWRufNQOXvASh2IfB6xhsimbnnhEXN2SnXBEbZ.",
-      "confirmPassword": "123123",
-      "id": 6
-    },
-    {
       "email": "test3@gmail.com",
       "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
-      "confirmPassword": "123123",
-      "id": 7
+      "id": 7,
+      "role": "admin0",
+      "status": true
+    },
+    {
+      "username": "lam1",
+      "email": "test32@gmail.com",
+      "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
+      "id": 7,
+      "role": "user",
+      "status": true
+    },
+    {
+      "username": "lam1",
+      "email": "test33@gmail.com",
+      "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
+      "id": 8,
+      "role": "user",
+      "status": true
     }
-  ]
+  ],
+  "orders":[]
 }

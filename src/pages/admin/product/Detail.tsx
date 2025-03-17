@@ -1,5 +1,5 @@
 import axios from "axios"
-import { Product } from "../types/Product"
+import { Product } from "../../../types/Product";
 import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 function Detail() {
@@ -24,7 +24,7 @@ function Detail() {
                 <h1 className="h2">Chi tiết sản phẩm</h1>
                 <div className="btn-toolbar mb-2 mb-md-0">
                     <div className="btn-group me-2">
-                        <Link to="/" className="btn btn-outline-primary">
+                        <Link to="/admin/product" className="btn btn-outline-primary">
                             Quay lại
                         </Link>
                     </div>
