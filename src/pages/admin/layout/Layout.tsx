@@ -79,7 +79,7 @@ function Layout() {
                     {isDropdownOpen && (
                       <ul className="nav nav-treeview ps-3">
                         <li className="nav-item">
-                          <Link className="nav-link" to="/admin/account/admin">
+                          <Link className="nav-link" to="/admin/account">
                             <span>Quản trị viên</span>
                           </Link>
                         </li>

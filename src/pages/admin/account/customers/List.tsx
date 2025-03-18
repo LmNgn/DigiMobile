@@ -49,8 +49,7 @@ function List() {
     <div className="container-fluid">
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 className="h2">Danh sách tài khoản khách hàng</h1>
-        <div className="btn-toolbar mb-2 mb-md-0">
-        </div>
+        <div className="btn-toolbar mb-2 mb-md-0"></div>
       </div>
       <table className="table table-hover">
         <thead>
@@ -80,15 +79,9 @@ function List() {
               <td>
                 <Link
                   className="btn btn-outline-primary"
-                  to={`/admin/product/detail/${u.id}`}
+                  to={`/admin/account/customer/detail/${u.id}`}
                 >
                   <i className="fas fa-info-circle" />
-                </Link>
-                <Link
-                  className="btn btn-outline-warning"
-                  to={"/admin/product/update/" + u.id}
-                >
-                  <i className="fa-solid fa-gear" />
                 </Link>
                 <button
                   className="btn btn-outline-danger"

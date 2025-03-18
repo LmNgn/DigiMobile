@@ -20,13 +20,12 @@ import CustomerList from "./pages/admin/account/customers/List";
 import CustomerDetail from "./pages/admin/account/customers/Detail";
 //admin
 import AdminList from "./pages/admin/account/admins/List";
-import AdminAdd from "./pages/admin/account/admins/Add";
 import AdminUpdate from "./pages/admin/account/admins/Update";
 //order
 import OrderList from "./pages/admin/order/List";
 import OrderUpdate from "./pages/admin/order/Update";
 
-//============================00============================//
+//============================00============================
 //////CLIENT
 const routeConfig = [
   //Admin route
@@ -53,13 +52,11 @@ const routeConfig = [
 
       //Customer
       { path: "/admin/account/customer", element: <CustomerList /> },
-      { path: "/admin/account/customer/detail/:id", element: <CustomerDetail
-         /> },
+      { path: "/admin/account/customer/detail/:id", element: <CustomerDetail/> },
 
       //Admin
-      { path: "/admin/account/admin", element: <AdminList /> },
-      { path: "/admin/account/admin/add", element: <AdminAdd /> },
-      { path: "/admin/account/admin/update/:id", element: <AdminUpdate /> },
+      { path: "/admin/account", element: <AdminList /> },
+      { path: "/admin/account/update/:id", element: <AdminUpdate /> },
 
       //Order
       { path: "/admin/order", element: <OrderList /> },

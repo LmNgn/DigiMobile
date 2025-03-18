@@ -1,5 +1,5 @@
 {
-  "categories":[],
+  "categories": [],
   "products": [
     {
       "id": 3,
@@ -26,10 +26,7 @@
       "id": 6
     },
     {
-      "name": "sản phẩm 2 updât",
-      "price": "123123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": true,
+      "status": false,
       "id": 7
     },
     {
@@ -71,7 +68,35 @@
       "id": 8,
       "role": "user",
       "status": true
+    },
+    {
+      "email": "test2@gmail.com",
+      "password": "$2a$10$rnbryRDcauG2dUWPugsAn.6moMNNA0zJ.Ys.Qc3ntBtR.q8V2XPMW",
+      "role": "ADMIN1",
+      "status": true,
+      "id": 9
+    },
+    {
+      "email": "test234@gmail.com",
+      "password": "$2a$10$F/6ASQ6ZupgTew4gJuBlX.YnB/IRElVbrcX0E6Vmor9VejrXGdnqy",
+      "role": "admin1",
+      "status": true,
+      "id": 10
+    },
+    {
+      "email": "test22@gmail.com",
+      "password": "$2a$10$zK0xy3lZQAzI2q6xbeWa..7c9nE0aCbP.VAZVsQ.byftCP2I7XUjy",
+      "role": "admin1",
+      "status": true,
+      "id": 11
+    },
+    {
+      "email": "test22123123@gmail.com",
+      "password": "$2a$10$EwZcyXHv.Y//B8YAMIaMgeiKqx/Yv8bEdwpDTsQyeieLcCuW0EG8W",
+      "role": "admin1",
+      "status": true,
+      "id": 12
     }
   ],
-  "orders":[]
+  "orders": []
 }
