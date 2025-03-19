@@ -18,10 +18,9 @@ function Layout() {
   };
 
   return (
-    <div className="d-flex">
+    <div className="layout-container">
       {/* Sidebar */}
-      <nav className="sidebar bg-light vh-100 p-3 border-end d-flex flex-column">
-        <h4 className="text-primary fw-bold mb-3">Mantis</h4>
+      <nav className="sidebar bg-light p-3 border-end">
         <ul className="nav flex-column flex-grow-1">
           <li className="nav-item">
             <Link className="nav-link text-dark hover-effect" to="/admin">
@@ -44,29 +43,29 @@ function Layout() {
             </Link>
           </li>
           <li className="nav-item">
-  <button
-    className="nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
-    onClick={() => setDropdownOpen(!isDropdownOpen)}
-  >
-    <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
-    <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
-  </button>
-  <ul className={`nav flex-column ps-3 dropdown-menu ${isDropdownOpen ? "show" : ""}`}>
-    <li className="nav-item">
-      <Link className="nav-link hover-effect text-dark" to="/admin/account">
-        Quản trị viên
-      </Link>
-    </li>
-    <li className="nav-item">
-      <Link className="nav-link hover-effect text-dark" to="/admin/account/customer">
-        Khách hàng
-      </Link>
-    </li>
-  </ul>
-</li>
+            <button
+              className="nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
+              onClick={() => setDropdownOpen(!isDropdownOpen)}
+            >
+              <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
+              <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
+            </button>
+            <ul className={`nav flex-column ps-3 dropdown-menu${isDropdownOpen ? " show" : ""}`}>
+              <li className="nav-item">
+                <Link className="nav-link hover-effect text-dark" to="/admin/account">
+                  Quản trị viên
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link hover-effect text-dark" to="/admin/account/customer">
+                  Khách hàng
+                </Link>
+              </li>
+            </ul>
+          </li>
         </ul>
 
-        {/* Logout Button at the bottom */}
+        {/* Logout Button */}
         <button
           onClick={handleLogout}
           className="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2 mt-auto"
@@ -76,18 +75,31 @@ function Layout() {
       </nav>
 
       {/* Main Content */}
-      <div className="main-content flex-grow-1 p-4">
+      <div className="main-content">
         <Header />
-        <div className="container-fluid">
-          {/* Content Outlet */}
-          <div className="mt-4">
-            <Outlet />
-          </div>
+        <div className="content-container">
+          <Outlet />
         </div>
         <Footer />
       </div>
+
       <style>
         {`
+        .layout-container {
+          display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+          width: 250px;
+          height: 100vh;
+          position: fixed;
+          top: 56px; /* Để không bị Header che */
+          left: 0;
+          overflow-y: auto;
+          transition: all 0.3s ease-in-out;
+        }
+
         .nav-link {
           transition: background-color 0.3s ease, color 0.3s ease;
           padding: 10px;
@@ -98,17 +110,9 @@ function Layout() {
           color: white !important;
           border-radius: 5px;
         }
-        .dropdown-menu {
-          position: relative;
-          opacity: 0;
-          transform: translateY(-5px);
-          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-        }
 
-        .dropdown-menu.show {
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
+        .dropdown-menu {
+          display: ${isDropdownOpen ? "block" : "none"};
         }
 
         .dropdown-menu .nav-link {
@@ -116,8 +120,22 @@ function Layout() {
         }
 
         .dropdown-menu .nav-link:hover {
-          background-color:rgb(93, 159, 230);
+          background-color: rgb(93, 159, 230);
           color: #f8f9fa !important;
+        }
+
+        /* Main Content */
+        .main-content {
+          flex-grow: 1;
+          margin-left: 250px;
+          padding: 20px;
+          margin-top: 56px;
+          width: calc(100% - 250px);
+          transition: margin-left 0.3s ease-in-out;
+        }
+
+        .content-container {
+          padding: 20px;
         }
         `}
       </style>

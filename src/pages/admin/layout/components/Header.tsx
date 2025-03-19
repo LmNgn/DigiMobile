@@ -3,88 +3,67 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "/src/assets/logo.png"
+import logo from "/src/assets/logo.png";
+
 function Header() {
     const nav = useNavigate();
     const [showSearch, setShowSearch] = useState(false);
+
     const handleLogout = () => {
-        const confirm = window.confirm("Bạn muốn đăng xuất ?");
-        if (!confirm) return;
-        localStorage.removeItem("token");
-        toast.success("Đăng xuất thành công!");
-        nav('admin/login');
+        if (window.confirm("Bạn muốn đăng xuất ?")) {
+            localStorage.removeItem("token");
+            toast.success("Đăng xuất thành công!");
+            nav("/admin/login");
+        }
     };
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-            {/* Logo */}
-            <div className="d-flex align-items-center logo-container" onClick={() => nav("/")}>
-                <img
-                    src={logo}
-                    alt="Mantis"
-                    width="40"
-                    height="40"
-                    className="logo-img"
-                />
-                <span className="fw-bold text-white ms-2 fs-5 logo-text">Mantis</span>
-            </div>
-
-            {/* Thanh search*/}
-            <div className="mx-auto d-flex align-items-center">
-                <div 
-                    className={`search-box d-flex align-items-center ${showSearch ? "expanded" : ""}`}
-                >
-                    <input 
-                        type="text" 
-                        className="form-control search-input" 
-                        placeholder="Search here..."
-                    />
-                    <button 
-                        className="btn btn-outline-light search-btn" 
-                        onClick={() => setShowSearch(!showSearch)}
-                    >
-                        <i className="bi bi-search"></i>
-                    </button>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div className="container-fluid d-flex justify-content-between">
+                {/* Logo */}
+                <div className="d-flex align-items-center logo-container" onClick={() => nav("/")} style={{ cursor: "pointer" }}>
+                    <img src={logo} alt="Mantis" width="40" height="40" className="logo-img" />
+                    <span className="fw-bold text-white ms-2 fs-5">Mantis</span>
                 </div>
-            </div>
 
-            {/* Tài khoản */}
-            <div className="d-flex align-items-center">
-                <button className="btn btn-outline-light me-2">
-                    <i className="bi bi-envelope fs-5"></i>
-                </button>
-                <div className="dropdown">
-                    <button
-                        className="btn btn-dark d-flex align-items-center"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <img
-                            src="https://randomuser.me/api/portraits/men/75.jpg"
-                            alt="User Avatar"
-                            className="rounded-circle border me-2"
-                            width="30"
-                            height="30"
-                        />
-                        <span className="fw-bold text-white">Admin</span>
+                {/* Thanh search */}
+                <div className="search-container d-flex align-items-center">
+                    <div className={`search-box d-flex align-items-center ${showSearch ? "expanded" : ""}`}>
+                        <input type="text" className="form-control search-input" placeholder="Tìm kiếm..." />
+                        <button className="btn btn-outline-light search-btn" onClick={() => setShowSearch(!showSearch)}>
+                            <i className="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Tài khoản */}
+                <div className="d-flex align-items-center">
+                    <button className="btn btn-outline-light me-2">
+                        <i className="bi bi-envelope fs-5"></i>
                     </button>
-                    
+                    <div className="dropdown">
+                        <button className="btn btn-dark d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" className="rounded-circle border me-2" width="30" height="30" />
+                            <span className="fw-bold text-white">Admin</span>
+                        </button>
+                        <ul className="dropdown-menu dropdown-menu-end">
+                            <li><button className="dropdown-item" onClick={handleLogout}><i className="bi bi-box-arrow-right me-2"></i> Đăng xuất</button></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <style>
                 {`
-                .logo-text {
-                    cursor: pointer;
+                .navbar {
+                    height: 56px;
+                    z-index: 1050;
                 }
-                .fw-bold {
-                    letter-spacing: 0.5px;
-                }
+
                 .logo-img {
                     background-color: white;
                     padding: 6px;
                     border-radius: 10px;
-                    display: flex;
                 }
 
                 .search-box {
@@ -102,7 +81,7 @@ function Header() {
                 }
 
                 .search-box.expanded .search-input {
-                    width: 250px;
+                    width: 200px;
                     opacity: 1;
                     padding: 5px 10px;
                 }
@@ -118,7 +97,7 @@ function Header() {
                 `}
             </style>
         </nav>
-    )
+    );
 }
 
 export default Header;
