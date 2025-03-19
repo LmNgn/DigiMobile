@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import NotFound from "./pages/admin/NotFound";
 import AdminLayout from "./pages/admin/layout/Layout";
 import Login from "./pages/admin/Login";
+import Register from "./pages/admin/Register";
 import Home from "./pages/admin/Home";
 //category
 import CategoryList from "./pages/admin/category/List";
@@ -67,6 +68,11 @@ const routeConfig = [
     //route login
     path: "/admin/login",
     element: <Login />,
+  },
+  {
+    //route login
+    path: "/admin/register",
+    element: <Register />,
   },
 ];
 

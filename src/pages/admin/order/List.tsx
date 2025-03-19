@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Table, Button, Form } from "react-bootstrap";
 function List() {
   const [orders, setOrders] = useState([
