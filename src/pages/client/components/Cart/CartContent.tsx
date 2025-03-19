@@ -1,6 +1,8 @@
 import React from 'react';
 import { RiDeleteBin3Line } from 'react-icons/ri';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Image1 from "../../../../assets/image4.png";
+import Image2 from "../../../../assets/image5.png";
 
 const CartContent = () => {
     const cartProduct = [
@@ -10,7 +12,7 @@ const CartContent = () => {
             color: "Black",
             quantity: "1",
             price: "999",
-            image: "https://via.placeholder.com/80"
+            image: Image1
         },
         {
             productId: 2,
@@ -18,7 +20,7 @@ const CartContent = () => {
             color: "Pink",
             quantity: "2",
             price: "1,800",
-            image: "https://via.placeholder.com/80"
+            image: Image2
         },
         {
             productId: 3,
@@ -26,7 +28,7 @@ const CartContent = () => {
             color: "Blue",
             quantity: "3",
             price: "2,700",
-            image: "https://via.placeholder.com/80"
+            image: Image1
         }
     ];
 
