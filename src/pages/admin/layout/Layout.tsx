@@ -44,28 +44,26 @@ function Layout() {
             </Link>
           </li>
           <li className="nav-item">
-            <button
-              className="nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
-              onClick={() => setDropdownOpen(!isDropdownOpen)}
-            >
-              <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
-              <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
-            </button>
-            {isDropdownOpen && (
-              <ul className="nav flex-column ps-3">
-                <li className="nav-item">
-                  <Link className="nav-link hover-effect text-dark" to="/admin/account">
-                    Quản trị viên
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link hover-effect text-dark" to="/admin/account/customer">
-                    Khách hàng
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
+  <button
+    className="nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
+    onClick={() => setDropdownOpen(!isDropdownOpen)}
+  >
+    <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
+    <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
+  </button>
+  <ul className={`nav flex-column ps-3 dropdown-menu ${isDropdownOpen ? "show" : ""}`}>
+    <li className="nav-item">
+      <Link className="nav-link hover-effect text-dark" to="/admin/account">
+        Quản trị viên
+      </Link>
+    </li>
+    <li className="nav-item">
+      <Link className="nav-link hover-effect text-dark" to="/admin/account/customer">
+        Khách hàng
+      </Link>
+    </li>
+  </ul>
+</li>
         </ul>
 
         {/* Logout Button at the bottom */}
@@ -92,12 +90,34 @@ function Layout() {
         {`
         .nav-link {
           transition: background-color 0.3s ease, color 0.3s ease;
+          padding: 10px;
         }
 
         .nav-link:hover {
           background-color: #007bff;
           color: white !important;
           border-radius: 5px;
+        }
+        .dropdown-menu {
+          position: relative;
+          opacity: 0;
+          transform: translateY(-5px);
+          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        }
+
+        .dropdown-menu.show {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .dropdown-menu .nav-link {
+          padding: 8px 15px;
+        }
+
+        .dropdown-menu .nav-link:hover {
+          background-color:rgb(93, 159, 230);
+          color: #f8f9fa !important;
         }
         `}
       </style>
