@@ -1,84 +1,102 @@
-import "./App.css";
-import { useRoutes } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-//////ADMIN
+
+////// ADMIN IMPORTS
 import NotFound from "./pages/admin/NotFound";
 import AdminLayout from "./pages/admin/layout/Layout";
 import Login from "./pages/admin/Login";
-import Home from "./pages/admin/Home";
-//category
+import HomeAdmin from "./pages/admin/Home";
+
+// Category
 import CategoryList from "./pages/admin/category/List";
 import CategoryAdd from "./pages/admin/category/Add";
 import CategoryEdit from "./pages/admin/category/Edit";
-//product
+
+// Product
 import ProductList from "./pages/admin/product/List";
 import ProductDetail from "./pages/admin/product/Detail";
 import ProductUpdate from "./pages/admin/product/Update";
 import ProductAdd from "./pages/admin/product/Add";
-//customer
+
+// Customer
 import CustomerList from "./pages/admin/account/customers/List";
 import CustomerDetail from "./pages/admin/account/customers/Detail";
-//admin
+
+// Admin
 import AdminList from "./pages/admin/account/admins/List";
 import AdminUpdate from "./pages/admin/account/admins/Update";
-//order
+
+// Order
 import OrderList from "./pages/admin/order/List";
 import OrderUpdate from "./pages/admin/order/Update";
 
+////// CLIENT IMPORTS
+import UserLayout from "./pages/client/components/Layout/UserLayout";
+import Home from "./pages/client/pages/Home";
+
 //============================00============================
-//////CLIENT
+
+// Cấu hình các routes cho cả Admin và Client
 const routeConfig = [
-  //Admin route
+  // Admin Routes
   {
     path: "/admin",
     element: <AdminLayout />,
     children: [
-      //Home
-      { path: "/admin", element: <Home /> },
-
-      //Not found
+      { path: "/admin", element: <HomeAdmin /> },
       { path: "*", element: <NotFound /> },
 
-      //Category
+      // Category
       { path: "/admin/category", element: <CategoryList /> },
       { path: "/admin/category/add", element: <CategoryAdd /> },
       { path: "/admin/category/update/:id", element: <CategoryEdit /> },
 
-      //Product
+      // Product
       { path: "/admin/product", element: <ProductList /> },
       { path: "/admin/product/detail/:id", element: <ProductDetail /> },
       { path: "/admin/product/update/:id", element: <ProductUpdate /> },
       { path: "/admin/product/add", element: <ProductAdd /> },
 
-      //Customer
+      // Customer
       { path: "/admin/account/customer", element: <CustomerList /> },
-      { path: "/admin/account/customer/detail/:id", element: <CustomerDetail/> },
+      { path: "/admin/account/customer/detail/:id", element: <CustomerDetail /> },
 
-      //Admin
+      // Admin
       { path: "/admin/account", element: <AdminList /> },
       { path: "/admin/account/update/:id", element: <AdminUpdate /> },
 
-      //Order
+      // Order
       { path: "/admin/order", element: <OrderList /> },
       { path: "/admin/order/update/:id", element: <OrderUpdate /> },
     ],
   },
+
+  // Admin Login
+  { path: "/admin/login", element: <Login /> },
+
+  // Client Routes
   {
-    //route login
-    path: "/admin/login",
-    element: <Login />,
+    path: "/",
+    element: <UserLayout />,
+    children: [
+      { path: "/", element: <Home /> },
+    ],
   },
 ];
 
-function App() {
-  const router = useRoutes(routeConfig);
+// Component dùng `useRoutes`
+function AppRoutes() {
+  return useRoutes(routeConfig);
+}
 
+// App Component
+function App() {
   return (
-    <div>
-      {router}
+    <BrowserRouter>
+      <AppRoutes />
       <Toaster />
-      
-    </div>
+    </BrowserRouter>
   );
 }
 
