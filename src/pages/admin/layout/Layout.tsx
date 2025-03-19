@@ -8,18 +8,19 @@ function Layout() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const nav = useNavigate();
 
-    const handleLogout = () => {
-        if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-            localStorage.removeItem("token");
-            nav("/admin/login");
-        }
-    };
+  const handleLogout = () => {
+    if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+      localStorage.removeItem("token");
+      nav("/admin/login");
+    }
+  };
+
   return (
     <div className="d-flex">
       {/* Sidebar */}
-      <nav className="sidebar bg-light vh-100 p-3 border-end">
+      <nav className="sidebar bg-light vh-100 p-3 border-end d-flex flex-column">
         <h4 className="text-primary fw-bold mb-3">Mantis</h4>
-        <ul className="nav flex-column">
+        <ul className="nav flex-column flex-grow-1">
           <li className="nav-item">
             <Link className="nav-link text-dark" to="/admin">
               <i className="fa-solid fa-chart-simple me-2" /> Thống kê
@@ -64,15 +65,14 @@ function Layout() {
             )}
           </li>
         </ul>
-        {/* Logout */}
-        <div className="mt-auto">
-            <button
-                onClick={handleLogout}
-                className="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2 logout-btn"
-              >
-                <i className="fas fa-sign-out-alt"></i> Logout
-            </button>
-        </div>
+
+        {/* Logout Button at the bottom */}
+        <button
+          onClick={handleLogout}
+          className="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2 mt-auto"
+        >
+          <i className="fas fa-sign-out-alt"></i> Logout
+        </button>
       </nav>
 
       {/* Main Content */}
