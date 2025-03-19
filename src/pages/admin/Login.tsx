@@ -63,9 +63,7 @@ function Login() {
                         Đăng nhập
                     </button>
                 </form>
-                <div className="mt-2">
-                    <Link to="/register" className="text-decoration-none fw-normal">Chưa có tài khoản. Đăng ký ngay.</Link>
-                </div>
+                
             </main>
         </div>
     )

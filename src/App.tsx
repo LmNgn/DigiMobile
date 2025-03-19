@@ -69,11 +69,6 @@ const routeConfig = [
     path: "/admin/login",
     element: <Login />,
   },
-  {
-    //route login
-    path: "/admin/register",
-    element: <Register />,
-  },
 ];
 
 function App() {
