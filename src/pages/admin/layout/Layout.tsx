@@ -22,28 +22,28 @@ function Layout() {
         <h4 className="text-primary fw-bold mb-3">Mantis</h4>
         <ul className="nav flex-column flex-grow-1">
           <li className="nav-item">
-            <Link className="nav-link text-dark" to="/admin">
+            <Link className="nav-link text-dark hover-effect" to="/admin">
               <i className="fa-solid fa-chart-simple me-2" /> Thống kê
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link text-dark" to="/admin/category">
+            <Link className="nav-link text-dark hover-effect" to="/admin/category">
               <i className="fa-solid fa-list me-2" /> Danh mục
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link text-dark" to="/admin/product">
+            <Link className="nav-link text-dark hover-effect" to="/admin/product">
               <i className="fas fa-box me-2" /> Sản phẩm
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link text-dark" to="/admin/order">
+            <Link className="nav-link text-dark hover-effect" to="/admin/order">
               <i className="fa-solid fa-truck-fast me-2" /> Đơn hàng
             </Link>
           </li>
           <li className="nav-item">
             <button
-              className="nav-link text-dark d-flex align-items-center btn btn-link"
+              className="nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
               onClick={() => setDropdownOpen(!isDropdownOpen)}
             >
               <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
@@ -52,12 +52,12 @@ function Layout() {
             {isDropdownOpen && (
               <ul className="nav flex-column ps-3">
                 <li className="nav-item">
-                  <Link className="nav-link text-dark" to="/admin/account">
+                  <Link className="nav-link hover-effect text-dark" to="/admin/account">
                     Quản trị viên
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-dark" to="/admin/account/customer">
+                  <Link className="nav-link hover-effect text-dark" to="/admin/account/customer">
                     Khách hàng
                   </Link>
                 </li>
@@ -86,6 +86,19 @@ function Layout() {
         </div>
         <Footer />
       </div>
+      <style>
+        {`
+        .nav-link {
+          transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-link:hover {
+          background-color: #007bff;
+          color: white !important;
+          border-radius: 5px;
+        }
+        `}
+      </style>
     </div>
   );
 }
