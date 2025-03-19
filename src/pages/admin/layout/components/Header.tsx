@@ -8,7 +8,7 @@ function Header() {
         if (!confirm) return;
         localStorage.removeItem("token");
         toast.success("Đăng xuất thành công!");
-        nav('/login');
+        nav('admin/login');
     };
     return (
         <nav className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
