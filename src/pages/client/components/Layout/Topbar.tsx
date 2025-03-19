@@ -1,32 +1,32 @@
-import React from 'react'
-import {TbBrandMeta} from 'react-icons/tb';
-import {IoLogoInstagram} from 'react-icons/io';
-import {RiTwitterXLine} from 'react-icons/ri';
+import React from 'react';
+import { TbBrandMeta } from 'react-icons/tb';
+import { IoLogoInstagram } from 'react-icons/io';
+import { RiTwitterXLine } from 'react-icons/ri';
 
 const Topbar = () => {
   return (
-    <div className="bg-red-500 text-white">
-      <div className="container mx-auto flex justify-between items-center py-3 px-4">
-        <div className='hidden md:flex items-center space-x-4'>
-          <a href="#" className="hover:text-gray-300">
-            <TbBrandMeta className="h-5 w-5" />
+    <div className="bg-danger text-white py-2">
+      <div className="container d-flex justify-content-between align-items-center">
+        <div className='d-none d-md-flex align-items-center gap-3'>
+          <a href="#" className="text-white text-decoration-none">
+            <TbBrandMeta size={20} />
           </a>
-          <a href="#" className="hover:text-gray-300">
-            <IoLogoInstagram className="h-5 w-5" />
+          <a href="#" className="text-white text-decoration-none">
+            <IoLogoInstagram size={20} />
           </a>
-          <a href="#" className="hover:text-gray-300">
-            <RiTwitterXLine className="h-4 w-4" />
+          <a href="#" className="text-white text-decoration-none">
+            <RiTwitterXLine size={18} />
           </a>
         </div>
-        <div className='text-sm text-center flex-grow'>
+        <div className='text-center flex-grow-1'>
           <span>We ship worldwide</span>
         </div>
-        <div className='text-sm hidden md:block'>
-          <a href="tel:+1234567890" className='hover:text-gray-300'>+1 (234) 567-890</a>
+        <div className='d-none d-md-block'>
+          <a href="tel:+1234567890" className='text-white text-decoration-none'>+1 (234) 567-890</a>
         </div>
       </div>
     </div>
-);
-}
+  );
+};
 
-export default Topbar
+export default Topbar;

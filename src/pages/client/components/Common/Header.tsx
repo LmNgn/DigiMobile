@@ -1,16 +1,15 @@
-import React from 'react'
-import Topbar from '../Layout/Topbar'
-import Navbar from './Navbar'
+import React from 'react';
+import Topbar from '../Layout/Topbar';
+import Navbar from './Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Header = () => {
   return (
-    <>
-      <header className='border-b border-gray-200'>
-        <Topbar/>
-        <Navbar/>
-      </header>
-    </>
-  )
-}
+    <header className="border-bottom">
+      <Topbar />
+      <Navbar />
+    </header>
+  );
+};
 
-export default Header
+export default Header;

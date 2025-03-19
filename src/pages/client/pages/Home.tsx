@@ -1,10 +1,14 @@
 import React from 'react'
-import Hero from '../components/Layout/Hero'
+import Banner from '../components/Layout/Banner'
+import RenderImage from '../components/Product/RenderImage'
+import NewContent from '../components/Product/NewContent'
 
 const Home = () => {
   return (
     <div>
-        <Hero/>
+        <Banner/>
+        <RenderImage/>
+        <NewContent/>
     </div>
   )
 }

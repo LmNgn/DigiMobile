@@ -1,39 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { HiMagnifyingGlass, HiMiniXMark } from 'react-icons/hi2';
 
 const SearchBar = () => {
     const [searchs, setSearch] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleSearch = ()=>{
-        setIsOpen(!isOpen)
-    }
-    const handleSearchToggle = (e)=>{
-        e.preventDefault();
-        console.log("Serach:",searchs)
-        setIsOpen(false)
-    }
-  return (
-    <div className={`flex items-center justify-center w-full transition-all duration-300 ${isOpen?"absolute top-0 left-0 w-full bg-white h-24 z-50":"w-auto"}`}>
-        {isOpen?(
-            <form onSubmit={handleSearchToggle} className='relative flex items-center justify-center w-full'>
-                <div className='relative w-1/2'>
-                    <input type="text" placeholder='Search' value={searchs} onChange={(e)=>setSearch(e.target.value)} className='bg-gray-100 px-4 py-2 pl-2 pr-12 rounded-lg focus:outline-none w-full placeholder:text-gray-700'/>
-                    <button type='submit' className='absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800'>
-                        <HiMagnifyingGlass className='h-6 w-6'/>
-                    </button>
-                </div>
-                <button onClick={handleSearch} type='button' className='absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800'>
-                    <HiMiniXMark className='h-6 w-6'/>
-                </button>
-            </form>
-        ):(
-            <button onClick={handleSearch}>
-                <HiMagnifyingGlass className='h-6 w-6'/>
-            </button>
-        )}
-    </div>
-  )
-}
+    const handleSearch = () => {
+        setIsOpen(!isOpen);
+    };
 
-export default SearchBar
+    const handleSearchToggle = (e) => {
+        e.preventDefault();
+        console.log("Search:", searchs);
+        setIsOpen(false);
+    };
+
+    return (
+        <div className={`d-flex justify-content-center align-items-center transition ${isOpen ? "position-absolute top-0 start-0 w-100 bg-white py-3 z-3" : "w-auto"}`}>
+            {isOpen ? (
+                <form onSubmit={handleSearchToggle} className='position-relative w-50 d-flex'>
+                    <input 
+                        type="text" 
+                        placeholder='Search' 
+                        value={searchs} 
+                        onChange={(e) => setSearch(e.target.value)} 
+                        className='form-control rounded-pill px-4 py-2 shadow-sm'
+                    />
+                    <button type='submit' className='btn position-absolute end-0 top-50 translate-middle-y text-secondary'>
+                        <HiMagnifyingGlass className='fs-5'/>
+                    </button>
+                    <button onClick={handleSearch} type='button' className='btn position-absolute end-0 me-5 top-50 translate-middle-y text-secondary'>
+                        <HiMiniXMark className='fs-5'/>
+                    </button>
+                </form>
+            ) : (
+                <button onClick={handleSearch} className='btn text-secondary'>
+                    <HiMagnifyingGlass className='fs-5'/>
+                </button>
+            )}
+        </div>
+    );
+};
+
+export default SearchBar;

@@ -1,59 +1,61 @@
-import React from 'react'
-import { RiDeleteBin3Line } from 'react-icons/ri'
+import React from 'react';
+import { RiDeleteBin3Line } from 'react-icons/ri';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CartContent = () => {
-    const cartProduct=[
+    const cartProduct = [
         {
-            productId:1,
-            name:"Iphone 1",
+            productId: 1,
+            name: "Iphone 1",
             color: "Black",
             quantity: "1",
-            price:"999",
-            image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thegioididong.com%2Fdtdd%2Fiphone-16-pro-max&psig=AOvVaw3nggk2wXeSxh7zAn2bF73U&ust=1742303808360000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCICLl9iYkYwDFQAAAAAdAAAAABAE"
+            price: "999",
+            image: "https://via.placeholder.com/80"
         },
         {
-            productId:2,
-            name:"Iphone 2",
+            productId: 2,
+            name: "Iphone 2",
             color: "Pink",
             quantity: "2",
-            price:"1.800",
-            image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thegioididong.com%2Fdtdd%2Fiphone-16-pro-max&psig=AOvVaw3nggk2wXeSxh7zAn2bF73U&ust=1742303808360000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCICLl9iYkYwDFQAAAAAdAAAAABAE"
+            price: "1,800",
+            image: "https://via.placeholder.com/80"
         },
         {
-            productId:3,
-            name:"Iphone 3",
+            productId: 3,
+            name: "Iphone 3",
             color: "Blue",
             quantity: "3",
-            price:"2.700",
-            image:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thegioididong.com%2Fdtdd%2Fiphone-16-pro-max&psig=AOvVaw3nggk2wXeSxh7zAn2bF73U&ust=1742303808360000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCICLl9iYkYwDFQAAAAAdAAAAABAE"
+            price: "2,700",
+            image: "https://via.placeholder.com/80"
         }
-    ]
-  return (
-    <div>
-        {cartProduct.map((product,index)=>(
-            <div key={index} className='flex items-start justify-between py-4 border-b'> 
-                <div className='flex items-start'>
-                    <img src={product.image} className='w-20 h-24 object-cover mr-4 rounded' />
-                    <div>
-                    <h3>{product.name}</h3>
-                    <p className='text-sm text-gray-500'>Color: {product.color}</p>
-                    <div className='flex items-center mt-2'>
-                        <button className='border rounded px-2 py-1 text-xl font-medium'>-</button>
-                        <span className='mx-4'>{product.quantity}</span>
-                        <button className='border rounded px-2 py-1 text-xl font-medium'>+</button>
+    ];
+
+    return (
+        <div className="container">
+            {cartProduct.map((product, index) => (
+                <div key={index} className="d-flex justify-content-between align-items-start border-bottom py-3">
+                    <div className="d-flex align-items-start">
+                        <img src={product.image} className="img-thumbnail me-3" alt={product.name} width="80" height="100" />
+                        <div>
+                            <h5>{product.name}</h5>
+                            <p className="text-muted mb-2">Color: {product.color}</p>
+                            <div className="d-flex align-items-center">
+                                <button className="btn btn-outline-secondary btn-sm">-</button>
+                                <span className="mx-3">{product.quantity}</span>
+                                <button className="btn btn-outline-secondary btn-sm">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="text-end">
+                        <p className="fw-bold">$ {product.price}</p>
+                        <button className="btn btn-link text-danger p-0">
+                            <RiDeleteBin3Line size={24} />
+                        </button>
                     </div>
                 </div>
-                </div>
-                <div>
-                    <p className='font-medium'>$ {product.price.toLocaleString()}</p>
-                    <button>
-                        <RiDeleteBin3Line className='h-6 w-6 mt-2 text-red-600'/>
-                    </button>
-                </div>
-            </div>
-        ))}
-    </div>
-  )
-}
+            ))}
+        </div>
+    );
+};
 
-export default CartContent
+export default CartContent;
