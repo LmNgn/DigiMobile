@@ -46,9 +46,7 @@ function Header() {
                             <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" className="rounded-circle border me-2" width="30" height="30" />
                             <span className="fw-bold text-white">Admin</span>
                         </button>
-                        <ul className="dropdown-menu dropdown-menu-end">
-                            <li><button className="dropdown-item" onClick={handleLogout}><i className="bi bi-box-arrow-right me-2"></i> Đăng xuất</button></li>
-                        </ul>
+                        
                     </div>
                 </div>
             </div>
