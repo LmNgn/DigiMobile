@@ -1,7 +1,8 @@
 import axios from "axios";
+import { Category } from "../../../types/Category";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 type UpdateInput = {
   name: string;
@@ -11,6 +12,17 @@ type UpdateInput = {
   inStock: boolean;
 };
 const UpdateProduct = () => {
+  // lấy danh sách danh mục
+  const [categories, setCategories] = useState<Category[]>([]);
+  const getAllCategory = async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:3000/categories`);
+      setCategories(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const {
     register,
     handleSubmit,
@@ -22,6 +34,7 @@ const UpdateProduct = () => {
   const { id } = useParams();
   useEffect(() => {
     if (!id) return;
+    getAllCategory
     fetchData(id);
   }, [id]);
   const fetchData = async (id: string) => {
@@ -155,8 +168,9 @@ const UpdateProduct = () => {
               {...register("category")}
             >
               <option value="">Chọn danh mục</option>
-              <option value="Điện thoại">Điện thoại</option>
-              <option value="Laptop">Laptop</option>
+              {categories.map((c: Category) => (
+                <option value={c.id}>{c.name}</option>
+              ))}
             </select>
           </div>
         </div>

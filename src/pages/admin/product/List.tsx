@@ -1,10 +1,9 @@
 import axios from "axios";
 import { Product } from "../../../types/Product";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 function List() {
-  const nav = useNavigate();
 
   const [products, setProducts] = useState<Product[]>([]);
   const getList = async () => {
@@ -33,13 +32,7 @@ function List() {
     }
   };
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("Bạn chưa đăng nhập!");
-      nav("/admin/login");
-    } else {
-      getList();
-    }
+    getList();
   }, []);
 
   return (
@@ -91,7 +84,7 @@ function List() {
                   <i className="fas fa-info-circle" />
                 </Link>
                 <Link
-                  className="btn btn-outline-warning"
+                  className="btn btn-outline-warning mx-2"
                   to={"/admin/product/update/" + p.id}
                 >
                   <i className="fa-solid fa-gear" />

@@ -1,12 +1,18 @@
-import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 function Layout() {
+  const nav = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Bạn chưa đăng nhập!");
+      nav("/admin/login");
+    }
+  }, []);
   return (
     <div>
       <Header />
@@ -70,9 +76,8 @@ function Layout() {
                       <i className="nav-icon fas fa-users-cog" />
                       <span>Quản lý tài khoản</span>
                       <i
-                        className={`fas fa-angle-${
-                          isDropdownOpen ? "down" : "left"
-                        } right`}
+                        className={`fas fa-angle-${isDropdownOpen ? "down" : "left"
+                          } right`}
                       />
                     </button>
 
@@ -91,15 +96,6 @@ function Layout() {
                             <span>Khách hàng</span>
                           </Link>
                         </li>
-                        {/* <li className="nav-item">
-                          <Link
-                            className="nav-link"
-                            to="/admin/account/personal"
-                          >
-                            <i className="nav-icon fas fa-user" />
-                            <span>Cá nhân</span>
-                          </Link>
-                        </li> */}
                       </ul>
                     )}
                   </li>

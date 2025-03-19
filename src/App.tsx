@@ -8,8 +8,6 @@ import Login from "./pages/admin/Login";
 import Home from "./pages/admin/Home";
 //category
 import CategoryList from "./pages/admin/category/List";
-import CategoryAdd from "./pages/admin/category/Add";
-import CategoryEdit from "./pages/admin/category/Edit";
 //product
 import ProductList from "./pages/admin/product/List";
 import ProductDetail from "./pages/admin/product/Detail";
@@ -41,8 +39,6 @@ const routeConfig = [
 
       //Category
       { path: "/admin/category", element: <CategoryList /> },
-      { path: "/admin/category/add", element: <CategoryAdd /> },
-      { path: "/admin/category/update/:id", element: <CategoryEdit /> },
 
       //Product
       { path: "/admin/product", element: <ProductList /> },

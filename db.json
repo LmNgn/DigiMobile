@@ -1,5 +1,22 @@
 {
-  "categories": [],
+  "categories": [
+    {
+      "name": "Điện thoại",
+      "id": 1
+    },
+    {
+      "name": "Laptop",
+      "id": 2
+    },
+    {
+      "name": "Phụ kiện",
+      "id": 3
+    },
+    {
+      "name": "Product 3",
+      "id": 4
+    }
+  ],
   "products": [
     {
       "id": 3,
@@ -26,10 +43,6 @@
       "id": 6
     },
     {
-      "status": false,
-      "id": 7
-    },
-    {
       "name": "sản phẩm 2 2",
       "price": "123",
       "imageUrl": "https://picsum.photos/id/237/200/300",
@@ -47,27 +60,12 @@
   ],
   "users": [
     {
-      "email": "test3@gmail.com",
-      "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
-      "id": 7,
-      "role": "admin0",
-      "status": true
-    },
-    {
-      "username": "lam1",
-      "email": "test32@gmail.com",
-      "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
-      "id": 7,
-      "role": "user",
-      "status": true
-    },
-    {
       "username": "lam1",
       "email": "test33@gmail.com",
       "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
       "id": 8,
       "role": "user",
-      "status": true
+      "status": false
     },
     {
       "email": "test2@gmail.com",
@@ -78,17 +76,10 @@
     },
     {
       "email": "test234@gmail.com",
-      "password": "$2a$10$F/6ASQ6ZupgTew4gJuBlX.YnB/IRElVbrcX0E6Vmor9VejrXGdnqy",
+      "password": "$2a$10$4rGuPg1ggirzp1tCZ9XkMO19sOAnnLU1qKAtsXugHPyXc16v5Xcmu",
       "role": "admin1",
       "status": true,
       "id": 10
-    },
-    {
-      "email": "test22@gmail.com",
-      "password": "$2a$10$zK0xy3lZQAzI2q6xbeWa..7c9nE0aCbP.VAZVsQ.byftCP2I7XUjy",
-      "role": "admin1",
-      "status": true,
-      "id": 11
     },
     {
       "email": "test22123123@gmail.com",

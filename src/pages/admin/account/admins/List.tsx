@@ -158,7 +158,7 @@ function List() {
                   <i className="fa-solid fa-circle-info" />
                 </Link>
                 <button
-                  className="btn btn-outline-warning"
+                  className="btn btn-outline-warning mx-1"
                   onClick={() => resetPassword(a.id)}
                 >
                   <i className="fa-solid fa-rotate-right" />
