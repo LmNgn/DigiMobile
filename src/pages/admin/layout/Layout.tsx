@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -6,7 +6,14 @@ import { useState } from "react";
 
 function Layout() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const nav = useNavigate();
 
+    const handleLogout = () => {
+        if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+            localStorage.removeItem("token");
+            nav("/admin/login");
+        }
+    };
   return (
     <div className="d-flex">
       {/* Sidebar */}
@@ -57,6 +64,15 @@ function Layout() {
             )}
           </li>
         </ul>
+        {/* Logout */}
+        <div className="mt-auto">
+            <button
+                onClick={handleLogout}
+                className="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2 logout-btn"
+              >
+                <i className="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
       </nav>
 
       {/* Main Content */}
