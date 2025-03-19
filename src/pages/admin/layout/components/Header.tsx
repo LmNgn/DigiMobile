@@ -21,7 +21,7 @@ function Header() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container-fluid d-flex justify-content-between">
                 {/* Logo */}
-                <div className="d-flex align-items-center logo-container" onClick={() => nav("/")} style={{ cursor: "pointer" }}>
+                <div className="d-flex align-items-center logo-container" onClick={() => nav("/admin")} style={{ cursor: "pointer" }}>
                     <img src={logo} alt="Mantis" width="40" height="40" className="logo-img" />
                     <span className="fw-bold text-white ms-2 fs-5">Mantis</span>
                 </div>
