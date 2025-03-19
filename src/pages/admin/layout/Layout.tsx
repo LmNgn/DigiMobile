@@ -8,112 +8,68 @@ function Layout() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <div>
-      <Header />
-      <div className="container-fluid">
-        <div className="row">
-          <div
-            className="sidebar border border-right col-md-3 col-lg-2 p-0"
-            style={{ height: "100vh" }}
-          >
-            <div
-              className=" bg-body-tertiary"
-              tabIndex={-1}
-              id="sidebarMenu"
-              aria-labelledby="sidebarMenuLabel"
+    <div className="d-flex">
+      {/* Sidebar */}
+      <nav className="sidebar bg-light vh-100 p-3 border-end">
+        <h4 className="text-primary fw-bold mb-3">Mantis</h4>
+        <ul className="nav flex-column">
+          <li className="nav-item">
+            <Link className="nav-link text-dark" to="/admin">
+              <i className="fa-solid fa-chart-simple me-2" /> Thống kê
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-dark" to="/admin/category">
+              <i className="fa-solid fa-list me-2" /> Danh mục
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-dark" to="/admin/product">
+              <i className="fas fa-box me-2" /> Sản phẩm
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-dark" to="/admin/order">
+              <i className="fa-solid fa-truck-fast me-2" /> Đơn hàng
+            </Link>
+          </li>
+          <li className="nav-item">
+            <button
+              className="nav-link text-dark d-flex align-items-center btn btn-link"
+              onClick={() => setDropdownOpen(!isDropdownOpen)}
             >
-              <div className="d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-                <ul className="nav flex-column">
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link d-flex align-items-center gap-2"
-                      to="/admin"
-                    >
-                      <i className="fa-solid fa-chart-simple" />
-                      Thống kê
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link d-flex align-items-center gap-2"
-                      to="/admin/category"
-                    >
-                      <i className="fa-solid fa-list" />
-                      Danh mục
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link d-flex align-items-center gap-2"
-                      to="/admin/product"
-                    >
-                      <i className="fas fa-box" />
-                      Sản phẩm
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link d-flex align-items-center gap-2"
-                      to="/admin/order"
-                    >
-                      <i className="fa-solid fa-truck-fast" />
-                      Đơn hàng
-                    </Link>
-                  </li>
+              <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
+              <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
+            </button>
+            {isDropdownOpen && (
+              <ul className="nav flex-column ps-3">
+                <li className="nav-item">
+                  <Link className="nav-link text-dark" to="/admin/account">
+                    Quản trị viên
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-dark" to="/admin/account/customer">
+                    Khách hàng
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+        </ul>
+      </nav>
 
-                  <li className="nav-item">
-                    <button
-                      className="nav-link d-flex align-items-center gap-2 btn btn-link"
-                      onClick={() => setDropdownOpen(!isDropdownOpen)}
-                      style={{ textAlign: "left", width: "100%" }}
-                    >
-                      <i className="nav-icon fas fa-users-cog" />
-                      <span>Quản lý tài khoản</span>
-                      <i
-                        className={`fas fa-angle-${
-                          isDropdownOpen ? "down" : "left"
-                        } right`}
-                      />
-                    </button>
-
-                    {isDropdownOpen && (
-                      <ul className="nav nav-treeview ps-3">
-                        <li className="nav-item">
-                          <Link className="nav-link" to="/admin/account">
-                            <span>Quản trị viên</span>
-                          </Link>
-                        </li>
-                        <li className="nav-item">
-                          <Link
-                            className="nav-link"
-                            to="/admin/account/customer"
-                          >
-                            <span>Khách hàng</span>
-                          </Link>
-                        </li>
-                        {/* <li className="nav-item">
-                          <Link
-                            className="nav-link"
-                            to="/admin/account/personal"
-                          >
-                            <i className="nav-icon fas fa-user" />
-                            <span>Cá nhân</span>
-                          </Link>
-                        </li> */}
-                      </ul>
-                    )}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <main className="col-md-12 ms-sm-auto col-lg-10 px-md-4">
+      {/* Main Content */}
+      <div className="main-content flex-grow-1 p-4">
+        <Header />
+        <div className="container-fluid">
+          {/* Content Outlet */}
+          <div className="mt-4">
             <Outlet />
-          </main>
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }
