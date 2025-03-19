@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function Layout() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -11,6 +12,7 @@ function Layout() {
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
       localStorage.removeItem("token");
+      toast.success("Đăng xuất thành công!");
       nav("/admin/login");
     }
   };
