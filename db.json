@@ -1,5 +1,18 @@
 {
-  "categories": [],
+  "categories": [
+    {
+      "id": 3,
+      "name": "Xiaomi"
+    },
+    {
+      "name": "Iphone",
+      "id": 4
+    },
+    {
+      "name": "Samsung",
+      "id": 5
+    }
+  ],
   "products": [
     {
       "id": 3,
@@ -98,5 +111,22 @@
       "id": 12
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": 11,
+      "user": "user1",
+      "product": "Product",
+      "address": "123 Main",
+      "price": "30000",
+      "status": "Processing"
+    },
+    {
+      "id": 10,
+      "user": "user2",
+      "product": "Product2",
+      "address": "123 Main",
+      "price": "50000",
+      "status": "Processing"
+    }
+  ]
 }
