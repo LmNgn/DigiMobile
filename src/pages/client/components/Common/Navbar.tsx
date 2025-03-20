@@ -25,8 +25,8 @@ const Navbar = () => {
 
                     <div className={`collapse navbar-collapse ${navDraw ? 'show' : ''}`}>
                         <ul className="navbar-nav mx-auto">
-                            <li className="nav-item"><Link to="#" className="nav-link">Shop</Link></li>
-                            <li className="nav-item"><Link to="#" className="nav-link">Laptop</Link></li>
+                            <li className="nav-item"><Link to="/" className="nav-link">Shop</Link></li>
+                            <li className="nav-item"><Link to="/client/product" className="nav-link">Laptop</Link></li>
                             <li className="nav-item"><Link to="#" className="nav-link">SmartPhone</Link></li>
                             <li className="nav-item"><Link to="#" className="nav-link">Tablet</Link></li>
                             <li className="nav-item"><Link to="#" className="nav-link">Support</Link></li>
@@ -34,12 +34,12 @@ const Navbar = () => {
                     </div>
                     
                     <div className="d-flex align-items-center">
-                        <Link to="/profile" className="btn btn-link text-dark">
+                        <Link to="/admin/login" className="btn btn-link text-dark">
                             <HiOutlineUser className='h-6 w-6' />
                         </Link>
                         <button onClick={toggleCart} className="btn btn-link text-dark position-relative">
                             <HiOutlineShoppingBag className='h-6 w-6' />
-                            <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>4</span>
+                            <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>3</span>
                         </button>
                         <SearchBar />
                     </div>
