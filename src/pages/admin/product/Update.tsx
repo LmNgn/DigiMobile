@@ -21,7 +21,7 @@ const UpdateProduct = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const {
     register,
@@ -34,7 +34,7 @@ const UpdateProduct = () => {
   const { id } = useParams();
   useEffect(() => {
     if (!id) return;
-    getAllCategory
+    getAllCategory();
     fetchData(id);
   }, [id]);
   const fetchData = async (id: string) => {
@@ -169,7 +169,9 @@ const UpdateProduct = () => {
             >
               <option value="">Chọn danh mục</option>
               {categories.map((c: Category) => (
-                <option value={c.id}>{c.name}</option>
+                <option key={c.id} value={c.name}>
+                  {c.name}
+                </option>
               ))}
             </select>
           </div>

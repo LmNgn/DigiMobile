@@ -13,18 +13,18 @@
       "id": 3
     },
     {
-      "name": "Product 3",
-      "id": 4
+      "name": "Tai nghe",
+      "id": 5
     }
   ],
   "products": [
     {
-      "id": 3,
       "name": "Product 3",
+      "price": 300000,
       "imageUrl": "https://picsum.photos/id/237/200/300",
+      "category": "Laptop",
       "inStock": false,
-      "category": "điện thoại",
-      "price": 300000
+      "id": 3
     },
     {
       "name": "123123",
@@ -38,8 +38,8 @@
       "name": "123123",
       "price": "123",
       "imageUrl": "https://picsum.photos/id/237/200/300",
+      "category": "Tai nghe",
       "inStock": true,
-      "category": "điện thoại",
       "id": 6
     },
     {
@@ -89,5 +89,92 @@
       "id": 12
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "id": 1,
+      "userId": 101,
+      "products": [
+        {
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "productId": 3,
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 500,
+      "orderDate": "2025-03-20T10:00:00Z",
+      "status": "Pending"
+    },
+    {
+      "id": 2,
+      "userId": 102,
+      "products": [
+        {
+          "productId": 2,
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 250,
+      "orderDate": "2025-03-19T14:30:00Z",
+      "status": "Confirmed"
+    },
+    {
+      "id": 3,
+      "userId": 103,
+      "products": [
+        {
+          "productId": 4,
+          "quantity": 5
+        }
+      ],
+      "totalPrice": 1200,
+      "orderDate": "2025-03-18T08:15:00Z",
+      "status": "Shipped"
+    },
+    {
+      "id": 4,
+      "userId": 104,
+      "products": [
+        {
+          "productId": 5,
+          "quantity": 2
+        },
+        {
+          "productId": 6,
+          "quantity": 3
+        }
+      ],
+      "totalPrice": 900,
+      "orderDate": "2025-03-17T12:45:00Z",
+      "status": "Delivered"
+    },
+    {
+      "id": 5,
+      "userId": 105,
+      "products": [
+        {
+          "productId": 7,
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 300,
+      "orderDate": "2025-03-16T16:20:00Z",
+      "status": "Cancelled"
+    },
+    {
+      "id": 6,
+      "userId": 106,
+      "products": [
+        {
+          "productId": 8,
+          "quantity": 2
+        }
+      ],
+      "totalPrice": 450,
+      "orderDate": "2025-03-15T09:10:00Z",
+      "status": "Returned"
+    }
+  ]
 }
