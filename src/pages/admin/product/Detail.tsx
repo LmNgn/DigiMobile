@@ -1,23 +1,17 @@
 import axios from "axios"
-import { Product } from "../../../types/Product";
-import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query";
 function Detail() {
     const { id } = useParams();
-    const [product, setProduct] = useState<Product | undefined>();
-    const getDetail = async (id: string) => {
-        try {
-            const { data } = await axios.get(`http://localhost:3000/products/${id}`);
-            setProduct(data);
-        } catch (error) {
-            console.log(error)
-        }
+    const getOne = async (id: string | number) => {
+        const { data } = await axios.get(`http://localhost:3000/products/${id}`);
+        return data
     }
-    useEffect(() => {
-        if (!id) return;
-        getDetail(id);
-    }, [id])
-
+    const { data: product } = useQuery({
+        queryKey: ["products"],
+        queryFn: () => getOne(id!),
+        enabled: !!id //chỉ fetch khi có id
+    })
     return (
         <div>
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -51,7 +45,7 @@ function Detail() {
                                 <td>{(product?.inStock) ?
                                     (<span className="badge text-bg-primary">Còn hàng</span>)
                                     : (<span className="badge text-bg-secondary">Hết hàng</span>)
-                                    }
+                                }
                                 </td>
                             </tr>
                             <tr>

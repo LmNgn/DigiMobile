@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 type UpdateInput = {
   name: string;
   price: number;
@@ -13,16 +14,14 @@ type UpdateInput = {
 };
 const UpdateProduct = () => {
   // lấy danh sách danh mục
-  const [categories, setCategories] = useState<Category[]>([]);
-  const getAllCategory = async () => {
-    try {
-      const { data } = await axios.get(`http://localhost:3000/categories`);
-      setCategories(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const getList = async () => {
+    const { data } = await axios.get(`http://localhost:3000/categories`);
+    return data;
+  }
+  const { data } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getList
+  })
   const {
     register,
     handleSubmit,
@@ -34,7 +33,6 @@ const UpdateProduct = () => {
   const { id } = useParams();
   useEffect(() => {
     if (!id) return;
-    getAllCategory();
     fetchData(id);
   }, [id]);
   const fetchData = async (id: string) => {
@@ -57,7 +55,7 @@ const UpdateProduct = () => {
     try {
       await axios.put(`http://localhost:3000/products/${id}`, data);
       toast.success("Sửa sản phẩm thành công");
-      nav("/admin/product");
+      window.location.reload();
     } catch (error) {
       toast.error("Vui lòng kiểm tra lại thông tin");
       console.log(error);
@@ -168,7 +166,7 @@ const UpdateProduct = () => {
               {...register("category")}
             >
               <option value="">Chọn danh mục</option>
-              {categories.map((c: Category) => (
+              {data?.map((c: Category) => (
                 <option key={c.id} value={c.name}>
                   {c.name}
                 </option>
