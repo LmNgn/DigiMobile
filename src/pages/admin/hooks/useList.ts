@@ -1,0 +1,4 @@
+
+type listParams = {
+    resources: string;
+}
