@@ -1,137 +1,211 @@
-import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Table, Button, Form, Modal } from "react-bootstrap";
+import axios from "axios";
+import { Category } from "../../../types/Category";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+type AddInput = {
+  name: string;
+};
+
+type UpdateInput = {
+  name2: string;
+};
 
 function List() {
-  const [categories, setCategories] = useState([]);
-  const [show, setShow] = useState(false);
-  const [editShow, setEditShow] = useState(false);
-  const [newCategory, setNewCategory] = useState("");
-  const [editCategory, setEditCategory] = useState({ id: null, name: "" });
+  const {
+    register: registerUpdate,
+    handleSubmit: handleSubmitUpdate,
+    reset: resetUpdate,
+    formState: { errors: errorsUpdate },
+  } = useForm<UpdateInput>();
 
-  useEffect(() => {
-    fetch("http://localhost:3000/categories")
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error("Error fetching categories:", error));
-  }, []);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddInput>();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleEditClose = () => setEditShow(false);
-  const handleEditShow = (category) => {
-    setEditCategory(category);
-    setEditShow(true);
-  };
-
-  const addCategory = () => {
-    if (newCategory.trim() !== "") {
-      const newCat = { name: newCategory };
-      fetch("http://localhost:3000/categories", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newCat),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCategories([...categories, data]);
-          setNewCategory("");
-          handleClose();
-        })
-        .catch((error) => console.error("Error adding category:", error));
+  const [sid, setSid] = useState<number | null>(null);
+  //lấy thông tin danh muc theo id
+  const getOneCategoryById = async (id: number) => {
+    try {
+      setSid(id);
+      const { data } = await axios.get(
+        `http://localhost:3000/categories/${id}`
+      );
+      resetUpdate({ name2: data.name });
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const updateCategory = () => {
-    fetch(`http://localhost:3000/categories/${editCategory.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editCategory),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        setCategories(categories.map(cat => (cat.id === editCategory.id ? editCategory : cat)));
-        handleEditClose();
-      })
-      .catch((error) => console.error("Error updating category:", error));
+  //update danh mục
+  const onUpdate: SubmitHandler<UpdateInput> = async (data) => {
+    try {
+      if (window.confirm("Xác nhận lưu thông tin?")) {
+        await axios.put(`http://localhost:3000/categories/${sid}`, {
+          name: data.name2,
+        });
+        toast.success("Lưu thành công!");
+        refetch();
+      }
+    } catch (error) {
+      toast.error("Lưu thất bại.");
+    }
   };
-
-  const deleteCategory = (id) => {
-    fetch(`http://localhost:3000/categories/${id}`, {
-      method: "DELETE",
-    })
-      .then(() => {
-        setCategories(categories.filter(category => category.id !== id));
-      })
-      .catch((error) => console.error("Error deleting category:", error));
+  //lấy danh sách danh mục
+  const getAllCategory = async () => {
+    const { data } = await axios.get(`http://localhost:3000/categories`);
+    return data;
   };
-
+  const { data, refetch } = useQuery({
+    queryKey: ["category"],
+    queryFn: getAllCategory,
+  });
+  //xóa danh mục
+  const deleteCategory = async (id: number) => {
+    try {
+      if (window.confirm("Xác nhận xóa danh mục?")) {
+        await axios.delete(`http://localhost:3000/categories/${id}`);
+        toast.success("Xóa thành công!");
+        window.location.reload();
+      }
+    } catch (error) {
+      toast.error("Xóa thất bại.");
+    }
+  };
+  //thêm danh mục
+  const onSubmit: SubmitHandler<AddInput> = async (data) => {
+    try {
+      if (window.confirm("Xác nhận thêm danh mục?")) {
+        await axios.post(`http://localhost:3000/categories`, data);
+        toast.success("Thêm danh mục thành công!");
+        window.location.reload();
+      }
+    } catch (error) {
+      toast.error("Thêm danh mục thất bại.");
+    }
+  };
   return (
-    <Container fluid className="p-4">
-      <h2 className="mb-4">Quản lý danh mục</h2>
-      <Button variant="primary" onClick={handleShow} className="mb-3">Add Category</Button>
-      <Table striped bordered hover>
+    <div className="container-fluid">
+      <h1 className="h2">Danh sách danh mục</h1>
+      <form className="col-md-12" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
+          <h5>Thêm danh mục</h5>
+          <input
+            placeholder="Nhập tên danh mục"
+            type="text"
+            className="form-control"
+            {...register("name", { required: "Không bỏ trống tên danh mục" })}
+          />
+          {errors.name && (
+            <div className="d-block invalid-feedback">
+              {errors.name.message}
+            </div>
+          )}
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Thêm
+        </button>
+      </form>
+      {/* Danh sách sản phẩm */}
+      <table className="table table-hover mt-4">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Category Name</th>
-            <th>Actions</th>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
-          {categories.map((category) => (
-            <tr key={category.id}>
-              <td>{category.id}</td>
-              <td>{category.name}</td>
+          {data?.map((c: Category, index: number) => (
+            <tr key={c.id}>
+              <td>{index + 1}</td>
+              <td>{c.name}</td>
               <td>
-                <Button variant="warning" onClick={() => handleEditShow(category)} className="me-2">Edit</Button>
-                <Button variant="danger" onClick={() => deleteCategory(category.id)}>Delete</Button>
+                <button
+                  className="btn btn-outline-primary me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#categoryModal"
+                  onClick={() => getOneCategoryById(c.id)}
+                >
+                  <i className="fa-circle-info fa-solid" />
+                </button>
+
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => deleteCategory(c.id)}
+                >
+                  <i className="fa-trash fas" />
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
-      
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Category</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Category Name</Form.Label>
-              <Form.Control type="text" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Close</Button>
-          <Button variant="primary" onClick={addCategory}>Add</Button>
-        </Modal.Footer>
-      </Modal>
-      
-      <Modal show={editShow} onHide={handleEditClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Category</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Category Name</Form.Label>
-              <Form.Control type="text" value={editCategory.name} onChange={(e) => setEditCategory({ ...editCategory, name: e.target.value })} />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleEditClose}>Close</Button>
-          <Button variant="primary" onClick={updateCategory}>Save Changes</Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+      </table>
+      {/* Modal */}
+      <div
+        className="modal fade"
+        id="categoryModal"
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Thông tin</h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+              />
+            </div>
+            <form onSubmit={handleSubmitUpdate(onUpdate)}>
+              <div className="modal-body">
+                <div className="row mb-3">
+                  <label
+                    htmlFor="name2"
+                    className="col-form-label col-sm-2 text-end"
+                  >
+                    Tên:
+                  </label>
+                  <div className="col-sm-10">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name2"
+                      {...registerUpdate("name2", {
+                        required: "Không bỏ trống trường này",
+                      })}
+                    />
+                    {errorsUpdate.name2 && (
+                      <div className="d-block invalid-feedback">
+                        {errorsUpdate.name2.message}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Đóng
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Lưu
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
+
 export default List;

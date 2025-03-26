@@ -7,6 +7,9 @@ export type ProductForm = {
   imageUrl: string;
   inStock: boolean;
 };
+export type CategoryForm = {
+    name: string
+}
 
 type getListParams = {
   resource: string;
