@@ -19,22 +19,6 @@
   ],
   "products": [
     {
-      "name": "Product 3",
-      "price": 300000,
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "category": "Laptop",
-      "inStock": false,
-      "id": 3
-    },
-    {
-      "name": "123123",
-      "price": "123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": false,
-      "category": "điện thoại",
-      "id": 5
-    },
-    {
       "name": "123123",
       "price": "123",
       "imageUrl": "https://picsum.photos/id/237/200/300",
@@ -56,6 +40,22 @@
       "category": "Laptop",
       "inStock": false,
       "id": 9
+    },
+    {
+      "name": "123",
+      "price": "123",
+      "imageUrl": "123",
+      "inStock": true,
+      "category": "Điện thoại",
+      "id": 11
+    },
+    {
+      "name": "123",
+      "price": "123123",
+      "imageUrl": "https://picsum.photos/id/237/200/300",
+      "inStock": true,
+      "category": "Điện thoại",
+      "id": 12
     }
   ],
   "users": [
@@ -65,7 +65,7 @@
       "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
       "id": 8,
       "role": "user",
-      "status": false
+      "status": true
     },
     {
       "email": "test2@gmail.com",
@@ -89,92 +89,5 @@
       "id": 12
     }
   ],
-  "orders": [
-    {
-      "id": 1,
-      "userId": 101,
-      "products": [
-        {
-          "productId": 1,
-          "quantity": 2
-        },
-        {
-          "productId": 3,
-          "quantity": 1
-        }
-      ],
-      "totalPrice": 500,
-      "orderDate": "2025-03-20T10:00:00Z",
-      "status": "Pending"
-    },
-    {
-      "id": 2,
-      "userId": 102,
-      "products": [
-        {
-          "productId": 2,
-          "quantity": 1
-        }
-      ],
-      "totalPrice": 250,
-      "orderDate": "2025-03-19T14:30:00Z",
-      "status": "Confirmed"
-    },
-    {
-      "id": 3,
-      "userId": 103,
-      "products": [
-        {
-          "productId": 4,
-          "quantity": 5
-        }
-      ],
-      "totalPrice": 1200,
-      "orderDate": "2025-03-18T08:15:00Z",
-      "status": "Shipped"
-    },
-    {
-      "id": 4,
-      "userId": 104,
-      "products": [
-        {
-          "productId": 5,
-          "quantity": 2
-        },
-        {
-          "productId": 6,
-          "quantity": 3
-        }
-      ],
-      "totalPrice": 900,
-      "orderDate": "2025-03-17T12:45:00Z",
-      "status": "Delivered"
-    },
-    {
-      "id": 5,
-      "userId": 105,
-      "products": [
-        {
-          "productId": 7,
-          "quantity": 1
-        }
-      ],
-      "totalPrice": 300,
-      "orderDate": "2025-03-16T16:20:00Z",
-      "status": "Cancelled"
-    },
-    {
-      "id": 6,
-      "userId": 106,
-      "products": [
-        {
-          "productId": 8,
-          "quantity": 2
-        }
-      ],
-      "totalPrice": 450,
-      "orderDate": "2025-03-15T09:10:00Z",
-      "status": "Returned"
-    }
-  ]
+  "orders": []
 }

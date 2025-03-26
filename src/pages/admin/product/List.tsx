@@ -1,40 +1,13 @@
-import axios from "axios";
 import { Product } from "../../../types/Product";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Popconfirm } from "antd";
+import { useDelete } from "../hooks/useDelete";
+import { useList } from "../hooks/useList";
 function List() {
-  const queryClient = useQueryClient();
+  const { data, isLoading } = useList({ resource: "products" });
+  const { mutate } = useDelete({ resource: "products" });
+  // if (isLoading) return <p>Đang tải dữ liệu...</p>;
 
-  //lấy danh sách sản phẩm
-  const getList = async () => {
-    const { data } = await axios.get(`http://localhost:3000/products`);
-    return data;
-  }
-  const { data } = useQuery({
-    queryKey: ["products"],
-    queryFn: getList
-  })
-  //xoá 1 sản phẩm
-  const deleteProduct = useMutation({
-    mutationFn: async (id: number) => {
-      return await axios.delete(`http://localhost:3000/products/${id}`);
-    },
-    onSuccess: () => {
-      toast.success("Xóa sản phẩm thành công");
-      queryClient.invalidateQueries({ queryKey: ["products"] }); // Cập nhật danh sách
-    },
-    onError: () => {
-      toast.error("Xóa sản phẩm thất bại");
-    },
-  });
-
-  //xác nhận xoá
-  const handleDelete = (id: number) => {
-    if (window.confirm("Xác nhận xóa sản phẩm?")) {
-      deleteProduct.mutate(id);
-    }
-  };
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -85,16 +58,21 @@ function List() {
                 </Link>
                 <Link
                   className="btn btn-outline-warning mx-2"
-                  to={"/admin/product/update/" + p.id}
+                  to={`/admin/product/update/${p.id}`}
                 >
                   <i className="fa-solid fa-gear" />
                 </Link>
-                <button
-                  className="btn btn-outline-danger"
-                  onClick={() => handleDelete(p.id)}
+                <Popconfirm
+                  title="Xóa sản phẩm"
+                  description="Xác nhận xóa sản phẩm?"
+                  onConfirm={() => mutate(p.id)}
+                  okText="Xác nhận"
+                  cancelText="Hủy"
                 >
-                  <i className="fas fa-trash" />
-                </button>
+                  <button className="btn btn-outline-danger">
+                    <i className="fas fa-trash" />
+                  </button>
+                </Popconfirm>
               </td>
             </tr>
           ))}
