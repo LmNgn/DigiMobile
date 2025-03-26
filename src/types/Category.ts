@@ -1,4 +1,4 @@
-export type Categpry = { 
+export type Category = { 
     id: number,
     name: string
 }

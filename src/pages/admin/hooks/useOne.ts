@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { getOne } from "../providers/dataProvider";
-
 type useOneParams = {
   resource: string;
   id?: number | string;

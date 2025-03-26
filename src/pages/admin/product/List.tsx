@@ -1,46 +1,12 @@
-import axios from "axios";
 import { Product } from "../../../types/Product";
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { Popconfirm } from "antd";
+import { useDelete } from "../hooks/useDelete";
+import { useList } from "../hooks/useList";
 function List() {
-  const nav = useNavigate();
-
-  const [products, setProducts] = useState<Product[]>([]);
-  const getList = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:3000/products");
-      setProducts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const delPro = async (id: number) => {
-    try {
-      if (window.confirm("Xác nhận xóa sản phẩm?")) {
-        const response = await axios.delete(
-          `http://localhost:3000/products/${id}`
-        );
-        if (response.status == 200) {
-          toast.success("Xóa thành công");
-          getList();
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Xóa thất bại.");
-    }
-  };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("Bạn chưa đăng nhập!");
-      nav("/admin/login");
-    } else {
-      getList();
-    }
-  }, []);
+  const { data } = useList({ resource: "products" });
+  const { mutate } = useDelete({ resource: "products" });
+  // if (isLoading) return <p>Đang tải dữ liệu...</p>;
 
   return (
     <div>
@@ -67,7 +33,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {products.map((p, index) => (
+          {data?.map((p: Product, index: number) => (
             <tr key={p.id}>
               <td>{index + 1}</td>
               <td>{p.name}</td>
@@ -91,17 +57,22 @@ function List() {
                   <i className="fas fa-info-circle" />
                 </Link>
                 <Link
-                  className="btn btn-outline-warning"
-                  to={"/admin/product/update/" + p.id}
+                  className="btn btn-outline-warning mx-2"
+                  to={`/admin/product/update/${p.id}`}
                 >
                   <i className="fa-solid fa-gear" />
                 </Link>
-                <button
-                  className="btn btn-outline-danger"
-                  onClick={() => delPro(p.id)}
+                <Popconfirm
+                  title="Xóa sản phẩm"
+                  description="Xác nhận xóa sản phẩm?"
+                  onConfirm={() => mutate(p.id)}
+                  okText="Xác nhận"
+                  cancelText="Hủy"
                 >
-                  <i className="fas fa-trash" />
-                </button>
+                  <button className="btn btn-outline-danger">
+                    <i className="fas fa-trash" />
+                  </button>
+                </Popconfirm>
               </td>
             </tr>
           ))}

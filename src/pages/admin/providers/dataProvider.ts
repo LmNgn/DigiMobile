@@ -61,3 +61,4 @@ const dataProvider = {
 };
 
 export const { getList, getOne, update, create, deleteOne } = dataProvider;
+        

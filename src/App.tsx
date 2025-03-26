@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 ////// ADMIN IMPORTS
@@ -54,14 +53,17 @@ const routeConfig = [
       { path: "/admin/category/update/:id", element: <CategoryEdit /> },
 
       // Product
-      { path: "/admin/product", element: <ProductList /> },
-      { path: "/admin/product/detail/:id", element: <ProductDetail /> },
-      { path: "/admin/product/update/:id", element: <ProductUpdate /> },
-      { path: "/admin/product/add", element: <ProductAdd /> },
+      { path: "/admin/products", element: <ProductList /> },
+      { path: "/admin/products/detail/:id", element: <ProductDetail /> },
+      { path: "/admin/products/update/:id", element: <ProductUpdate /> },
+      { path: "/admin/products/add", element: <ProductAdd /> },
 
       // Customer
       { path: "/admin/account/customer", element: <CustomerList /> },
-      { path: "/admin/account/customer/detail/:id", element: <CustomerDetail /> },
+      {
+        path: "/admin/account/customer/detail/:id",
+        element: <CustomerDetail />,
+      },
 
       // Admin
       { path: "/admin/account", element: <AdminList /> },
@@ -94,11 +96,13 @@ function AppRoutes() {
 
 // App Component
 function App() {
+  const router = useRoutes(routeConfig);
+
   return (
-    <BrowserRouter>
-      <AppRoutes />
+    <div>
+      {router}
       <Toaster />
-    </BrowserRouter>
+    </div>
   );
 }
 

@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { getList } from "../providers/dataProvider";
-
 type useListParams = {
   resource: string;
 };
