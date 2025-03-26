@@ -64,7 +64,7 @@
       "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
       "id": 7,
       "role": "admin0",
-      "status": true
+      "status": false
     },
     {
       "username": "lam1",
