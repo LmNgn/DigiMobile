@@ -128,7 +128,6 @@ function Layout() {
         .main-content {
           flex-grow: 1;
           margin-left: 250px;
-          padding: 20px;
           margin-top: 56px;
           width: calc(100% - 250px);
           transition: margin-left 0.3s ease-in-out;
