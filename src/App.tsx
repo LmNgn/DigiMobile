@@ -38,25 +38,25 @@ const routeConfig = [
       { path: "*", element: <NotFound /> },
 
       //Category
-      { path: "/admin/category", element: <CategoryList /> },
+      { path: "/admin/categories", element: <CategoryList /> },
 
       //Product
-      { path: "/admin/product", element: <ProductList /> },
-      { path: "/admin/product/detail/:id", element: <ProductDetail /> },
-      { path: "/admin/product/update/:id", element: <ProductUpdate /> },
-      { path: "/admin/product/add", element: <ProductAdd /> },
+      { path: "/admin/products", element: <ProductList /> },
+      { path: "/admin/products/detail/:id", element: <ProductDetail /> },
+      { path: "/admin/products/update/:id", element: <ProductUpdate /> },
+      { path: "/admin/products/add", element: <ProductAdd /> },
 
       //Customer
-      { path: "/admin/account/customer", element: <CustomerList /> },
-      { path: "/admin/account/customer/detail/:id", element: <CustomerDetail/> },
+      { path: "/admin/account/customers", element: <CustomerList /> },
+      { path: "/admin/account/customers/detail/:id", element: <CustomerDetail/> },
 
       //Admin
       { path: "/admin/account", element: <AdminList /> },
       { path: "/admin/account/update/:id", element: <AdminUpdate /> },
 
       //Order
-      { path: "/admin/order", element: <OrderList /> },
-      { path: "/admin/order/update/:id", element: <OrderUpdate /> },
+      { path: "/admin/orders", element: <OrderList /> },
+      { path: "/admin/orders/update/:id", element: <OrderUpdate /> },
     ],
   },
   {

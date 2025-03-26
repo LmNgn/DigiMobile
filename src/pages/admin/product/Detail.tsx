@@ -1,6 +1,4 @@
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useOne } from "../hooks/useOne";
 function Detail() {
   const { id } = useParams();

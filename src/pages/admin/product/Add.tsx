@@ -18,7 +18,7 @@ const ProductAdd = () => {
     formState: { errors },
   } = useForm<RegisterInput>();
   const { data: categories } = useList({ resource: "categories" });
-  const { mutate } = useCreate({ resource: "product" });
+  const { mutate } = useCreate({ resource: "products" });
   const onFinish = (values: any) => {
     mutate(values);
   };

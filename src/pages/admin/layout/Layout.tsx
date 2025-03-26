@@ -42,7 +42,7 @@ function Layout() {
                   <li className="nav-item">
                     <Link
                       className="nav-link d-flex align-items-center gap-2"
-                      to="/admin/category"
+                      to="/admin/categories"
                     >
                       <i className="fa-solid fa-list" />
                       Danh mục
@@ -51,7 +51,7 @@ function Layout() {
                   <li className="nav-item">
                     <Link
                       className="nav-link d-flex align-items-center gap-2"
-                      to="/admin/product"
+                      to="/admin/products"
                     >
                       <i className="fas fa-box" />
                       Sản phẩm
@@ -60,7 +60,7 @@ function Layout() {
                   <li className="nav-item">
                     <Link
                       className="nav-link d-flex align-items-center gap-2"
-                      to="/admin/order"
+                      to="/admin/orders"
                     >
                       <i className="fa-solid fa-truck-fast" />
                       Đơn hàng
@@ -91,7 +91,7 @@ function Layout() {
                         <li className="nav-item">
                           <Link
                             className="nav-link"
-                            to="/admin/account/customer"
+                            to="/admin/account/customers"
                           >
                             <span>Khách hàng</span>
                           </Link>

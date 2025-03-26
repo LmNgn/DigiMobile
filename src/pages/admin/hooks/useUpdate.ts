@@ -14,7 +14,7 @@ export const useUpdate = ({ resource, id }: useListParams) => {
     mutationFn: (values: ProductForm) => update({ resource, values, id }),
     onSuccess: () => {
       message.success("Cập nhật thành công");
-      nav(`/${resource}`);
+      nav(`/admin/${resource}`);
     },
   });
 };

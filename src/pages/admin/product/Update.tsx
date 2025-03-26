@@ -1,10 +1,11 @@
-import axios from "axios";
 import { Category } from "../../../types/Category";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useOne } from "../hooks/useOne";
+import { useList } from "../hooks/useList";
+import { useUpdate } from "../hooks/useUpdate"; // Thêm hook cập nhật dữ liệu
+
 type UpdateInput = {
   name: string;
   price: number;
@@ -12,16 +13,12 @@ type UpdateInput = {
   category: string;
   inStock: boolean;
 };
+
 const UpdateProduct = () => {
-  // lấy danh sách danh mục
-  const getList = async () => {
-    const { data } = await axios.get(`http://localhost:3000/categories`);
-    return data;
-  }
-  const { data } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getList
-  })
+  const { id } = useParams();
+  const { data: product } = useOne({ resource: "products", id });
+  const { data: categories } = useList({ resource: "categories" });
+  const { mutate } = useUpdate({ resource: "products", id });
   const {
     register,
     handleSubmit,
@@ -30,37 +27,22 @@ const UpdateProduct = () => {
     formState: { errors },
   } = useForm<UpdateInput>();
 
-  const { id } = useParams();
   useEffect(() => {
-    if (!id) return;
-    fetchData(id);
-  }, [id]);
-  const fetchData = async (id: string) => {
-    try {
-      const { data } = await axios.get(`http://localhost:3000/products/${id}`);
+    if (product) {
       reset({
-        name: data.name,
-        price: data.price,
-        imageUrl: data.imageUrl,
-        category: data.category,
-        inStock: data.inStock,
+        name: product.name,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        category: product.category,
+        inStock: product.inStock,
       });
-    } catch (error) {
-      console.log(error);
     }
+  }, [product]);
+
+  const onFinish = (values: UpdateInput) => {
+    mutate(values);
   };
 
-  const nav = useNavigate();
-  const onSubmit: SubmitHandler<UpdateInput> = async (data) => {
-    try {
-      await axios.put(`http://localhost:3000/products/${id}`, data);
-      toast.success("Sửa sản phẩm thành công");
-      window.location.reload();
-    } catch (error) {
-      toast.error("Vui lòng kiểm tra lại thông tin");
-      console.log(error);
-    }
-  };
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -74,7 +56,7 @@ const UpdateProduct = () => {
         </div>
       </div>
 
-      <form className="offset-2 col-md-8" onSubmit={handleSubmit(onSubmit)}>
+      <form className="offset-2 col-md-8" onSubmit={handleSubmit(onFinish)}>
         <div className="mb-3 row">
           <label htmlFor="name" className="col-sm-2 col-form-label text-end">
             Tên sản phẩm
@@ -103,10 +85,10 @@ const UpdateProduct = () => {
               className="form-control"
               id="price"
               {...register("price", {
-                required: "Không bỏ trống tên",
+                required: "Không bỏ trống giá",
                 min: {
                   value: 0,
-                  message: "Gía sản phẩm phải lớn hơn 0.",
+                  message: "Giá sản phẩm phải lớn hơn 0.",
                 },
               })}
             />
@@ -166,7 +148,7 @@ const UpdateProduct = () => {
               {...register("category")}
             >
               <option value="">Chọn danh mục</option>
-              {data?.map((c: Category) => (
+              {categories?.map((c: Category) => (
                 <option key={c.id} value={c.name}>
                   {c.name}
                 </option>
