@@ -9,8 +9,6 @@ import HomeAdmin from "./pages/admin/Home";
 
 // Category
 import CategoryList from "./pages/admin/category/List";
-import CategoryAdd from "./pages/admin/category/Add";
-import CategoryEdit from "./pages/admin/category/Edit";
 
 // Product
 import ProductList from "./pages/admin/product/List";
@@ -48,9 +46,7 @@ const routeConfig = [
       { path: "*", element: <NotFound /> },
 
       // Category
-      { path: "/admin/category", element: <CategoryList /> },
-      { path: "/admin/category/add", element: <CategoryAdd /> },
-      { path: "/admin/category/update/:id", element: <CategoryEdit /> },
+      { path: "/admin/categories", element: <CategoryList /> },
 
       // Product
       { path: "/admin/products", element: <ProductList /> },
@@ -59,9 +55,9 @@ const routeConfig = [
       { path: "/admin/products/add", element: <ProductAdd /> },
 
       // Customer
-      { path: "/admin/account/customer", element: <CustomerList /> },
+      { path: "/admin/account/customers", element: <CustomerList /> },
       {
-        path: "/admin/account/customer/detail/:id",
+        path: "/admin/account/customers/detail/:id",
         element: <CustomerDetail />,
       },
 
@@ -70,8 +66,8 @@ const routeConfig = [
       { path: "/admin/account/update/:id", element: <AdminUpdate /> },
 
       // Order
-      { path: "/admin/order", element: <OrderList /> },
-      { path: "/admin/order/update/:id", element: <OrderUpdate /> },
+      { path: "/admin/orders", element: <OrderList /> },
+      { path: "/admin/orders/update/:id", element: <OrderUpdate /> },
     ],
   },
 
@@ -88,11 +84,6 @@ const routeConfig = [
     ],
   },
 ];
-
-// Component dùng `useRoutes`
-function AppRoutes() {
-  return useRoutes(routeConfig);
-}
 
 // App Component
 function App() {
