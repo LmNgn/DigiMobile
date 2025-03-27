@@ -28,17 +28,17 @@ function Layout() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link text-dark hover-effect" to="/admin/category">
+            <Link className="nav-link text-dark hover-effect" to="/admin/categories">
               <i className="fa-solid fa-list me-2" /> Danh mục
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link text-dark hover-effect" to="/admin/product">
+            <Link className="nav-link text-dark hover-effect" to="/admin/products">
               <i className="fas fa-box me-2" /> Sản phẩm
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link text-dark hover-effect" to="/admin/order">
+            <Link className="nav-link text-dark hover-effect" to="/admin/orders">
               <i className="fa-solid fa-truck-fast me-2" /> Đơn hàng
             </Link>
           </li>
@@ -57,7 +57,7 @@ function Layout() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link hover-effect text-dark" to="/admin/account/customer">
+                <Link className="nav-link hover-effect text-dark" to="/admin/account/customers">
                   Khách hàng
                 </Link>
               </li>
@@ -128,7 +128,6 @@ function Layout() {
         .main-content {
           flex-grow: 1;
           margin-left: 250px;
-          padding: 20px;
           margin-top: 56px;
           width: calc(100% - 250px);
           transition: margin-left 0.3s ease-in-out;

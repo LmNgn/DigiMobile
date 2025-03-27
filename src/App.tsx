@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 ////// ADMIN IMPORTS
@@ -10,8 +9,6 @@ import HomeAdmin from "./pages/admin/Home";
 
 // Category
 import CategoryList from "./pages/admin/category/List";
-import CategoryAdd from "./pages/admin/category/Add";
-import CategoryEdit from "./pages/admin/category/Edit";
 
 // Product
 import ProductList from "./pages/admin/product/List";
@@ -50,27 +47,28 @@ const routeConfig = [
       { path: "*", element: <NotFound /> },
 
       // Category
-      { path: "/admin/category", element: <CategoryList /> },
-      { path: "/admin/category/add", element: <CategoryAdd /> },
-      { path: "/admin/category/update/:id", element: <CategoryEdit /> },
+      { path: "/admin/categories", element: <CategoryList /> },
 
       // Product
-      { path: "/admin/product", element: <ProductList /> },
-      { path: "/admin/product/detail/:id", element: <ProductDetail /> },
-      { path: "/admin/product/update/:id", element: <ProductUpdate /> },
-      { path: "/admin/product/add", element: <ProductAdd /> },
+      { path: "/admin/products", element: <ProductList /> },
+      { path: "/admin/products/detail/:id", element: <ProductDetail /> },
+      { path: "/admin/products/update/:id", element: <ProductUpdate /> },
+      { path: "/admin/products/add", element: <ProductAdd /> },
 
       // Customer
-      { path: "/admin/account/customer", element: <CustomerList /> },
-      { path: "/admin/account/customer/detail/:id", element: <CustomerDetail /> },
+      { path: "/admin/account/customers", element: <CustomerList /> },
+      {
+        path: "/admin/account/customers/detail/:id",
+        element: <CustomerDetail />,
+      },
 
       // Admin
       { path: "/admin/account", element: <AdminList /> },
       { path: "/admin/account/update/:id", element: <AdminUpdate /> },
 
       // Order
-      { path: "/admin/order", element: <OrderList /> },
-      { path: "/admin/order/update/:id", element: <OrderUpdate /> },
+      { path: "/admin/orders", element: <OrderList /> },
+      { path: "/admin/orders/update/:id", element: <OrderUpdate /> },
     ],
   },
 
@@ -89,18 +87,15 @@ const routeConfig = [
   },
 ];
 
-// Component dùng `useRoutes`
-function AppRoutes() {
-  return useRoutes(routeConfig);
-}
-
 // App Component
 function App() {
+  const router = useRoutes(routeConfig);
+
   return (
-    <BrowserRouter>
-      <AppRoutes />
+    <div>
+      {router}
       <Toaster />
-    </BrowserRouter>
+    </div>
   );
 }
 

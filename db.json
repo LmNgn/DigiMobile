@@ -11,6 +11,10 @@
     {
       "name": "Samsung",
       "id": 5
+    },
+    {
+      "name": "sản phẩm 2",
+      "id": 6
     }
   ],
   "products": [
@@ -39,10 +43,6 @@
       "id": 6
     },
     {
-      "status": false,
-      "id": 7
-    },
-    {
       "name": "sản phẩm 2 2",
       "price": "123",
       "imageUrl": "https://picsum.photos/id/237/200/300",
@@ -64,7 +64,7 @@
       "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
       "id": 7,
       "role": "admin0",
-      "status": true
+      "status": false
     },
     {
       "username": "lam1",

@@ -79,7 +79,7 @@ function List() {
               <td>
                 <Link
                   className="btn btn-outline-primary"
-                  to={`/admin/account/customer/detail/${u.id}`}
+                  to={`/admin/account/customers/detail/${u.id}`}
                 >
                   <i className="fas fa-info-circle" />
                 </Link>

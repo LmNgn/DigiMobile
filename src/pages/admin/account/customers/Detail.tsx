@@ -28,7 +28,7 @@ function Detail() {
     try {
       await axios.patch(`http://localhost:3000/users/${id}`, data);
       toast.success("Cập nhật trạng thái thành công");
-      nav("/admin/account/customer");
+      nav("/admin/account/customers");
     } catch (error) {
       toast.error("Cập nhật trạng thái thất bại.");
       console.log(error);
