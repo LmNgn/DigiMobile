@@ -35,6 +35,7 @@ import OrderUpdate from "./pages/admin/order/Update";
 import UserLayout from "./pages/client/components/Layout/UserLayout";
 import Home from "./pages/client/pages/Home";
 import ListProduct from "./pages/client/components/Layout/ListProduct";
+import Profile from "./pages/client/pages/Profile";
 
 //============================00============================
 
@@ -83,6 +84,7 @@ const routeConfig = [
     children: [
       { path: "/", element: <Home /> },
       { path: "/client/product", element: <ListProduct /> },
+      { path: "/client/profile", element: <Profile /> },
     ],
   },
 ];
