@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,14 +5,6 @@ import logo from "/src/assets/logo.png";
 
 function Header() {
   const nav = useNavigate();
-
-  const handleLogout = () => {
-    if (window.confirm("Bạn muốn đăng xuất ?")) {
-      localStorage.removeItem("token");
-      toast.success("Đăng xuất thành công!");
-      nav("/admin/login");
-    }
-  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
