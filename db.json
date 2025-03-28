@@ -11,6 +11,10 @@
     {
       "name": "Samsung",
       "id": 5
+    },
+    {
+      "name": "Huawei",
+      "id": 6
     }
   ],
   "products": [
@@ -31,19 +35,44 @@
       "id": 6
     },
     {
-      "name": "sản phẩm 2 2",
-      "price": "123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": true,
-      "id": 8
-    },
-    {
       "name": "123123 ",
       "price": "123",
       "imageUrl": "https://picsum.photos/id/237/200/300",
       "category": "Laptop",
       "inStock": false,
       "id": 9
+    },
+    {
+      "name": "Product 3",
+      "price": "123",
+      "imageUrl": "123",
+      "category": "Xiaomi",
+      "inStock": true,
+      "ram": "6",
+      "memory": "64",
+      "battery": "123",
+      "screen": {
+        "size": "123",
+        "resolution": "HD",
+        "rate": "60"
+      },
+      "id": 10
+    },
+    {
+      "name": "Điện thoại",
+      "price": "1231",
+      "imageUrl": "https://picsum.photos/id/237/200/300",
+      "category": "Xiaomi",
+      "inStock": true,
+      "ram": "4",
+      "memory": "",
+      "battery": "123",
+      "screen": {
+        "size": "123",
+        "resolution": "HD",
+        "rate": "Tần số quét"
+      },
+      "id": 11
     }
   ],
   "users": [

@@ -14,7 +14,7 @@ function List() {
         <h1 className="h2">Danh sách sản phẩm</h1>
         <div className="btn-toolbar mb-2 mb-md-0">
           <div className="btn-group me-2">
-            <Link to="/admin/product/add" className="btn btn-outline-primary">
+            <Link to="/admin/products/add" className="btn btn-outline-primary">
               Thêm sản phẩm
             </Link>
           </div>
@@ -26,7 +26,6 @@ function List() {
             <th>STT</th>
             <th>Tên</th>
             <th>Giá</th>
-            <th>Ảnh</th>
             <th>Danh mục</th>
             <th>Trạng thái</th>
             <th>Thao tác</th>
@@ -38,9 +37,6 @@ function List() {
               <td>{index + 1}</td>
               <td>{p.name}</td>
               <td>{p.price}</td>
-              <td>
-                <img src={p.imageUrl} alt={p.name} width={50} />
-              </td>
               <td>{p.category}</td>
               <td>
                 {p.inStock ? (
@@ -52,13 +48,13 @@ function List() {
               <td>
                 <Link
                   className="btn btn-outline-primary"
-                  to={`/admin/product/detail/${p.id}`}
+                  to={`/admin/products/detail/${p.id}`}
                 >
                   <i className="fas fa-info-circle" />
                 </Link>
                 <Link
                   className="btn btn-outline-warning mx-2"
-                  to={`/admin/product/update/${p.id}`}
+                  to={`/admin/products/update/${p.id}`}
                 >
                   <i className="fa-solid fa-gear" />
                 </Link>

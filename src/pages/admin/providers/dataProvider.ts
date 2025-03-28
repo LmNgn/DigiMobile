@@ -6,9 +6,19 @@ export type ProductForm = {
   category: string;
   imageUrl: string;
   inStock: boolean;
+  screen: {
+    size: number,
+    resolution: string,
+    rate: number
+  },
+  ram: number,
+  memory: number,
+  os: string,
+  battery: number
+
 };
 export type CategoryForm = {
-    name: string
+  name: string
 }
 
 type getListParams = {
@@ -64,4 +74,3 @@ const dataProvider = {
 };
 
 export const { getList, getOne, update, create, deleteOne } = dataProvider;
-        

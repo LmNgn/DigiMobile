@@ -2,10 +2,16 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "/src/assets/logo.png";
-
+import { message } from "antd";
 function Header() {
   const nav = useNavigate();
-
+  const handleLogout = () => {
+    if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+      localStorage.removeItem("token");
+      message.success("Đăng xuất thành công!");
+      nav("/admin/login");
+    }
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid d-flex justify-content-between">
@@ -36,6 +42,9 @@ function Header() {
               <span className="fw-bold text-white">Admin</span>
             </button>
           </div>
+          <button className="btn btn-dark" onClick={handleLogout}>
+            <i className="fa-solid fa-right-from-bracket" />
+          </button>
         </div>
       </div>
 

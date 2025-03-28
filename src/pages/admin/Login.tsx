@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { message } from "antd";
 type LoginInput = {
     email: string,
     password: string,
@@ -16,14 +16,14 @@ function Login() {
     const onSubmit: SubmitHandler<LoginInput> = async (data) => {
         try {
             const response = await axios.post('http://localhost:3000/login', data);
-            if (response.status == 200) { 
+            if (response.status == 200) {
                 localStorage.setItem('token', response.data.accessToken);
-                toast.success('Đăng nhập thành công');
+                message.success('Đăng nhập thành công');
                 nav("/admin");
             }
         } catch (error) {
             console.log(error);
-            toast.error('Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin.')
+            message.error('Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin.')
         }
     }
 
@@ -63,7 +63,7 @@ function Login() {
                         Đăng nhập
                     </button>
                 </form>
-                
+
             </main>
         </div>
     )

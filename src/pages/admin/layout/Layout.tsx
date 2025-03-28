@@ -3,19 +3,10 @@ import { Link } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 function Layout() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const nav = useNavigate();
-
-  const handleLogout = () => {
-    if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-      localStorage.removeItem("token");
-      toast.success("Đăng xuất thành công!");
-      nav("/admin/login");
-    }
-  };
 
   return (
     <div className="layout-container">
@@ -47,7 +38,7 @@ function Layout() {
               className="nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
               onClick={() => setDropdownOpen(!isDropdownOpen)}
             >
-              <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
+              <i className="fas fa-users-cog me-2" /> Quản lý tài khoản 
               <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
             </button>
             <ul className={`nav flex-column ps-3 dropdown-menu${isDropdownOpen ? " show" : ""}`}>
@@ -64,14 +55,6 @@ function Layout() {
             </ul>
           </li>
         </ul>
-
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          className="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2 mt-auto"
-        >
-          <i className="fas fa-sign-out-alt"></i> Logout
-        </button>
       </nav>
 
       {/* Main Content */}
