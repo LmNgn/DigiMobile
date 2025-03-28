@@ -5,7 +5,7 @@ import { useCreate } from "../hooks/useCreate";
 import { CategoryForm } from "../providers/dataProvider";
 import { useDelete } from "../hooks/useDelete";
 import { Link } from "react-router-dom";
-import { Popconfirm } from "antd";
+import { Popconfirm, message } from "antd";
 function List() {
   const {
     register,
@@ -14,7 +14,7 @@ function List() {
     formState: { errors },
   } = useForm<CategoryForm>();
   //lấy danh sách danh mục
-  const { data, refetch } = useList({ resource: "categories" });
+  const { data: categoryList, refetch } = useList({ resource: "categories" });
   //xóa danh mục
   const { mutate: deleteOne } = useDelete({ resource: "categories" });
   refetch();
@@ -23,6 +23,12 @@ function List() {
   const { mutate: createOne } = useCreate({ resource: "categories" },);
   const onFinish = (values: any) => {
     if (window.confirm("Xác nhận thêm danh mục?")) {
+      const isExist = categoryList?.some((p: CategoryForm) => p.name.toLowerCase() === values.name.toLowerCase());
+
+      if (isExist) {
+        message.error("Sản phẩm đã tồn tại!");
+        return;
+      }
       createOne(values, {
         onSuccess: () => {
           reset();
@@ -63,7 +69,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {data?.map((c: Category, index: number) => (
+          {categoryList?.map((c: Category, index: number) => (
             <tr key={c.id}>
               <td>{index + 1}</td>
               <td>{c.name}</td>

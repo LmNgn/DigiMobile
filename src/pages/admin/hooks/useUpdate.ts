@@ -8,10 +8,10 @@ type useListParams = {
   id?: string | number;
 };
 
-export const useUpdate = ({ resource, id }: useListParams) => {
+export const useUpdate = <T,>({ resource, id }: useListParams) => {
   const nav = useNavigate();
   return useMutation({
-    mutationFn: (values: ProductForm) => update({ resource, values, id }),
+    mutationFn: (values: T) => update({ resource, values, id }),
     onSuccess: () => {
       message.success("Cập nhật thành công");
       nav(`/admin/${resource}`);

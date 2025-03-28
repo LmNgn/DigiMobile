@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserAuth } from "../../../../types/User";
+import { UserAuth } from "../../../../types/Customers";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";

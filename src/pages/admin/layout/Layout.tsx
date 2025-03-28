@@ -43,12 +43,12 @@ function Layout() {
             </button>
             <ul className={`nav flex-column text-center dropdown-menu${isDropdownOpen ? " show" : ""}`}>
               <li className="nav-item">
-                <Link className="nav-link hover-effect text-dark" to="/admin/account">
+                <Link className="nav-link hover-effect text-dark" to="/admin/admins">
                   Quản trị viên
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link hover-effect text-dark" to="/admin/account/customers">
+                <Link className="nav-link hover-effect text-dark" to="/admin/customers">
                   Khách hàng
                 </Link>
               </li>

@@ -61,16 +61,16 @@ const routeConfig = [
       { path: "/admin/products/update/:id", element: <ProductUpdate /> },
       { path: "/admin/products/add", element: <ProductAdd /> },
 
-      // Customer
-      { path: "/admin/account/customers", element: <CustomerList /> },
-      {
-        path: "/admin/account/customers/detail/:id",
-        element: <CustomerDetail />,
-      },
+      // // Customer
+      // { path: "/admin/customers/admin", element: <CustomerList /> },
+      // {
+      //   path: "/admin/customers/detail/:id",
+      //   element: <CustomerDetail />,
+      // },
 
       // Admin
-      { path: "/admin/account", element: <AdminList /> },
-      { path: "/admin/account/update/:id", element: <AdminUpdate /> },
+      { path: "/admin/admins", element: <AdminList /> },
+      { path: "/admin/admins/update/:id", element: <AdminUpdate /> },
 
       // Order
       { path: "/admin/orders", element: <OrderList /> },

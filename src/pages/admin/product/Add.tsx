@@ -4,7 +4,7 @@ import { useCreate } from "../hooks/useCreate";
 import { useList } from "../hooks/useList";
 import { Category } from "../../../types/Category";
 import { ProductForm } from "../providers/dataProvider";
-
+import { message } from "antd";
 const ProductAdd = () => {
   const {
     register,
@@ -13,8 +13,15 @@ const ProductAdd = () => {
     formState: { errors },
   } = useForm<ProductForm>();
   const { data: categories } = useList({ resource: "categories" });
+  const { data: productList } = useList({ resource: "products" });
   const { mutate } = useCreate({ resource: "products" });
   const onFinish = (values: any) => {
+    const isExist = productList?.some((p: ProductForm) => p.name.toLowerCase() === values.name.toLowerCase());
+
+    if (isExist) {
+      message.error("Sản phẩm đã tồn tại!");
+      return;
+    }
     mutate(values);
   };
   return (

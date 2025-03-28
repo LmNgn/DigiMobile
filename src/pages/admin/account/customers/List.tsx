@@ -1,19 +1,17 @@
 import axios from "axios";
-import { Role, UserAuth } from "../../../../types/User";
+import { Customers } from "../../../../types/Customers";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { message } from "antd";
 function List() {
   const nav = useNavigate();
 
-  const [user, setUser] = useState<UserAuth[]>([]);
+  const [user, setUser] = useState<Customers[]>([]);
   const getList = async () => {
     try {
       const { data } = await axios.get("http://localhost:3000/users");
-      const filteredUsers = data.filter(
-        (user: UserAuth) => user.role === Role.USER
-      );
-      setUser(filteredUsers);
+     
+      setUser(data);
     } catch (error) {
       console.log(error);
     }
@@ -26,19 +24,19 @@ function List() {
           `http://localhost:3000/users/${id}`
         );
         if (response.status == 200) {
-          toast.success("Xóa thành công");
+          message.success("Xóa thành công");
           getList();
         }
       }
     } catch (error) {
       console.log(error);
-      toast.error("Xóa thất bại.");
+      message.error("Xóa thất bại.");
     }
   };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error("Bạn chưa đăng nhập!");
+      message.error("Bạn chưa đăng nhập!");
       nav("/admin/login");
     } else {
       getList();
@@ -78,7 +76,7 @@ function List() {
               </td>
               <td>
                 <Link
-                  className="btn btn-outline-primary"
+                  className="mx-2 btn btn-outline-primary"
                   to={`/admin/account/customers/detail/${u.id}`}
                 >
                   <i className="fas fa-info-circle" />

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Role } from "../../../types/Admin";
 
 export type ProductForm = {
   name: string;
@@ -20,6 +21,12 @@ export type ProductForm = {
 export type CategoryForm = {
   name: string
 }
+export type AdminForm = {
+  email: string,
+  password?: string,
+  status: boolean,
+  role: Role
+}
 
 type getListParams = {
   resource: string;
@@ -29,14 +36,14 @@ type getOneParams = {
   id?: number | string;
 };
 
-type createParams = {
+type createParams<T> = {
   resource: string;
-  values: ProductForm;
+  values: T;
 };
 
-type updateParams = {
+type updateParams<T> = {
   resource: string;
-  values: ProductForm;
+  values: T;
   id?: string | number;
 };
 
@@ -57,11 +64,11 @@ const dataProvider = {
     const { data } = await axios.get(`${resource}/${id}`);
     return data;
   },
-  create: async ({ resource, values }: createParams) => {
+  create: async <T>({ resource, values }: createParams<T>) => {
     const { data } = await axios.post(`${resource}`, values);
     return data;
   },
-  update: async ({ resource, values, id }: updateParams) => {
+  update: async <T>({ resource, values, id }: updateParams<T>) => {
     if (!id) return;
     const { data } = await axios.put(`${resource}/${id}`, values);
     return data;

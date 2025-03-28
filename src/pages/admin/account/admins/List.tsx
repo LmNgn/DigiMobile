@@ -1,99 +1,52 @@
-import axios from "axios";
-import { Role, UserAuth } from "../../../../types/User";
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useForm, SubmitHandler } from "react-hook-form";
-type addInput = {
-  email: string;
-};
+import { useForm } from "react-hook-form";
+import { useList } from "../../hooks/useList";
+import { Admin } from "../../../../types/Admin";
+import { useDelete } from "../../hooks/useDelete";
+import { Popconfirm } from "antd";
+import { useCreate } from "../../hooks/useCreate";
+import { useUpdate } from "../../hooks/useUpdate";
+import { AdminForm } from "../../providers/dataProvider";
+import { message } from "antd";
+import { Link } from "react-router-dom";
+import { Role } from "../../../../types/Admin";
 function List() {
-  const nav = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<addInput>();
-  const [user, setUser] = useState<UserAuth[]>([]);
-// lấy danh sách tài khoản
-  const getList = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:3000/users");
-      const filteredUsers = data.filter(
-        (user: UserAuth) => user.role === Role.ADMIN1
-      );
-      setUser(filteredUsers);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  } = useForm<AdminForm>();
+  // lấy danh sách tài khoản
+  const { data: adminList, refetch } = useList({ resource: "admins" })
   //reset mật khẩu
-  const resetPassword = async (id: number) => {
-    try {
-      if (window.confirm("Reset mật khẩu của tài khoản này?")) {
-        const response = await axios.patch(
-          `http://localhost:3000/users/${id}`,
-          {
-            password: "DigiMobile0641#$",
-          }
-        );
-        if (response.status === 200) {
-          toast.success("Reset thành công");
-          getList();
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Reset thất bại.");
-    }
+  const { mutate: resetPassword } = useUpdate({ resource: "admins" });
+  const onReset = (id: number) => {
+
+    const newPassword = "123123";
+
+    resetPassword(
+      { id, values: { password: newPassword } }
+    );
   };
 
   //xóa tài khoản
-  const deleteAdmin = async (id: number) => {
-    try {
-      if (window.confirm("Xác nhận xóa tài khoản?")) {
-        const response = await axios.delete(
-          `http://localhost:3000/users/${id}`
-        );
-        if (response.status == 200) {
-          toast.success("Xóa thành công");
-          getList();
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Xóa thất bại.");
-    }
-  };
+  const { mutate: deleteOne } = useDelete({ resource: "admins" });
+  //thêm tài khoản mới
+  const { mutate: addOne } = useCreate({ resource: "admins" });
+  const onAdd = (values: any) => {
+    const isExist = adminList?.some((p: AdminForm) => p.email.toLowerCase() === values.email.toLowerCase());
 
-//thêm tài khoản mới
-  const onSubmit: SubmitHandler<addInput> = async (data) => {
-    try {
-      if (window.confirm("Xác nhận thêm tài khoản?")) {
-        const newAdmin = {
-          email: data.email,
-          password: "DigiMobile0641#$",
-          role: "admin1",
-          status: true,
-        };
-        await axios.post(`http://localhost:3000/users`, newAdmin);
-        toast.success("Thêm tài khoản thành công.");
-        getList();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Thêm tài khoản thất bại.");
+    if (isExist) {
+      message.error("Tài khoản đã tồn tại!");
+      return;
+    }
+    if (window.confirm("Thêm tài khoản mới?")) {
+      const newValue = { ...values, password: "123123", status: 1, role: Role.ADMIN1 };
+      addOne(newValue);
+      reset();
     }
   };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("Bạn chưa đăng nhập!");
-      nav("/admin/login");
-    } else {
-      getList();
-    }
-  }, []);
+  refetch();
 
   return (
     <div className="container-fluid">
@@ -101,7 +54,7 @@ function List() {
         <h1 className="h2">Danh sách tài khoản quản trị viên</h1>
         <div className="btn-toolbar mb-2 mb-md-0"></div>
       </div>
-      <form className="col-md-12 " onSubmit={handleSubmit(onSubmit)}>
+      <form className="col-md-12" onSubmit={handleSubmit(onAdd)} >
         <div className="mb-3 row">
           <div className="col-sm-12">
             <h5>Thêm tài khoản</h5>
@@ -109,10 +62,10 @@ function List() {
           <div className="col-sm-12">
             <input
               placeholder="Email"
-              type="text"
+              type="email"
               className="form-control"
               id="email"
-              {...register("email", { required: "Không bỏ trống tên" })}
+              {...register("email", { required: "Vui lòng không bỏ trống." })}
             />
             {errors.email && (
               <div className="invalid-feedback d-block">
@@ -139,7 +92,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {user.map((a, index) => (
+          {adminList?.map((a: Admin, index: number) => (
             <tr key={a.id}>
               <td>{index + 1}</td>
               <td>{a.email}</td>
@@ -153,22 +106,34 @@ function List() {
               <td>
                 <Link
                   className="btn btn-outline-primary"
-                  to={"/admin/account/admin/update/" + a.id}
+                  to={`/admin/admins/update/${a.id}`}
                 >
                   <i className="fa-solid fa-circle-info" />
                 </Link>
-                <button
-                  className="btn btn-outline-warning"
-                  onClick={() => resetPassword(a.id)}
-                >
-                  <i className="fa-solid fa-rotate-right" />
-                </button>
-                <button
-                  className="btn btn-outline-danger"
-                  onClick={() => deleteAdmin(a.id)}
-                >
-                  <i className="fas fa-trash" />
-                </button>
+                <Popconfirm
+                  title="Reset mật khẩu"
+                  description="Xác nhận reset mật khẩu?"
+                  onConfirm={() => onReset(a.id)}
+                  okText="Xác nhận"
+                  cancelText="Hủy">
+                  <button
+                    className="mx-2 btn btn-outline-warning">
+                    <i className="fa-solid fa-rotate-right" />
+                  </button>
+                </Popconfirm>
+
+
+                <Popconfirm
+                  title="Xóa tài khoản"
+                  description="Xác nhận xóa tài khoản?"
+                  onConfirm={() => deleteOne(a.id)}
+                  okText="Xác nhận"
+                  cancelText="Hủy">
+                  <button
+                    className="btn btn-outline-danger">
+                    <i className="fas fa-trash" />
+                  </button>
+                </Popconfirm>
               </td>
             </tr>
           ))}
