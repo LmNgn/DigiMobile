@@ -1,47 +1,13 @@
-import axios from "axios";
-import { Customers } from "../../../../types/Customers";
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { Customers } from "../../../../types/Customer";
+import { Link } from "react-router-dom";
+import { Popconfirm } from "antd";
+import { useList } from "../../hooks/useList";
+import { useDelete } from "../../hooks/useDelete";
 function List() {
-  const nav = useNavigate();
+  const { mutate: deleteOne } = useDelete({ resource: "customers" });
+  const { data: customerList, refetch } = useList({ resource: "customers" });
+  refetch();
 
-  const [user, setUser] = useState<Customers[]>([]);
-  const getList = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:3000/users");
-     
-      setUser(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteUser = async (id: number) => {
-    try {
-      if (window.confirm("Xác nhận xóa tài khoản?")) {
-        const response = await axios.delete(
-          `http://localhost:3000/users/${id}`
-        );
-        if (response.status == 200) {
-          message.success("Xóa thành công");
-          getList();
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      message.error("Xóa thất bại.");
-    }
-  };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      message.error("Bạn chưa đăng nhập!");
-      nav("/admin/login");
-    } else {
-      getList();
-    }
-  }, []);
 
   return (
     <div className="container-fluid">
@@ -61,7 +27,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {user.map((u, index) => (
+          {customerList?.map((u: Customers, index: number) => (
             <tr key={u.id}>
               <td>{index + 1}</td>
               <td>{u.username}</td>
@@ -77,16 +43,22 @@ function List() {
               <td>
                 <Link
                   className="mx-2 btn btn-outline-primary"
-                  to={`/admin/account/customers/detail/${u.id}`}
+                  to={`/admin/customers/detail/${u.id}`}
                 >
                   <i className="fas fa-info-circle" />
                 </Link>
-                <button
-                  className="btn btn-outline-danger"
-                  onClick={() => deleteUser(u.id)}
-                >
-                  <i className="fas fa-trash" />
-                </button>
+
+                <Popconfirm
+                  title="Xóa tài khoản"
+                  description="Xác nhận xóa tài khoản?"
+                  onConfirm={() => deleteOne(u.id)}
+                  okText="Xác nhận"
+                  cancelText="Hủy">
+                  <button
+                    className="btn btn-outline-danger">
+                    <i className="fas fa-trash" />
+                  </button>
+                </Popconfirm>
               </td>
             </tr>
           ))}

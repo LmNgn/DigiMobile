@@ -62,11 +62,11 @@ const routeConfig = [
       { path: "/admin/products/add", element: <ProductAdd /> },
 
       // // Customer
-      // { path: "/admin/customers/admin", element: <CustomerList /> },
-      // {
-      //   path: "/admin/customers/detail/:id",
-      //   element: <CustomerDetail />,
-      // },
+      { path: "/admin/customers", element: <CustomerList /> },
+      {
+        path: "/admin/customers/detail/:id",
+        element: <CustomerDetail />,
+      },
 
       // Admin
       { path: "/admin/admins", element: <AdminList /> },

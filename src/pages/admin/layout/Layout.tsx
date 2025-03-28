@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -6,7 +6,6 @@ import { useState } from "react";
 
 function Layout() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const nav = useNavigate();
 
   return (
     <div className="layout-container">
@@ -38,7 +37,7 @@ function Layout() {
               className="w-100 nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
               onClick={() => setDropdownOpen(!isDropdownOpen)}
             >
-              <i className="fas fa-users-cog me-2" /> Quản lý tài khoản 
+              <i className="fas fa-users-cog me-2" /> Quản lý tài khoản
               <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
             </button>
             <ul className={`nav flex-column text-center dropdown-menu${isDropdownOpen ? " show" : ""}`}>

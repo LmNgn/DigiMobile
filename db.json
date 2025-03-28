@@ -19,30 +19,6 @@
   ],
   "products": [
     {
-      "name": "123123",
-      "price": "123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": false,
-      "category": "điện thoại",
-      "id": 5
-    },
-    {
-      "name": "123123",
-      "price": "123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": true,
-      "category": "điện thoại",
-      "id": 6
-    },
-    {
-      "name": "123123 ",
-      "price": "123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "category": "Laptop",
-      "inStock": false,
-      "id": 9
-    },
-    {
       "name": "Product 3",
       "price": "123",
       "imageUrl": "123",
@@ -73,21 +49,28 @@
         "rate": "Tần số quét"
       },
       "id": 11
+    },
+    {
+      "name": "Điện thoại 2",
+      "price": "1200000",
+      "imageUrl": "https://picsum.photos/id/237/200/300",
+      "inStock": true,
+      "category": "Xiaomi",
+      "screen": {
+        "size": "12",
+        "resolution": "HD+",
+        "rate": "60"
+      },
+      "ram": "6",
+      "memory": "128",
+      "battery": "2700",
+      "id": 12
     }
   ],
   "Customers": [
     {
-      "email": "test3@gmail.com",
-      "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
-      "id": 7,
-      "status": false
-    },
-    {
-      "username": "lam1",
-      "email": "test32@gmail.com",
-      "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
-      "id": 7,
-      "status": true
+      "status": false,
+      "id": 7
     },
     {
       "username": "lam1",
@@ -113,12 +96,6 @@
       "password": "$2a$10$0/4Fi2jAC58tCo.bijYGTO/Sdvaq8UTekwZVH4vjd1Z5ed2EwjfH6",
       "status": true,
       "id": 11
-    },
-    {
-      "email": "test22123123@gmail.com",
-      "password": "$2a$10$EwZcyXHv.Y//B8YAMIaMgeiKqx/Yv8bEdwpDTsQyeieLcCuW0EG8W",
-      "status": true,
-      "id": 12
     }
   ],
   "Admins": [
@@ -131,6 +108,12 @@
       "email": "test34@gmail.com",
       "status": true,
       "id": 2
+    },
+    {
+      "email": "test323@gmail.com",
+      "status": 1,
+      "role": "admin0",
+      "id": 3
     }
   ],
   "orders": [

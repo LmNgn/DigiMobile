@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useOne } from "../../hooks/useOne";
 import { useUpdate } from "../../hooks/useUpdate";
 import { AdminForm } from "../../providers/dataProvider";
+import { Role } from "../../../../types/Admin";
 const UpdateCategory = () => {
   const nav = useNavigate();
   const { id } = useParams();
@@ -22,6 +23,7 @@ const UpdateCategory = () => {
       reset({
         email: admin.email,
         status: admin.status,
+        role: admin.role,
       });
     }
   }, [admin]);
@@ -35,7 +37,7 @@ const UpdateCategory = () => {
       });
     }
   };
-
+console.log(admin)
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -52,13 +54,14 @@ const UpdateCategory = () => {
       <form className="offset-2 col-md-8" onSubmit={handleSubmit(onFinish)}>
         <div className="mb-3 row">
           <label htmlFor="name" className="col-sm-2 col-form-label text-end">
-            Tên sản phẩm
+            Email tài khoản
           </label>
           <div className="col-sm-10">
             <input
               type="email"
               className="form-control"
               id="email"
+              disabled
               {...register("email", { required: "Không bỏ trống email" })}
             />
             {errors.email && (
@@ -66,6 +69,25 @@ const UpdateCategory = () => {
                 {errors.email.message}
               </div>
             )}
+          </div>
+        </div>
+        <div className="mb-3 row">
+          <label
+            htmlFor="category"
+            className="col-sm-2 col-form-label text-end"
+          >
+            Vai trò
+          </label>
+          <div className="col-sm-10">
+            <select
+              className="form-control"
+              id="role"
+              {...register("role")}
+            >
+              <option value="">Chọn vai trò</option>
+              <option value={Role.ADMIN0}>Super Admin</option>
+              <option value={Role.ADMIN1}>Admin</option>
+            </select>
           </div>
         </div>
         <div className="mb-3 row">

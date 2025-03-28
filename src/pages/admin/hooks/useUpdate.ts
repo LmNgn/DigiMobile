@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ProductForm, update } from "../providers/dataProvider";
+import { update } from "../providers/dataProvider";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 

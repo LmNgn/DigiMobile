@@ -1,9 +1,9 @@
-import axios from "axios";
-import { UserAuth } from "../../../../types/Customers";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { useOne } from "../../hooks/useOne";
+import { useUpdate } from "../../hooks/useUpdate";
+import { CustomerForm } from "../../providers/dataProvider";
 type statusUpdate = {
   status: boolean;
 };
@@ -12,33 +12,24 @@ function Detail() {
 
   const nav = useNavigate();
   const { id } = useParams();
-  const [user, setUser] = useState<UserAuth | undefined>();
-  const getDetail = async (id: string) => {
-    try {
-      const { data } = await axios.get(`http://localhost:3000/users/${id}`);
-      reset({
-        status: data.status,
+  const { data: customer } = useOne({ resource: "customers", id });
+  const { mutate } = useUpdate({ resource: "customers", id })
+  const onFinish = (values: CustomerForm) => {
+    if (window.confirm("Xác nhận cập nhập thông tin tài khoản?")) {
+      mutate(values, {
+        onSuccess: () => {
+          nav("/admin/customers");
+        }
       });
-      setUser(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const onSubmit: SubmitHandler<statusUpdate> = async (data) => {
-    try {
-      await axios.patch(`http://localhost:3000/users/${id}`, data);
-      toast.success("Cập nhật trạng thái thành công");
-      nav("/admin/account/customers");
-    } catch (error) {
-      toast.error("Cập nhật trạng thái thất bại.");
-      console.log(error);
     }
   };
   useEffect(() => {
-    if (!id) return;
-    getDetail(id);
-  }, [id]);
-
+    if (customer) {
+      reset({
+        status: customer.status,
+      });
+    }
+  }, [customer]);
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -46,7 +37,7 @@ function Detail() {
         <div className="btn-toolbar mb-2 mb-md-0">
           <div className="btn-group me-2">
             <Link
-              to="/admin/account/customer"
+              to="/admin/customers"
               className="btn btn-outline-primary"
             >
               Quay lại
@@ -58,32 +49,32 @@ function Detail() {
         <div className="col-4">
           <img
             src="https://t3.ftcdn.net/jpg/06/19/26/46/360_F_619264680_x2PBdGLF54sFe7kTBtAvZnPyXgvaRw0Y.jpg"
-            alt={user?.username}
+            alt={customer?.username}
           />
         </div>
         <div className="col-8">
           <form
             className="form-check form-switch"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onFinish)}
           >
             <table className="table table-borderless">
               <thead></thead>
               <tbody>
                 <tr>
                   <th>Tên tài khoản:</th>
-                  <td>{user?.username}</td>
+                  <td>{customer?.username}</td>
                 </tr>
                 <tr>
                   <th>Email:</th>
-                  <td>{user?.email}</td>
+                  <td>{customer?.email}</td>
                 </tr>
                 <tr>
                   <th>Số điện thoại:</th>
-                  <td>{user?.phone}</td>
+                  <td>{customer?.phone}</td>
                 </tr>
                 <tr>
                   <th>Địa chỉ:</th>
-                  <td>{user?.address}</td>
+                  <td>{customer?.address}</td>
                 </tr>
                 <tr>
                   <th>Trạng thái:</th>

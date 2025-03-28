@@ -18,6 +18,9 @@ export type ProductForm = {
   battery: number
 
 };
+export type CustomerForm = {
+  status: boolean,
+}
 export type CategoryForm = {
   name: string
 }
