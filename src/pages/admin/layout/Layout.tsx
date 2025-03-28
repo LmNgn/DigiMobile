@@ -41,7 +41,7 @@ function Layout() {
               <i className="fas fa-users-cog me-2" /> Quản lý tài khoản 
               <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
             </button>
-            <ul className={`nav flex-column ps-3 dropdown-menu${isDropdownOpen ? " show" : ""}`}>
+            <ul className={`nav flex-column text-center dropdown-menu${isDropdownOpen ? " show" : ""}`}>
               <li className="nav-item">
                 <Link className="nav-link hover-effect text-dark" to="/admin/account">
                   Quản trị viên
