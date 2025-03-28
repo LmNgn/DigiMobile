@@ -1,8 +1,8 @@
 {
   "categories": [
     {
-      "id": 3,
-      "name": "Xiaomi"
+      "name": "Xiaomi",
+      "id": 3
     },
     {
       "name": "Iphone",
@@ -15,17 +15,17 @@
     {
       "name": "sản phẩm 2",
       "id": 6
+    },
+    {
+      "name": "Product 3",
+      "id": 7
+    },
+    {
+      "name": "Product 3",
+      "id": 8
     }
   ],
   "products": [
-    {
-      "id": 3,
-      "name": "Product 3",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": false,
-      "category": "điện thoại",
-      "price": 300000
-    },
     {
       "name": "123123",
       "price": "123",

@@ -9,6 +9,7 @@ import HomeAdmin from "./pages/admin/Home";
 
 // Category
 import CategoryList from "./pages/admin/category/List";
+import UpdateCategory from "./pages/admin/category/Update";
 
 // Product
 import ProductList from "./pages/admin/product/List";
@@ -52,6 +53,7 @@ const routeConfig = [
 
       // Category
       { path: "/admin/categories", element: <CategoryList /> },
+      { path: "/admin/categories/update/:id", element: <UpdateCategory /> },
 
       // Product
       { path: "/admin/products", element: <ProductList /> },
