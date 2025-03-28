@@ -1,100 +1,112 @@
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { FaTrash } from "react-icons/fa";
 
 const MyOrders = () => {
-  const [orders, setOrders] = useState([]);
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      name: "Samsung Galaxy S24 Ultra 12GB 256GB",
+      image: "https://picsum.photos/200/300",
+      price: 22990000,
+      oldPrice: 33990000,
+      quantity: 1,
+      selected: false,
+    },
+    {
+      id: 2,
+      name: "Xiaomi 14T Pro - Xám",
+      image: "https://picsum.photos/200/300",
+      price: 14490000,
+      oldPrice: 17990000,
+      quantity: 1,
+      selected: false,
+    },
+  ]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      const mockOrders = [
-        {
-          id: "123",
-          createAt: new Date(),
-          shippingAddress: { city: "Ha Noi", country: "VN" },
-          orderItems: [
-            {
-              name: "Product 1",
-              image: "https://picsum.photos/id/237/200/300",
-            },
-          ],
-          totalPrice: 100,
-          isPaid: true,
-        },
-        {
-          id: "234",
-          createAt: new Date(),
-          shippingAddress: { city: "Ha Noi", country: "VN" },
-          orderItems: [
-            {
-              name: "Product 2",
-              image: "https://picsum.photos/id/237/200/300",
-            },
-          ],
-          totalPrice: 100,
-          isPaid: true,
-        },
-      ];
-      setOrders(mockOrders);
-    }, 1000);
-  }, []);
+  // Cập nhật số lượng sản phẩm
+  const updateQuantity = (id, change) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
+      )
+    );
+  };
+
+  // Xóa sản phẩm khỏi giỏ hàng
+  const removeItem = (id) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  // Chọn/bỏ chọn sản phẩm để thanh toán
+  const toggleSelectItem = (id) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, selected: !item.selected } : item
+      )
+    );
+  };
+
+  // Tính tổng tiền sản phẩm được chọn
+  const selectedItems = cartItems.filter((item) => item.selected);
+  const totalPrice = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  // Xử lý thanh toán
+  const handleCheckout = () => {
+    if (selectedItems.length === 0) {
+      alert("Vui lòng chọn ít nhất một sản phẩm để thanh toán!");
+      return;
+    }
+    console.log("Thanh toán các sản phẩm:", selectedItems);
+  };
 
   return (
     <div className="container py-4">
-      <h2 className="fs-4 fw-bold mb-4">My Orders</h2>
-      <div className="table-responsive shadow-sm rounded">
-        <table className="table table-striped">
-          <thead className="table-light">
-            <tr>
-              <th scope="col">Image</th>
-              <th scope="col">Order ID</th>
-              <th scope="col">Created</th>
-              <th scope="col">Shipping Address</th>
-              <th scope="col">Items</th>
-              <th scope="col">Price</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.length > 0 ? (
-              orders.map((order) => (
-                <tr key={order.id}>
-                  <td>
-                    <img
-                      src={order.orderItems[0].image}
-                      alt={order.orderItems[0].name}
-                      className="img-thumbnail" style={{ width: "50px", height: "50px" }}
-                    />
-                  </td>
-                  <td>#{order.id}</td>
-                  <td>
-                    {new Date(order.createAt).toLocaleDateString()} {" "}
-                    {new Date(order.createAt).toLocaleTimeString()}
-                  </td>
-                  <td>
-                    {order.shippingAddress
-                      ? `${order.shippingAddress.city}, ${order.shippingAddress.country}`
-                      : "N/A"}
-                  </td>
-                  <td>{order.orderItems.length}</td>
-                  <td>${order.totalPrice}</td>
-                  <td>
-                    <span
-                      className={`badge ${order.isPaid ? "bg-success" : "bg-danger"}`}
-                    >
-                      {order.isPaid ? "Paid" : "Pending"}
-                    </span>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={7} className="text-center text-muted py-4">
-                  Bạn chưa có đơn hàng
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <h2 className="mb-4">Giỏ hàng của bạn</h2>
+      <div className="list-group shadow-sm">
+        {cartItems.map((item) => (
+          <div key={item.id} className="list-group-item d-flex align-items-center">
+            <input
+              type="checkbox"
+              className="form-check-input me-2"
+              checked={item.selected}
+              onChange={() => toggleSelectItem(item.id)}
+            />
+            <img src={item.image} alt={item.name} className="me-3 rounded" width="80" />
+            <div className="flex-grow-1">
+              <h5>{item.name}</h5>
+              <p>
+                <strong className="text-danger">{item.price.toLocaleString()}đ</strong>{" "}
+                <del className="text-muted">{item.oldPrice.toLocaleString()}đ</del>
+              </p>
+              <div className="d-flex align-items-center">
+                <button
+                  className="btn btn-outline-secondary btn-sm"
+                  onClick={() => updateQuantity(item.id, -1)}
+                >
+                  -
+                </button>
+                <span className="mx-2">{item.quantity}</span>
+                <button
+                  className="btn btn-outline-secondary btn-sm"
+                  onClick={() => updateQuantity(item.id, 1)}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <button className="btn btn-outline-danger btn-sm" onClick={() => removeItem(item.id)}>
+              <FaTrash />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 d-flex justify-content-between align-items-center">
+        <h4 className="fw-bold">Tạm tính: {totalPrice.toLocaleString()}đ</h4>
+        <button className="btn btn-danger btn-lg" onClick={handleCheckout}>
+          Mua ngay ({selectedItems.length})
+        </button>
       </div>
     </div>
   );

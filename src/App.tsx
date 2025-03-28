@@ -33,6 +33,10 @@ import UserLayout from "./pages/client/components/Layout/UserLayout";
 import Home from "./pages/client/pages/Home";
 import ListProduct from "./pages/client/components/Layout/ListProduct";
 import Profile from "./pages/client/pages/Profile";
+import ProductDetailId from "./pages/client/components/Product/ProductDetail";
+import MyOrders from "./pages/client/pages/MyOrders";
+import LoginUser from "./pages/client/pages/LoginUser";
+import RegisterUser from "./pages/client/pages/RegisterUser";
 
 //============================00============================
 
@@ -81,8 +85,12 @@ const routeConfig = [
     element: <UserLayout />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/client/login", element: <LoginUser /> },
+      { path: "/client/register", element: <RegisterUser /> },
       { path: "/client/product", element: <ListProduct /> },
+      { path: "/product/:productId", element: <ProductDetailId /> },
       { path: "/client/profile", element: <Profile /> },
+      { path: "/client/order", element: <MyOrders /> },
     ],
   },
 ];

@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IoMdClose } from 'react-icons/io';
 import CartContent from '../Cart/CartContent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CartDrawer = ({ drawOpen, toggleCart }) => {
   return (
-    <div className={`offcanvas offcanvas-end ${drawOpen ? 'show' : ''}`} tabIndex="-1">
-      <div className="offcanvas-header">
-        <h5 className="offcanvas-title">Your Cart</h5>
-        <button type="button" className="btn-close" onClick={toggleCart} aria-label="Close">
-          <IoMdClose className='h5'/>
-        </button>
+    <>
+      {/* Overlay khi mở giỏ hàng */}
+      {drawOpen && <div className="offcanvas-backdrop fade show" onClick={toggleCart}></div>}
+
+      {/* Drawer giỏ hàng */}
+      <div className={`offcanvas offcanvas-end ${drawOpen ? 'show' : ''}`} tabIndex="-1" style={{ width: '350px' }}>
+        <div className="offcanvas-header border-bottom">
+          <h5 className="offcanvas-title fw-bold">Giỏ hàng của bạn</h5>
+          <button type="button" className="btn-close" onClick={toggleCart} aria-label="Close">
+            <IoMdClose className="h5" />
+          </button>
+        </div>
+
+        <div className="offcanvas-body overflow-auto">
+          <CartContent />
+        </div>
+
+        <div className="offcanvas-footer p-3 border-top text-center">
+          <button className="btn btn-dark w-100">Thanh toán ngay</button>
+          <p className="text-muted mt-2 small">Phí ship, thuế và mã giảm giá sẽ được áp dụng</p>
+        </div>
       </div>
-      <div className="offcanvas-body overflow-auto">
-        <CartContent />
-      </div>
-      <div className="offcanvas-footer p-3 border-top">
-        <button className='btn btn-dark w-100'>Checkout</button>
-        <p className='text-center text-muted mt-2 small'>Shipping, taxes and discount codes</p>
-      </div>
-    </div>
+    </>
   );
 };
 

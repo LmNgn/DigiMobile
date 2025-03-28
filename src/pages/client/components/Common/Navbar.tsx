@@ -17,7 +17,7 @@ const Navbar = () => {
     <>
             <nav className="navbar navbar-expand-md navbar-light bg-light">
                 <div className="container">
-                    <Link to="/" className="navbar-brand">Mantes</Link>
+                    <Link to="/" className="navbar-brand">DigiMobile</Link>
                     
                     <button className="navbar-toggler" type="button" onClick={toggleNavDraw}>
                         <HiBars3BottomRight className='h-6 w-6' />
@@ -34,7 +34,7 @@ const Navbar = () => {
                     </div>
                     
                     <div className="d-flex align-items-center">
-                        <Link to="/admin/login" className="btn btn-link text-dark">
+                        <Link to="/client/login" className="btn btn-link text-dark">
                             <HiOutlineUser className='h-6 w-6' />
                         </Link>
                         <button onClick={toggleCart} className="btn btn-link text-dark position-relative">
