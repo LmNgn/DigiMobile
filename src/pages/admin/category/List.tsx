@@ -17,13 +17,14 @@ function List() {
   const { data, refetch } = useList({ resource: "categories" });
   //xóa danh mục
   const { mutate: deleteOne } = useDelete({ resource: "categories" });
+  refetch();
+
   //thêm danh mục
   const { mutate: createOne } = useCreate({ resource: "categories" },);
   const onFinish = (values: any) => {
     if (window.confirm("Xác nhận thêm danh mục?")) {
       createOne(values, {
         onSuccess: () => {
-          refetch();
           reset();
         }
       })
