@@ -35,7 +35,7 @@ function Layout() {
           </li>
           <li className="nav-item">
             <button
-              className="nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
+              className="w-100 nav-link hover-effect text-dark d-flex align-items-center btn btn-link"
               onClick={() => setDropdownOpen(!isDropdownOpen)}
             >
               <i className="fas fa-users-cog me-2" /> Quản lý tài khoản 
