@@ -5,11 +5,14 @@ import { useOne } from "../../hooks/useOne";
 import { useUpdate } from "../../hooks/useUpdate";
 import { AdminForm } from "../../providers/dataProvider";
 import { Role } from "../../../../types/Admin";
+
 const UpdateCategory = () => {
   const nav = useNavigate();
   const { id } = useParams();
-  const { data: admin } = useOne({ resource: "admins", id });
-  const { mutate } = useUpdate({ resource: "admins", id });
+  const keyResource = "users";
+
+  const { data: admin } = useOne({ resource: `${keyResource}`, id });
+  const { mutate } = useUpdate({ resource: `${keyResource}`, id });
   const {
     register,
     handleSubmit,
@@ -37,7 +40,6 @@ const UpdateCategory = () => {
       });
     }
   };
-console.log(admin)
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

@@ -1,13 +1,17 @@
-import { Customers } from "../../../../types/Customer";
+import { Customers } from "../../../../types/User";
 import { Link } from "react-router-dom";
 import { Popconfirm } from "antd";
 import { useList } from "../../hooks/useList";
 import { useDelete } from "../../hooks/useDelete";
+import { CustomerForm } from "../../providers/dataProvider";
 function List() {
-  const { mutate: deleteOne } = useDelete({ resource: "customers" });
-  const { data: customerList, refetch } = useList({ resource: "customers" });
+  const keyResource = "users";
+  const { mutate: deleteOne } = useDelete({ resource: `${keyResource}` });
+  const { data: customerList, refetch } = useList({ resource: `${keyResource}` });
   refetch();
-
+  const filteredList = customerList?.filter(
+    (admin: CustomerForm) => admin.role && admin.role.startsWith("customer")
+  );
 
   return (
     <div className="container-fluid">
@@ -27,7 +31,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {customerList?.map((u: Customers, index: number) => (
+          {filteredList?.map((u: Customers, index: number) => (
             <tr key={u.id}>
               <td>{index + 1}</td>
               <td>{u.username}</td>

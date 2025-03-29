@@ -67,38 +67,7 @@
       "id": 12
     }
   ],
-  "Customers": [
-    {
-      "status": false,
-      "id": 7
-    },
-    {
-      "username": "lam1",
-      "email": "test33@gmail.com",
-      "password": "$2a$10$wC.ZzXfxgUq1MloBPTNkMe8G4XEnhDlq3IXk8JG503Bhtu8NGR2qu",
-      "id": 8,
-      "status": false
-    },
-    {
-      "email": "test2@gmail.com",
-      "password": "$2a$10$rnbryRDcauG2dUWPugsAn.6moMNNA0zJ.Ys.Qc3ntBtR.q8V2XPMW",
-      "status": true,
-      "id": 9
-    },
-    {
-      "email": "test234@gmail.com",
-      "password": "$2a$10$F/6ASQ6ZupgTew4gJuBlX.YnB/IRElVbrcX0E6Vmor9VejrXGdnqy",
-      "status": true,
-      "id": 10
-    },
-    {
-      "email": "test22@gmail.com",
-      "password": "$2a$10$0/4Fi2jAC58tCo.bijYGTO/Sdvaq8UTekwZVH4vjd1Z5ed2EwjfH6",
-      "status": true,
-      "id": 11
-    }
-  ],
-  "Admins": [
+  "users": [
     {
       "email": "test3@gmail.com",
       "status": true,
@@ -107,13 +76,36 @@
     {
       "email": "test34@gmail.com",
       "status": true,
+      "role": "customer",
       "id": 2
     },
     {
-      "email": "test323@gmail.com",
+      "email": "test23@gmail.com",
+      "password": "123123",
       "status": 1,
-      "role": "admin0",
-      "id": 3
+      "role": "admin1",
+      "id": 4
+    },
+    {
+      "email": "test67@gmail.com",
+      "password": "$2a$10$nJPAxLjcij5SzdXXEllVH.dq8rV8SVI//N2Arw/rlFxJpCIDt9j.C",
+      "status": 1,
+      "role": "admin1",
+      "id": 5
+    },
+    {
+      "email": "test68@gmail.com",
+      "password": "$2a$10$04UomtiBptVXpr/OnDJ.Pe60Uz8QA7y92GrYH0eWAE6q7JF3WNna.",
+      "status": 1,
+      "role": "admin1",
+      "id": 6
+    },
+    {
+      "email": "test685@gmail.com",
+      "password": "$2a$10$v9lhAJMesN/DEgAC0sMCCO6Nz2joS.l9H80inrZjqccDAQJuypwYS",
+      "status": 1,
+      "role": "admin1",
+      "id": 7
     }
   ],
   "orders": [

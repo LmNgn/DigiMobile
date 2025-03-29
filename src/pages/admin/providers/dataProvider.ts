@@ -20,6 +20,7 @@ export type ProductForm = {
 };
 export type CustomerForm = {
   status: boolean,
+  role?: Role
 }
 export type CategoryForm = {
   name: string
@@ -30,7 +31,15 @@ export type AdminForm = {
   status: boolean,
   role: Role
 }
-
+export type LoginForm = {
+  email: string,
+  password: string
+}
+export type UpdateForm = {
+  id?: number | string,
+  role?: Role,
+  status: boolean
+}
 type getListParams = {
   resource: string;
 };
@@ -55,6 +64,12 @@ type deleteParams = {
   id?: string | number;
 };
 
+type ProviderProps = {
+  resource: string;
+  id?: number | string;
+  values?: any;
+};
+
 axios.defaults.baseURL = "http://localhost:3000/";
 //mọi request sử dụng axios sẽ mặc định gửi đến http://localhost:3000/
 
@@ -73,7 +88,7 @@ const dataProvider = {
   },
   update: async <T>({ resource, values, id }: updateParams<T>) => {
     if (!id) return;
-    const { data } = await axios.put(`${resource}/${id}`, values);
+    const { data } = await axios.patch(`${resource}/${id}`, values);
     return data;
   },
   deleteOne: async ({ resource, id }: deleteParams) => {
@@ -83,4 +98,16 @@ const dataProvider = {
   },
 };
 
+export const register = async ({
+  resource = "register",
+  values,
+}: ProviderProps) => {
+  const { data } = await axios.post(resource, values);
+  return data;
+};
+
+export const loginAdmin = async ({ resource = "login", values }: ProviderProps) => {
+  const { data } = await axios.post(resource, values);
+  return data;
+};
 export const { getList, getOne, update, create, deleteOne } = dataProvider;

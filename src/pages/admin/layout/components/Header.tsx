@@ -3,6 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "/src/assets/logo.png";
 import { message } from "antd";
+import { useEffect } from "react";
 function Header() {
   const nav = useNavigate();
   const handleLogout = () => {
@@ -12,6 +13,16 @@ function Header() {
       nav("/admin/login");
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("Không tìm thấy token, đăng xuất...");
+      nav("/admin/login"); // Chuyển về trang đăng nhập
+    }
+  }, []);
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid d-flex justify-content-between">
@@ -39,7 +50,7 @@ function Header() {
               type="button"
               data-bs-toggle="dropdown"
             >
-              <span className="fw-bold text-white">Admin</span>
+              <span className="fw-bold text-white">{user.email}</span>
             </button>
           </div>
           <button className="btn btn-dark" onClick={handleLogout}>

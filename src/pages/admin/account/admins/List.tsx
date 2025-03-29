@@ -3,13 +3,14 @@ import { useList } from "../../hooks/useList";
 import { Admin } from "../../../../types/Admin";
 import { useDelete } from "../../hooks/useDelete";
 import { Popconfirm } from "antd";
-import { useCreate } from "../../hooks/useCreate";
 import { useUpdate } from "../../hooks/useUpdate";
 import { AdminForm } from "../../providers/dataProvider";
 import { message } from "antd";
 import { Link } from "react-router-dom";
 import { Role } from "../../../../types/Admin";
+import { useRegister } from "../../hooks/useRegister";
 function List() {
+  const keyResource = "users";
   const {
     register,
     handleSubmit,
@@ -17,9 +18,14 @@ function List() {
     formState: { errors },
   } = useForm<AdminForm>();
   // lấy danh sách tài khoản
-  const { data: adminList, refetch } = useList({ resource: "admins" })
+  const { data: adminList, refetch } = useList({ resource: `${keyResource}` });
+  const currentUser = JSON.parse(localStorage.getItem("user") || "{}"); // Lấy thông tin user đang đăng nhập
+  const filteredAdmins = adminList?.filter(
+    (admin: AdminForm) => admin.role && admin.role.startsWith("admin") && admin.email !== currentUser.email
+  );
+
   //reset mật khẩu
-  const { mutate: resetPassword } = useUpdate({ resource: "admins" });
+  const { mutate: resetPassword } = useUpdate({ resource: `${keyResource}` });
   const onReset = (id: number) => {
 
     const newPassword = "123123";
@@ -30,9 +36,9 @@ function List() {
   };
 
   //xóa tài khoản
-  const { mutate: deleteOne } = useDelete({ resource: "admins" });
+  const { mutate: deleteOne } = useDelete({ resource: `${keyResource}` });
   //thêm tài khoản mới
-  const { mutate: addOne } = useCreate({ resource: "admins" });
+  const { mutate: addOne } = useRegister({ resource: "register" });
   const onAdd = (values: any) => {
     const isExist = adminList?.some((p: AdminForm) => p.email.toLowerCase() === values.email.toLowerCase());
 
@@ -92,7 +98,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {adminList?.map((a: Admin, index: number) => (
+          {filteredAdmins?.map((a: Admin, index: number) => (
             <tr key={a.id}>
               <td>{index + 1}</td>
               <td>{a.email}</td>

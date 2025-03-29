@@ -1,7 +1,6 @@
-import axios from "axios";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { useForm } from "react-hook-form";
+import { useLogin } from "./hooks/useLogin";
+import { LoginForm } from "./providers/dataProvider";
 type LoginInput = {
     email: string,
     password: string,
@@ -12,28 +11,18 @@ function Login() {
         register,
         handleSubmit
     } = useForm<LoginInput>({});
-    const nav = useNavigate();
-    const onSubmit: SubmitHandler<LoginInput> = async (data) => {
-        try {
-            const response = await axios.post('http://localhost:3000/login', data);
-            if (response.status == 200) {
-                localStorage.setItem('token', response.data.accessToken);
-                message.success('Đăng nhập thành công');
-                nav("/admin");
-            }
-        } catch (error) {
-            console.log(error);
-            message.error('Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin.')
-        }
-    }
+    const { mutate } = useLogin({ resource: "login" });
 
+    function onFinish(values: LoginForm) {
+        mutate(values);
+    }
     return (
         <div
             className="d-flex align-items-center py-4 bg-body-tertiary"
             style={{ height: "100vh" }}
         >
             <main className="form-signin w-100 m-auto">
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onFinish)}>
                     <h1 className="h3 mb-3 fw-normal">Đăng nhập</h1>
                     <div className="form-floating">
                         <input

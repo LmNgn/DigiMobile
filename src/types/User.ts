@@ -1,3 +1,8 @@
+export enum Role {
+    ADMIN0 = "admin0",
+    ADMIN1 = "admin1",
+    CUSTOMER = "customer"
+}
 export type Customers = {
     id: number,
     username: string,
@@ -5,5 +10,6 @@ export type Customers = {
     phone: string,
     address: string,
     status: boolean,
-    password: string
+    password: string,
+    role: Role
 }

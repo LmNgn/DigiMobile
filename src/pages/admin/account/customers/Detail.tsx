@@ -3,18 +3,17 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useOne } from "../../hooks/useOne";
 import { useUpdate } from "../../hooks/useUpdate";
-import { CustomerForm } from "../../providers/dataProvider";
-type statusUpdate = {
-  status: boolean;
-};
+import { UpdateForm } from "../../providers/dataProvider";
+
 function Detail() {
-  const { register, handleSubmit, reset, watch } = useForm<statusUpdate>();
+  const { register, handleSubmit, reset, watch } = useForm<UpdateForm>();
+  const keyResource = "users";
 
   const nav = useNavigate();
   const { id } = useParams();
-  const { data: customer } = useOne({ resource: "customers", id });
-  const { mutate } = useUpdate({ resource: "customers", id })
-  const onFinish = (values: CustomerForm) => {
+  const { data: customer } = useOne({ resource: `${keyResource}`, id });
+  const { mutate } = useUpdate({ resource: `${keyResource}`, id })
+  const onFinish = (values: UpdateForm) => {
     if (window.confirm("Xác nhận cập nhập thông tin tài khoản?")) {
       mutate(values, {
         onSuccess: () => {
