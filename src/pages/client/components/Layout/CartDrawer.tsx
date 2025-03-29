@@ -9,7 +9,7 @@ const CartDrawer = ({ drawOpen, toggleCart }) => {
 
   const handleCheckout = () => {
     toggleCart(); // Đóng giỏ hàng trước khi chuyển trang
-    navigate('/client/checkout'); // Chuyển sang trang thanh toán
+    navigate('/client/order'); // Chuyển sang trang thanh toán
   };
 
   return (

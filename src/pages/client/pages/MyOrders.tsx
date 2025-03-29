@@ -50,7 +50,7 @@ const MyOrders = () => {
   // Tính tổng tiền sản phẩm được chọn
   const selectedItems = cartItems.filter((item) => item.selected);
   const totalPrice = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
+  const nav = useNavigate();
   // Xử lý thanh toán
   const handleCheckout = () => {
     if (selectedItems.length === 0) {
@@ -58,6 +58,7 @@ const MyOrders = () => {
       return;
     }
     console.log("Thanh toán các sản phẩm:", selectedItems);
+    nav("/client/checkout")
   };
 
   return (
