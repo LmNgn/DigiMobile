@@ -1,9 +1,17 @@
 import React from 'react';
 import { IoMdClose } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import CartContent from '../Cart/CartContent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CartDrawer = ({ drawOpen, toggleCart }) => {
+  const navigate = useNavigate(); // Hook điều hướng trang
+
+  const handleCheckout = () => {
+    toggleCart(); // Đóng giỏ hàng trước khi chuyển trang
+    navigate('/client/checkout'); // Chuyển sang trang thanh toán
+  };
+
   return (
     <>
       {/* Overlay khi mở giỏ hàng */}
@@ -23,7 +31,9 @@ const CartDrawer = ({ drawOpen, toggleCart }) => {
         </div>
 
         <div className="offcanvas-footer p-3 border-top text-center">
-          <button className="btn btn-dark w-100">Thanh toán ngay</button>
+          <button className="btn btn-dark w-100" onClick={handleCheckout}>
+            Thanh toán ngay
+          </button>
           <p className="text-muted mt-2 small">Phí ship, thuế và mã giảm giá sẽ được áp dụng</p>
         </div>
       </div>

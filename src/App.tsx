@@ -38,6 +38,7 @@ import ProductDetailId from "./pages/client/components/Product/ProductDetail";
 import MyOrders from "./pages/client/pages/MyOrders";
 import LoginUser from "./pages/client/pages/LoginUser";
 import RegisterUser from "./pages/client/pages/RegisterUser";
+import CheckOut from "./pages/client/pages/CheckOut";
 
 //============================00============================
 
@@ -93,6 +94,7 @@ const routeConfig = [
       { path: "/product/:productId", element: <ProductDetailId /> },
       { path: "/client/profile", element: <Profile /> },
       { path: "/client/order", element: <MyOrders /> },
+      { path: "/client/checkout", element: <CheckOut /> },
     ],
   },
 ];
