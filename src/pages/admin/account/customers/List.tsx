@@ -12,7 +12,7 @@ function List() {
   const filteredList = customerList?.filter(
     (admin: CustomerForm) => admin.role && admin.role.startsWith("customer")
   );
-
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <div className="container-fluid">
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -52,17 +52,19 @@ function List() {
                   <i className="fas fa-info-circle" />
                 </Link>
 
-                <Popconfirm
-                  title="Xóa tài khoản"
-                  description="Xác nhận xóa tài khoản?"
-                  onConfirm={() => deleteOne(u.id)}
-                  okText="Xác nhận"
-                  cancelText="Hủy">
-                  <button
-                    className="btn btn-outline-danger">
-                    <i className="fas fa-trash" />
-                  </button>
-                </Popconfirm>
+                {user.role === "admin0" && (
+                  <Popconfirm
+                    title="Xóa tài khoản"
+                    description="Xác nhận xóa tài khoản?"
+                    onConfirm={() => deleteOne(u.id)}
+                    okText="Xác nhận"
+                    cancelText="Hủy"
+                  >
+                    <button className="btn btn-outline-danger">
+                      <i className="fas fa-trash" />
+                    </button>
+                  </Popconfirm>
+                )}
               </td>
             </tr>
           ))}

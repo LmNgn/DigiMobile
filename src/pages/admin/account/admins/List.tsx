@@ -6,11 +6,13 @@ import { Popconfirm } from "antd";
 import { useUpdate } from "../../hooks/useUpdate";
 import { AdminForm } from "../../providers/dataProvider";
 import { message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Role } from "../../../../types/Admin";
 import { useRegister } from "../../hooks/useRegister";
+import { useEffect } from "react";
 function List() {
   const keyResource = "users";
+  const nav = useNavigate()
   const {
     register,
     handleSubmit,
@@ -20,6 +22,7 @@ function List() {
   // lấy danh sách tài khoản
   const { data: adminList, refetch } = useList({ resource: `${keyResource}` });
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}"); // Lấy thông tin user đang đăng nhập
+
   const filteredAdmins = adminList?.filter(
     (admin: AdminForm) => admin.role && admin.role.startsWith("admin") && admin.email !== currentUser.email
   );
@@ -53,7 +56,11 @@ function List() {
     }
   };
   refetch();
-
+  useEffect(() => {
+    if (currentUser.role !== "admin0") {
+      nav("/admin");
+    }
+  })
   return (
     <div className="container-fluid">
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

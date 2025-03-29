@@ -6,6 +6,7 @@ import { useState } from "react";
 
 function Layout() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   return (
     <div className="layout-container">
@@ -41,11 +42,13 @@ function Layout() {
               <i className={`fas fa-angle-${isDropdownOpen ? "down" : "left"} ms-auto`} />
             </button>
             <ul className={`nav flex-column text-center dropdown-menu${isDropdownOpen ? " show" : ""}`}>
-              <li className="nav-item">
-                <Link className="nav-link hover-effect text-dark" to="/admin/admins">
-                  Quản trị viên
-                </Link>
-              </li>
+              {user.role === "admin0" && (
+                <li className="nav-item">
+                  <Link className="nav-link hover-effect text-dark" to="/admin/admins">
+                    Quản trị viên
+                  </Link>
+                </li>
+              )}
               <li className="nav-item">
                 <Link className="nav-link hover-effect text-dark" to="/admin/customers">
                   Khách hàng
