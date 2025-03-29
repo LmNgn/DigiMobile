@@ -106,6 +106,15 @@
       "status": 1,
       "role": "admin1",
       "id": 7
+    },
+    {
+      "email": "Phuclam6987@gmail.com",
+      "password": "$2a$10$brLZ6JwPm4YXcXef.WIfoe2ZzuoGIiONGbNOMYK.Tve7ly6RUOhqW",
+      "name": "Lâm",
+      "phone": "0977599812",
+      "repassword": "123123",
+      "terms": true,
+      "id": 8
     }
   ],
   "orders": [
@@ -115,14 +124,6 @@
       "product": "Product",
       "address": "123 Main",
       "price": "30000",
-      "status": "Processing"
-    },
-    {
-      "id": 10,
-      "user": "user2",
-      "product": "Product2",
-      "address": "123 Main",
-      "price": "50000",
       "status": "Processing"
     }
   ]

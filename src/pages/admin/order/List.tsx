@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Table, Button, Form, Modal } from "react-bootstrap";
+import { useList } from "../hooks/useList";
 
 function List() {
   const [orders, setOrders] = useState([]);
   const [show, setShow] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(null);
-
+  const keyResource = "orders";
+  const {data: orderList} = useList({resource: `${keyResource}`});
   useEffect(() => {
     fetch("http://localhost:3000/orders")
       .then((response) => response.json())
@@ -72,13 +74,13 @@ function List() {
         <Table striped bordered hover className="text-center">
           <thead>
             <tr>
-              <th>ORDER ID</th>
-              <th>CUSTOMER</th>
-              <th>PRODUCT</th>
-              <th>ADDRESS</th>
-              <th>TOTAL PRICE</th>
-              <th>STATUS</th>
-              <th>ACTIONS</th>
+              <th>STT</th>
+              <th>Tên khách hàng</th>
+              <th>Mã đơn</th>
+              <th>Địa chỉ</th>
+              <th>Tổng giá</th>
+              <th>Trạng thái</th>
+              <th>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -98,7 +100,7 @@ function List() {
                     <option value="Delivered">Delivered</option>
                   </Form.Select>
                 </td>
-                <td>
+                <td className="d-flex justify-content-center">
                   <div className="d-flex gap-1">
                     <Button variant="primary" onClick={() => handleEditOrder(order)}>
                       Edit
