@@ -7,7 +7,8 @@ function List() {
   const { data } = useList({ resource: "products" });
   const { mutate } = useDelete({ resource: "products" });
   // if (isLoading) return <p>Đang tải dữ liệu...</p>;
-
+  const token = localStorage.getItem("token");
+  console.log(token);
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

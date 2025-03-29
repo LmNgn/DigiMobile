@@ -12,6 +12,8 @@ export const useLogin = ({ resource = "login" }) => {
             message.success("Đăng nhập thành công");
             localStorage.setItem("token", data.accessToken);
             localStorage.setItem("user", JSON.stringify(data.user));
+            console.log(data);
+            
             nav("/admin");
         },
         onError: () => {

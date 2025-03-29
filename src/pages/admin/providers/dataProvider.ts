@@ -70,30 +70,39 @@ type ProviderProps = {
   values?: any;
 };
 
+const token = localStorage.getItem("token");
+
+const axiosAdmin = axios.create({
+  baseURL: "http://localhost:3000/",
+  headers: {
+    Authorization: token && `Bearer ${token}`,
+  }
+})
+
 axios.defaults.baseURL = "http://localhost:3000/";
 //mọi request sử dụng axios sẽ mặc định gửi đến http://localhost:3000/
 
 const dataProvider = {
   getList: async ({ resource }: getListParams) => {
-    const { data } = await axios.get(resource);
+    const { data } = await axiosAdmin.get(resource);
     return data;
   },
   getOne: async ({ resource, id }: getOneParams) => {
-    const { data } = await axios.get(`${resource}/${id}`);
+    const { data } = await axiosAdmin.get(`${resource}/${id}`);
     return data;
   },
   create: async <T>({ resource, values }: createParams<T>) => {
-    const { data } = await axios.post(`${resource}`, values);
+    const { data } = await axiosAdmin.post(`${resource}`, values);
     return data;
   },
   update: async <T>({ resource, values, id }: updateParams<T>) => {
     if (!id) return;
-    const { data } = await axios.patch(`${resource}/${id}`, values);
+    const { data } = await axiosAdmin.patch(`${resource}/${id}`, values);
     return data;
   },
   deleteOne: async ({ resource, id }: deleteParams) => {
     if (!id) return;
-    const { data } = await axios.delete(`${resource}/${id}`);
+    const { data } = await axiosAdmin.delete(`${resource}/${id}`);
     return data;
   },
 };
@@ -102,12 +111,12 @@ export const register = async ({
   resource = "register",
   values,
 }: ProviderProps) => {
-  const { data } = await axios.post(resource, values);
+  const { data } = await axiosAdmin.post(resource, values);
   return data;
 };
 
 export const loginAdmin = async ({ resource = "login", values }: ProviderProps) => {
-  const { data } = await axios.post(resource, values);
+  const { data } = await axiosAdmin.post(resource, values);
   return data;
 };
 export const { getList, getOne, update, create, deleteOne } = dataProvider;
