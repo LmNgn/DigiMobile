@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { SiZalo } from "react-icons/si";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { message } from "antd";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -48,7 +47,7 @@ function RegisterUser() {
             }
         } catch (error) {
             console.log(error);
-            message.error("Đăng ký thất bại! Vui lòng kiểm tra lại thông tin.");
+            toast.error("Đăng ký thất bại! Vui lòng kiểm tra lại thông tin.");
         }
     };
 

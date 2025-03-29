@@ -1,49 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RiDeleteBin3Line } from "react-icons/ri";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Image1 from "../../../../assets/image4.png";
-import Image2 from "../../../../assets/image5.png";
+import { useNavigate } from "react-router-dom";
+
+const API_URL = "http://localhost:3000";
 
 const CartContent = () => {
-    const [cartProduct, setCartProduct] = useState([
-        {
-            productId: 1,
-            name: "Iphone 1",
-            color: "Black",
-            quantity: 1,
-            price: 999,
-            image: Image1
-        },
-        {
-            productId: 2,
-            name: "Iphone 2",
-            color: "Pink",
-            quantity: 1,
-            price: 1800,
-            image: Image2
-        },
-        {
-            productId: 3,
-            name: "Iphone 3",
-            color: "Blue",
-            quantity: 1,
-            price: 2700,
-            image: Image1
-        }
-    ]);
+    const [cartProduct, setCartProduct] = useState([]);
+    const navigate = useNavigate();
+    // Fetch giỏ hàng từ API
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                const resCart = await fetch(`${API_URL}/cart`);
+                const cartData = await resCart.json();
+
+                const resProducts = await fetch(`${API_URL}/products`);
+                const productsData = await resProducts.json();
+
+                // Nối dữ liệu sản phẩm vào giỏ hàng
+                const cartWithProducts = cartData.map(cartItem => {
+                    const product = productsData.find(p => p.id === cartItem.productId);
+                    return {
+                        ...cartItem,
+                        name: product?.name || "Unknown Product",
+                        price: product?.price || 0,
+                        image: product?.imageUrl || "",
+                    };
+                });
+
+                setCartProduct(cartWithProducts);
+            } catch (error) {
+                console.error("Lỗi khi fetch giỏ hàng:", error);
+            }
+        };
+
+        fetchCart();
+    }, []);
 
     // Xóa sản phẩm
-    const handleRemove = (id) => {
-        setCartProduct(cartProduct.filter(product => product.productId !== id));
+    const handleRemove = async (id) => {
+        try {
+            await fetch(`${API_URL}/cart/${id}`, { method: "DELETE" });
+            setCartProduct(cartProduct.filter(product => product.id !== id));
+        } catch (error) {
+            console.error("Lỗi khi xóa sản phẩm:", error);
+        }
     };
 
-    // Thay đổi số lượng
-    const handleQuantityChange = (id, amount) => {
-        setCartProduct(cartProduct.map(product =>
-            product.productId === id
-                ? { ...product, quantity: Math.max(1, product.quantity + amount) }
-                : product
-        ));
+    // Cập nhật số lượng
+    const handleQuantityChange = async (id, amount) => {
+        const updatedCart = cartProduct.map(product =>
+            product.id === id ? { ...product, quantity: Math.max(1, product.quantity + amount) } : product
+        );
+
+        setCartProduct(updatedCart);
+
+        const updatedProduct = updatedCart.find(p => p.id === id);
+        if (updatedProduct) {
+            await fetch(`${API_URL}/cart/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ quantity: updatedProduct.quantity })
+            });
+        }
     };
 
     return (
@@ -52,22 +72,21 @@ const CartContent = () => {
                 <p className="text-center text-muted">Giỏ hàng trống</p>
             ) : (
                 cartProduct.map((product) => (
-                    <div key={product.productId} className="d-flex justify-content-between align-items-start border-bottom py-3">
+                    <div key={product.id} className="d-flex justify-content-between align-items-start border-bottom py-3">
                         <div className="d-flex align-items-start">
                             <img src={product.image} className="img-thumbnail me-3" alt={product.name} width="80" height="100" />
                             <div>
                                 <h5>{product.name}</h5>
-                                <p className="text-muted mb-2">Màu: {product.color}</p>
                                 <div className="d-flex align-items-center">
-                                    <button className="btn btn-outline-secondary btn-sm" onClick={() => handleQuantityChange(product.productId, -1)}>-</button>
+                                    <button className="btn btn-outline-secondary btn-sm" onClick={() => handleQuantityChange(product.id, -1)}>-</button>
                                     <span className="mx-3">{product.quantity}</span>
-                                    <button className="btn btn-outline-secondary btn-sm" onClick={() => handleQuantityChange(product.productId, 1)}>+</button>
+                                    <button className="btn btn-outline-secondary btn-sm" onClick={() => handleQuantityChange(product.id, 1)}>+</button>
                                 </div>
                             </div>
                         </div>
                         <div className="text-end">
                             <p className="fw-bold">$ {product.price.toLocaleString()}</p>
-                            <button className="btn btn-link text-danger p-0" onClick={() => handleRemove(product.productId)}>
+                            <button className="btn btn-link text-danger p-0" onClick={() => handleRemove(product.id)}>
                                 <RiDeleteBin3Line size={24} />
                             </button>
                         </div>
