@@ -126,5 +126,13 @@
       "price": "30000",
       "status": "Processing"
     }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "userId": 7,
+      "productId": 3,
+      "quantity": 1
+    }
   ]
 }
