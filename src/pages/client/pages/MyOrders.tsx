@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaTrash } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
 const MyOrders = () => {
   const [cartItems, setCartItems] = useState([
     {
