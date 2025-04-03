@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const MyOrders = () => {
   const [cartItems, setCartItems] = useState([
@@ -52,13 +53,13 @@ const MyOrders = () => {
   const totalPrice = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const nav = useNavigate();
   // Xử lý thanh toán
-  const handleCheckout = () => {
+  const handleInfo = () => {
     if (selectedItems.length === 0) {
       alert("Vui lòng chọn ít nhất một sản phẩm để thanh toán!");
       return;
     }
+    nav("/client/info")
     console.log("Thanh toán các sản phẩm:", selectedItems);
-    nav("/client/checkout")
   };
 
   return (
@@ -105,7 +106,7 @@ const MyOrders = () => {
 
       <div className="mt-4 d-flex justify-content-between align-items-center">
         <h4 className="fw-bold">Tạm tính: {totalPrice.toLocaleString()}đ</h4>
-        <button className="btn btn-danger btn-lg" onClick={handleCheckout}>
+        <button className="btn btn-danger btn-lg" onClick={handleInfo}>
           Mua ngay ({selectedItems.length})
         </button>
       </div>
