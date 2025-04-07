@@ -231,9 +231,17 @@
   ],
   "orders": [
     {
-      "id": 11,
+      "id": 1,
       "user": "user1",
-      "product": "Product",
+      "product": "Product 1",
+      "address": "123 Main",
+      "price": "30000",
+      "status": "Processing"
+    },
+    {
+      "id": 2,
+      "user": "user2",
+      "product": "Product 2",
       "address": "123 Main",
       "price": "30000",
       "status": "Processing"
@@ -243,13 +251,13 @@
     {
       "id": 1,
       "userId": 7,
-      "productId": 10,
+      "productId": 1,
       "quantity": 1
     },
     {
       "id": 2,
       "userId": 7,
-      "productId": 11,
+      "productId": 2,
       "quantity": 1
     }
   ]
