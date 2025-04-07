@@ -92,7 +92,7 @@ const routeConfig = [
       { path: "/client/login", element: <LoginUser /> },
       { path: "/client/register", element: <RegisterUser /> },
       { path: "/client/product", element: <ListProduct /> },
-      { path: "/product/:productId", element: <ProductDetailId /> },
+      { path: "/product/:id", element: <ProductDetailId /> },
       { path: "/client/profile", element: <Profile /> },
       { path: "/client/order", element: <MyOrders /> },
       { path: "/client/info", element: <Info /> },
