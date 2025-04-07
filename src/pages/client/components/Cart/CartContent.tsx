@@ -15,7 +15,7 @@ const CartContent = () => {
                 const resCart = await fetch(`${API_URL}/cart`);
                 const cartData = await resCart.json();
 
-                const resProducts = await fetch(`${API_URL}/products`);
+                const resProducts = await fetch(`${API_URL}/orders`);
                 const productsData = await resProducts.json();
 
                 // Nối dữ liệu sản phẩm vào giỏ hàng
@@ -25,7 +25,7 @@ const CartContent = () => {
                         ...cartItem,
                         name: product?.name || "Unknown Product",
                         price: product?.price || 0,
-                        image: product?.imageUrl || "",
+                        image: product?.image || "",
                     };
                 });
 

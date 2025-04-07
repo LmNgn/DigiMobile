@@ -233,18 +233,26 @@
     {
       "id": 1,
       "user": "user1",
-      "product": "Product 1",
+      "product": "Samsung Galaxy S24 Ultra 12GB 256GB",
       "address": "123 Main",
-      "price": "30000",
-      "status": "Processing"
+      "price": 30000,
+      "oldPrice": 33990000,
+      "status": "Processing",
+      "image": "https://picsum.photos/id/237/500/500",
+      "quantity": 1,
+      "selected": false
     },
     {
       "id": 2,
       "user": "user2",
-      "product": "Product 2",
-      "address": "123 Main",
-      "price": "30000",
-      "status": "Processing"
+      "product": "Xiaomi 14T Pro - Xám",
+      "address": "456 Main",
+      "price": 22990000,
+      "oldPrice": 25990000,
+      "status": "Shipped",
+      "image": "https://picsum.photos/id/237/500/500",
+      "quantity": 1,
+      "selected": false
     }
   ],
   "cart": [
