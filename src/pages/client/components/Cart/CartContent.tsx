@@ -23,7 +23,7 @@ const CartContent = () => {
                     const product = productsData.find(p => p.id === cartItem.productId);
                     return {
                         ...cartItem,
-                        name: product?.name || "Unknown Product",
+                        name: product?.product || "Unknown Product",
                         price: product?.price || 0,
                         image: product?.image || "",
                     };
