@@ -1,4 +1,3 @@
-import React from 'react';
 import { IoLogoInstagram } from 'react-icons/io';
 import { RiTwitterXLine } from 'react-icons/ri';
 import { TbBrandMeta } from 'react-icons/tb';
@@ -27,7 +26,7 @@ const Footer = () => {
               <li><Link to="#" className="text-decoration-none text-muted">Ứng dụng</Link></li>
               <li><Link to="#" className="text-decoration-none text-muted">Tài chính</Link></li>
               <li><Link to="#" className="text-decoration-none text-muted">Tình trạng đơn hàng</Link></li>
-              <li><Link to="#" className="text-decoration-none text-muted">Hỗ trợ mua hànghàng</Link></li>
+              <li><Link to="#" className="text-decoration-none text-muted">Hỗ trợ mua hàng</Link></li>
             </ul>
           </div>
 
@@ -62,11 +61,7 @@ const Footer = () => {
         </div>
 
         <div className="border-top pt-4 mt-4 text-center text-muted">
-          <p className="small">Bản quyền © Mantes. 2025 Bảo lưu mọi quyền.<br/>
-          Công Ty TNHH Việt Nam -
-          ĐKKD số 0313510827, do Sở KH&ĐT thành phố Hồ Chí Minh cấp ngày 28 tháng 10 năm 2015 -
-          Giấy phép kinh doanh số 0313510827/KD-0137 do Sở Công Thương thành phố Hồ Chí Minh cấp ngày 23 tháng 5 năm 2018 -
-          Địa chỉ: Phòng 901, Ngôi Nhà Đức Tại Tp. Hồ Chí Minh, số 33, đường Lê Duẩn, Phường Bến Nghé, Quận 1, thành phố Hồ Chí Minh, Việt Nam </p>
+          <p className="small">Bản quyền © DigiMobile. 2025 Bảo lưu mọi quyền.</p>
         </div>
       </div>
     </footer>

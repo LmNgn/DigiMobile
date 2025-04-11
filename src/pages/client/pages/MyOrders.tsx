@@ -1,114 +1,111 @@
-import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cartContext";
+import { Cart } from "../../../types/Cart";
+import { message } from "antd";
+
 const MyOrders = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Samsung Galaxy S24 Ultra 12GB 256GB",
-      image: "https://picsum.photos/200/300",
-      price: 22990000,
-      oldPrice: 33990000,
-      quantity: 1,
-      selected: false,
-    },
-    {
-      id: 2,
-      name: "Xiaomi 14T Pro - Xám",
-      image: "https://picsum.photos/200/300",
-      price: 14490000,
-      oldPrice: 17990000,
-      quantity: 1,
-      selected: false,
-    },
-  ]);
+  const { state, updateQuantity } = useCart();
+  const cartItems = state.carts as Cart[];
 
-  // Cập nhật số lượng sản phẩm
-  const updateQuantity = (id, change) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
-      )
-    );
-  };
+  const navigate = useNavigate();
 
-  // Xóa sản phẩm khỏi giỏ hàng
-  const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  const handleQuantityChange = (id: number, change: number) => {
+    const item = cartItems.find((i) => i.id === id);
+    if (!item) return;
 
-  // Chọn/bỏ chọn sản phẩm để thanh toán
-  const toggleSelectItem = (id) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, selected: !item.selected } : item
-      )
-    );
-  };
+    const newQuantity = item.quantity + change;
 
-  // Tính tổng tiền sản phẩm được chọn
-  const selectedItems = cartItems.filter((item) => item.selected);
-  const totalPrice = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const nav = useNavigate();
-  // Xử lý thanh toán
-  const handleCheckout = () => {
-    if (selectedItems.length === 0) {
-      alert("Vui lòng chọn ít nhất một sản phẩm để thanh toán!");
+    if (newQuantity < 1) {
+      // Nếu giảm xuống 0 thì tự xoá sản phẩm
+      updateQuantity(id, 0);
+      message.info("Đã xoá sản phẩm khỏi giỏ hàng.");
       return;
     }
-    console.log("Thanh toán các sản phẩm:", selectedItems);
-    nav("/client/checkout")
+
+    updateQuantity(id, newQuantity);
+  };
+
+  const handleRemoveItem = (id: number) => {
+    updateQuantity(id, 0);
+    message.success("Đã xoá sản phẩm.");
+  };
+
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.product.price * item.quantity,
+    0
+  );
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      message.error("Vui lòng chọn ít nhất một sản phẩm để thanh toán!");
+      return;
+    }
+    navigate("/client/checkout");
   };
 
   return (
     <div className="container py-4">
       <h2 className="mb-4">Giỏ hàng của bạn</h2>
-      <div className="list-group shadow-sm">
-        {cartItems.map((item) => (
-          <div key={item.id} className="list-group-item d-flex align-items-center">
-            <input
-              type="checkbox"
-              className="form-check-input me-2"
-              checked={item.selected}
-              onChange={() => toggleSelectItem(item.id)}
-            />
-            <img src={item.image} alt={item.name} className="me-3 rounded" width="80" />
-            <div className="flex-grow-1">
-              <h5>{item.name}</h5>
-              <p>
-                <strong className="text-danger">{item.price.toLocaleString()}đ</strong>{" "}
-                <del className="text-muted">{item.oldPrice.toLocaleString()}đ</del>
-              </p>
-              <div className="d-flex align-items-center">
+
+      {cartItems.length === 0 ? (
+        <p className="text-muted text-center">Giỏ hàng hiện đang trống.</p>
+      ) : (
+        <>
+          <div className="list-group shadow-sm">
+            {cartItems.map((item) => (
+              <div
+                key={item.id}
+                className="list-group-item d-flex align-items-center"
+              >
+                <img
+                  src={item.product.imageUrl}
+                  alt={item.product.name}
+                  className="me-3 rounded"
+                  width="80"
+                />
+                <div className="flex-grow-1">
+                  <h5>{item.product.name}</h5>
+                  <p className="text-danger fw-bold">
+                    {item.product.price.toLocaleString()}đ
+                  </p>
+                  <div className="d-flex align-items-center">
+                    <button
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() => handleQuantityChange(item.id!, -1)}
+                    >
+                      -
+                    </button>
+                    <span className="mx-2">{item.quantity}</span>
+                    <button
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() => handleQuantityChange(item.id!, 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {/* Nút xoá */}
                 <button
-                  className="btn btn-outline-secondary btn-sm"
-                  onClick={() => updateQuantity(item.id, -1)}
+                  className="btn btn-outline-danger btn-sm ms-3"
+                  onClick={() => handleRemoveItem(item.id!)}
                 >
-                  -
-                </button>
-                <span className="mx-2">{item.quantity}</span>
-                <button
-                  className="btn btn-outline-secondary btn-sm"
-                  onClick={() => updateQuantity(item.id, 1)}
-                >
-                  +
+                  <FaTrash />
                 </button>
               </div>
-            </div>
-            <button className="btn btn-outline-danger btn-sm" onClick={() => removeItem(item.id)}>
-              <FaTrash />
+            ))}
+          </div>
+
+          <div className="mt-4 d-flex justify-content-between align-items-center">
+            <h4 className="fw-bold">Tạm tính: {totalPrice.toLocaleString()}đ</h4>
+            <button className="btn btn-danger btn-lg" onClick={handleCheckout}>
+              Mua ngay ({cartItems.length})
             </button>
           </div>
-        ))}
-      </div>
-
-      <div className="mt-4 d-flex justify-content-between align-items-center">
-        <h4 className="fw-bold">Tạm tính: {totalPrice.toLocaleString()}đ</h4>
-        <button className="btn btn-danger btn-lg" onClick={handleCheckout}>
-          Mua ngay ({selectedItems.length})
-        </button>
-      </div>
+        </>
+      )}
     </div>
   );
 };

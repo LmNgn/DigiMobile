@@ -9,6 +9,7 @@ function Header() {
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       message.success("Đăng xuất thành công!");
       nav("/admin/login");
     }

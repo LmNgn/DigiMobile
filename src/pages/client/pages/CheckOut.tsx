@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useCart } from "../context/cartContext";
+import { useUser } from "../context/userContext";
 
 const CheckOut = () => {
   const [shippingMethod, setShippingMethod] = useState("store");
+  const { state: { carts } } = useCart();
+  const { user } = useUser();
+
+  const total = useMemo(() => {
+    return carts.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  }, [carts]);
+
+  const shippingFee = shippingMethod === "home" ? 30000 : 0;
+  const finalTotal = total + shippingFee;
 
   return (
     <div className="container mt-4">
@@ -12,22 +23,26 @@ const CheckOut = () => {
         <div className="progress-bar bg-secondary w-50">2. THANH TOÁN</div>
       </div>
 
-      <div className="card p-3 mb-3">
-        <div className="d-flex">
-          <img src="https://picsum.photos/80" alt="Product" className="me-3" />
-          <div>
-            <h5>realme C65 8GB 256GB-Đen</h5>
-            <p className="text-danger fw-bold">3.650.000đ <del className="text-muted">5.290.000đ</del></p>
-            <p>Số lượng: 1</p>
+      {carts.map((item) => (
+        <div key={item.id} className="card p-3 mb-3">
+          <div className="d-flex">
+            <img src={item.product.imageUrl} alt="Product" className="me-3" width={80} />
+            <div>
+              <h5>{item.product.name}</h5>
+              <p className="text-danger fw-bold">
+                {item.product.price.toLocaleString()}đ
+              </p>
+              <p>Số lượng: {item.quantity}</p>
+            </div>
           </div>
         </div>
-      </div>
+      ))}
 
       <h5>Thông tin khách hàng</h5>
       <div className="card p-3 mb-3">
-        <p className="fw-bold">Nguyễn Khôi</p>
-        <p>Email: khoi30925@gmail.com</p>
-        <p>Số điện thoại: 0946911816</p>
+        <p className="fw-bold">{user?.email?.split("@")[0]}</p>
+        <p>Email: {user?.email}</p>
+        <p>Số điện thoại: 0946911816</p> {/* Có thể cho user nhập nếu cần */}
         <div className="form-check">
           <input type="checkbox" className="form-check-input" id="subscribe" />
           <label className="form-check-label" htmlFor="subscribe">
@@ -40,11 +55,25 @@ const CheckOut = () => {
       <div className="card p-3 mb-3">
         <div className="d-flex">
           <div className="form-check me-3">
-            <input type="radio" id="store" name="shipping" className="form-check-input" checked={shippingMethod === "store"} onChange={() => setShippingMethod("store")} />
+            <input
+              type="radio"
+              id="store"
+              name="shipping"
+              className="form-check-input"
+              checked={shippingMethod === "store"}
+              onChange={() => setShippingMethod("store")}
+            />
             <label className="form-check-label" htmlFor="store">Nhận tại cửa hàng</label>
           </div>
           <div className="form-check">
-            <input type="radio" id="home" name="shipping" className="form-check-input" checked={shippingMethod === "home"} onChange={() => setShippingMethod("home")} />
+            <input
+              type="radio"
+              id="home"
+              name="shipping"
+              className="form-check-input"
+              checked={shippingMethod === "home"}
+              onChange={() => setShippingMethod("home")}
+            />
             <label className="form-check-label" htmlFor="home">Giao hàng tận nơi</label>
           </div>
         </div>
@@ -71,10 +100,20 @@ const CheckOut = () => {
       </div>
 
       <div className="card p-3 mt-3">
+        <div className="d-flex justify-content-between mb-2">
+          <span>Tạm tính:</span>
+          <span>{total.toLocaleString()}đ</span>
+        </div>
+        <div className="d-flex justify-content-between mb-2">
+          <span>Phí vận chuyển:</span>
+          <span>{shippingFee.toLocaleString()}đ</span>
+        </div>
+        <hr />
         <h5 className="d-flex justify-content-between">
-          <span>Tổng tiền tạm tính:</span> <span className="text-danger">3.650.000đ</span>
+          <span>Tổng cộng:</span>
+          <span className="text-danger">{finalTotal.toLocaleString()}đ</span>
         </h5>
-        <button className="btn btn-danger w-100 mt-2">Tiếp tục</button>
+        <button className="btn btn-danger w-100 mt-3">Tiếp tục</button>
       </div>
     </div>
   );

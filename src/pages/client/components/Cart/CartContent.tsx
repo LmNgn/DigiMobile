@@ -1,100 +1,88 @@
-import React, { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { RiDeleteBin3Line } from "react-icons/ri";
+import { useCart } from "../../context/cartContext";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
-
-const API_URL = "http://localhost:3000";
 
 const CartContent = () => {
-    const [cartProduct, setCartProduct] = useState([]);
-    const navigate = useNavigate();
-    // Fetch giỏ hàng từ API
-    useEffect(() => {
-        const fetchCart = async () => {
-            try {
-                const resCart = await fetch(`${API_URL}/cart`);
-                const cartData = await resCart.json();
+  const {
+    state: { carts },
+    updateQuantity,
+  } = useCart();
 
-                const resProducts = await fetch(`${API_URL}/products`);
-                const productsData = await resProducts.json();
-
-                // Nối dữ liệu sản phẩm vào giỏ hàng
-                const cartWithProducts = cartData.map(cartItem => {
-                    const product = productsData.find(p => p.id === cartItem.productId);
-                    return {
-                        ...cartItem,
-                        name: product?.name || "Unknown Product",
-                        price: product?.price || 0,
-                        image: product?.imageUrl || "",
-                    };
-                });
-
-                setCartProduct(cartWithProducts);
-            } catch (error) {
-                console.error("Lỗi khi fetch giỏ hàng:", error);
-            }
-        };
-
-        fetchCart();
-    }, []);
-
-    // Xóa sản phẩm
-    const handleRemove = async (id) => {
-        try {
-            await fetch(`${API_URL}/cart/${id}`, { method: "DELETE" });
-            setCartProduct(cartProduct.filter(product => product.id !== id));
-        } catch (error) {
-            console.error("Lỗi khi xóa sản phẩm:", error);
-        }
-    };
-
-    // Cập nhật số lượng
-    const handleQuantityChange = async (id, amount) => {
-        const updatedCart = cartProduct.map(product =>
-            product.id === id ? { ...product, quantity: Math.max(1, product.quantity + amount) } : product
-        );
-
-        setCartProduct(updatedCart);
-
-        const updatedProduct = updatedCart.find(p => p.id === id);
-        if (updatedProduct) {
-            await fetch(`${API_URL}/cart/${id}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ quantity: updatedProduct.quantity })
-            });
-        }
-    };
-
-    return (
-        <div className="container">
-            {cartProduct.length === 0 ? (
-                <p className="text-center text-muted">Giỏ hàng trống</p>
-            ) : (
-                cartProduct.map((product) => (
-                    <div key={product.id} className="d-flex justify-content-between align-items-start border-bottom py-3">
-                        <div className="d-flex align-items-start">
-                            <img src={product.image} className="img-thumbnail me-3" alt={product.name} width="80" height="100" />
-                            <div>
-                                <h5>{product.name}</h5>
-                                <div className="d-flex align-items-center">
-                                    <button className="btn btn-outline-secondary btn-sm" onClick={() => handleQuantityChange(product.id, -1)}>-</button>
-                                    <span className="mx-3">{product.quantity}</span>
-                                    <button className="btn btn-outline-secondary btn-sm" onClick={() => handleQuantityChange(product.id, 1)}>+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="text-end">
-                            <p className="fw-bold">$ {product.price.toLocaleString()}</p>
-                            <button className="btn btn-link text-danger p-0" onClick={() => handleRemove(product.id)}>
-                                <RiDeleteBin3Line size={24} />
-                            </button>
-                        </div>
-                    </div>
-                ))
-            )}
-        </div>
+  const total = useMemo(() => {
+    return carts.reduce(
+      (sum: number, item: any) => sum + item.product.price * item.quantity,
+      0
     );
+  }, [carts]);
+
+  return (
+    <div className="container">
+      {carts.length === 0 ? (
+        <p className="text-center text-muted">Giỏ hàng trống</p>
+      ) : (
+        <>
+          {carts.map((item: any) => (
+            <div
+              key={item.id}
+              className="d-flex justify-content-between align-items-start border-bottom py-3"
+            >
+              {/* Hình ảnh + Tên + Điều chỉnh SL */}
+              <div className="d-flex align-items-start">
+                <img
+                  src={item.product.imageUrl}
+                  className="img-thumbnail me-3"
+                  alt={item.product.name}
+                  width="80"
+                  height="100"
+                />
+                <div>
+                  <h6 className="fw-semibold">{item.product.name}</h6>
+                  <div className="d-flex align-items-center mt-2">
+                    <button
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() =>
+                        updateQuantity(item.id, item.quantity - 1)
+                      }
+                    >
+                      -
+                    </button>
+                    <span className="mx-3">{item.quantity}</span>
+                    <button
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={() =>
+                        updateQuantity(item.id, item.quantity + 1)
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Giá + nút xoá */}
+              <div className="text-end">
+                <p className="fw-bold text-danger mb-2">
+                  ₫ {item.product.price.toLocaleString()}
+                </p>
+                <button
+                  className="btn btn-link text-danger p-0"
+                  onClick={() => updateQuantity(item.id, 0)} // 👈 Gọi context xoá
+                >
+                  <RiDeleteBin3Line size={20} />
+                </button>
+              </div>
+            </div>
+          ))}
+
+          {/* Tổng tiền */}
+          <div className="text-end mt-4">
+            <h5 className="fw-bold">Tổng cộng: ₫ {total.toLocaleString()}</h5>
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default CartContent;

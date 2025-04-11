@@ -3,7 +3,6 @@ import contentImage1 from '../../../../assets/image4.png'
 import contentImage2 from '../../../../assets/image5.png'
 import { Container, Row, Col } from 'react-bootstrap';
 
-import React from 'react'
 
 const RenderImage = () => {
   return (
@@ -17,7 +16,7 @@ const RenderImage = () => {
             </div>
             <div className="position-absolute bottom-0 start-0 bg-white bg-opacity-75 p-3 m-3 rounded">
               <h2 className="h5 fw-bold text-dark m-0">iPhone 1</h2>
-              <Link to="#" className="text-dark text-decoration-underline small">Shop Now</Link>
+              <Link to="#" className="text-dark text-decoration-underline small">Mua ngay</Link>
             </div>
           </Col>
 
@@ -28,7 +27,7 @@ const RenderImage = () => {
             </div>
             <div className="position-absolute bottom-0 start-0 bg-white bg-opacity-75 p-3 m-3 rounded">
               <h2 className="h5 fw-bold text-dark m-0">iPhone 2</h2>
-              <Link to="#" className="text-dark text-decoration-underline small">Shop Now</Link>
+              <Link to="#" className="text-dark text-decoration-underline small">Mua ngay</Link>
             </div>
           </Col>
         </Row>

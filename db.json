@@ -115,6 +115,15 @@
       "repassword": "123123",
       "terms": true,
       "id": 8
+    },
+    {
+      "email": "123123@gmail.com",
+      "password": "$2a$10$Q7uFxrblKLtRWA580k.Fpu/12wcZVa.toDF/53mAEVCxagpaHwdWa",
+      "name": "Điện thoại",
+      "phone": "123123",
+      "role": "customer",
+      "status": true,
+      "id": 9
     }
   ],
   "orders": [
@@ -127,7 +136,7 @@
       "status": "Processing"
     }
   ],
-  "cart": [
+  "carts": [
     {
       "id": 1,
       "userId": 7,
@@ -139,6 +148,27 @@
       "userId": 7,
       "productId": 11,
       "quantity": 1
+    },
+    {
+      "userId": 5,
+      "product": {
+        "name": "Điện thoại",
+        "price": "1231",
+        "imageUrl": "https://picsum.photos/id/237/200/300",
+        "category": "Xiaomi",
+        "inStock": true,
+        "ram": "4",
+        "memory": "",
+        "battery": "123",
+        "screen": {
+          "size": "123",
+          "resolution": "HD",
+          "rate": "Tần số quét"
+        },
+        "id": 11
+      },
+      "quantity": 5,
+      "id": 3
     }
   ]
 }
