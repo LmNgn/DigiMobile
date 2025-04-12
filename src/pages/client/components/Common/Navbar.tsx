@@ -1,27 +1,34 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   HiOutlineUser,
   HiOutlineShoppingBag,
   HiBars3BottomRight,
-} from 'react-icons/hi2'
-import SearchBar from './SearchBar'
-import CartDrawer from '../Layout/CartDrawer'
-import { useCart } from '../../context/cartContext'
-import { useUser } from '../../context/userContext'
+  HiMiniKey,
+
+} from "react-icons/hi2";
+import SearchBar from "./SearchBar";
+import CartDrawer from "../Layout/CartDrawer";
+import { useCart } from "../../context/cartContext";
+import { useUser } from "../../context/userContext";
 
 const Navbar = () => {
-  const [drawOpen, setDrawOpen] = useState(false)
-  const [navDraw, setNavDraw] = useState(false)
+  const nav = useNavigate();
+  const [drawOpen, setDrawOpen] = useState(false);
+  const [navDraw, setNavDraw] = useState(false);
 
-  const { state } = useCart()
-  const { user, loading } = useUser() 
+  const { state } = useCart();
+  const { user, loading } = useUser();
 
-  const totalItems = state.carts.reduce((sum, item) => sum + item.quantity, 0)
+  const totalItems = state.carts.reduce((sum, item) => sum + item.quantity, 0);
 
-  const toggleNavDraw = () => setNavDraw(!navDraw)
-  const toggleCart = () => setDrawOpen(!drawOpen)
-
+  const toggleNavDraw = () => setNavDraw(!navDraw);
+  const toggleCart = () => setDrawOpen(!drawOpen);
+  const toAdmin = () => {
+    if (confirm("Chuyển sang trang quản trị?")) {
+      nav("/admin");
+    }
+  };
   return (
     <>
       <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -30,32 +37,50 @@ const Navbar = () => {
             DigiMobile
           </Link>
 
-          <button className="navbar-toggler" type="button" onClick={toggleNavDraw}>
+          <button
+            className="navbar-toggler"
+            type="button"
+            onClick={toggleNavDraw}
+          >
             <HiBars3BottomRight className="h-6 w-6" />
           </button>
 
-          <div className={`collapse navbar-collapse ${navDraw ? 'show' : ''}`}>
+          <div className={`collapse navbar-collapse ${navDraw ? "show" : ""}`}>
             <ul className="navbar-nav mx-auto">
               <li className="nav-item">
-                <Link to="/" className="nav-link">Trang chủ</Link>
+                <Link to="/" className="nav-link">
+                  Trang chủ
+                </Link>
               </li>
               <li className="nav-item">
-                <Link to="/product" className="nav-link">Sản phẩm</Link>
+                <Link to="/product" className="nav-link">
+                  Sản phẩm
+                </Link>
               </li>
               <li className="nav-item">
-                <Link to="#" className="nav-link">Về chúng tôi</Link>
+                <Link to="#" className="nav-link">
+                  Về chúng tôi
+                </Link>
               </li>
               <li className="nav-item">
-                <Link to="#" className="nav-link">Liên hệ</Link>
+                <Link to="#" className="nav-link">
+                  Liên hệ
+                </Link>
               </li>
             </ul>
           </div>
 
           <div className="d-flex align-items-center gap-2">
             {/* Nếu là admin0 hoặc admin1 thì hiện nút admin */}
-            {!loading && (user?.role === "admin0" || user?.role === "admin1") && (
-              <Link to="/admin" className="btn btn-outline-dark me-2">Admin</Link>
-            )}
+            {!loading &&
+              (user?.role === "admin0" || user?.role === "admin1") && (
+                <button
+                  onClick={() => toAdmin()}
+                  className="btn btn-link text-dark"
+                >
+                  <HiMiniKey className="h-6 w-6"/>
+                </button>
+              )}
 
             {/* Nút profile */}
             {!loading && user ? (
@@ -96,7 +121,7 @@ const Navbar = () => {
       {/* Drawer giỏ hàng */}
       <CartDrawer drawOpen={drawOpen} toggleCart={toggleCart} />
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

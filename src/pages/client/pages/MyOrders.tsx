@@ -38,7 +38,7 @@ const MyOrders = () => {
   );
 
   const handleCheckout = () => {
-    navigate("/checkout");
+    navigate("/info");
   };
 
   return (
