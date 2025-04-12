@@ -1,15 +1,15 @@
 import React from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import CartContent from '../Cart/CartContent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CartDrawer = ({ drawOpen, toggleCart }) => {
-  const navigate = useNavigate(); // Hook điều hướng trang
+  const navigate = useNavigate();
 
   const handleCheckout = () => {
     toggleCart(); // Đóng giỏ hàng trước khi chuyển trang
-    navigate('/client/order'); // Chuyển sang trang thanh toán
+    navigate('/client/order');
   };
 
   return (

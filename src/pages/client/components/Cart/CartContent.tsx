@@ -8,7 +8,7 @@ const API_URL = "http://localhost:3000";
 const CartContent = () => {
     const [cartProduct, setCartProduct] = useState([]);
     const navigate = useNavigate();
-    // Fetch giỏ hàng từ API
+    
     useEffect(() => {
         const fetchCart = async () => {
             try {
@@ -38,7 +38,6 @@ const CartContent = () => {
         fetchCart();
     }, []);
 
-    // Xóa sản phẩm
     const handleRemove = async (id) => {
         try {
             await fetch(`${API_URL}/cart/${id}`, { method: "DELETE" });
@@ -48,7 +47,6 @@ const CartContent = () => {
         }
     };
 
-    // Cập nhật số lượng
     const handleQuantityChange = async (id, amount) => {
         const updatedCart = cartProduct.map(product =>
             product.id === id ? { ...product, quantity: Math.max(1, product.quantity + amount) } : product

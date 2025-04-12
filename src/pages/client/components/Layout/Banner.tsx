@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 const Banner = () => {
   return (
     <section className="position-relative overflow-hidden" style={{ height: "600px" }}>
-      {/* Ảnh nền */}
       <img
         src={bannerImg}
         className="img-fluid w-100 h-100"
@@ -12,7 +11,6 @@ const Banner = () => {
         style={{ objectFit: "cover" }}
       />
 
-      {/* Lớp phủ */}
       <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center text-center">
         <div>
           <h1 className="display-3 fw-bold text-uppercase text-white">

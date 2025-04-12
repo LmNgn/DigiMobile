@@ -47,7 +47,6 @@ const NewContent = () => {
             updateScrollButtons();
         }
 
-        // Lắng nghe sự kiện resize để cập nhật lại trạng thái nút cuộn
         window.addEventListener("resize", updateScrollButtons);
 
         return () => {

@@ -29,7 +29,20 @@ const MyOrders = () => {
 
   // Xóa sản phẩm khỏi giỏ hàng
   const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    fetch(`http://localhost:3000/orders/${id}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Xóa sản phẩm không thành công");
+      }
+      // Nếu xóa thành công, cập nhật lại giỏ hàng trên UI
+      setCartItems((prev) => prev.filter((item) => item.id !== id));
+    })
+    .catch((error) => {
+      console.error("Lỗi khi xóa sản phẩm:", error);
+      alert("Có lỗi khi xóa sản phẩm!");
+    });
   };
 
   // Chọn/bỏ chọn sản phẩm để thanh toán
