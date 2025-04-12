@@ -39,7 +39,7 @@ import MyOrders from "./pages/client/pages/MyOrders";
 import LoginUser from "./pages/client/pages/LoginUser";
 import RegisterUser from "./pages/client/pages/RegisterUser";
 import CheckOut from "./pages/client/pages/CheckOut";
-import Info from "./pages/client/pages/Info";
+import OrderInfo from "./pages/client/pages/Info";
 
 //============================00============================
 
@@ -89,14 +89,14 @@ const routeConfig = [
     element: <UserLayout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/client/login", element: <LoginUser /> },
-      { path: "/client/register", element: <RegisterUser /> },
-      { path: "/client/product", element: <ListProduct /> },
+      { path: "login", element: <LoginUser /> },
+      { path: "register", element: <RegisterUser /> },
+      { path: "product", element: <ListProduct /> },
       { path: "/product/:id", element: <ProductDetailId /> },
-      { path: "/client/profile", element: <Profile /> },
-      { path: "/client/order", element: <MyOrders /> },
-      { path: "/client/info", element: <Info /> },
-      { path: "/client/checkout", element: <CheckOut /> },
+      { path: "profile", element: <Profile /> },
+      { path: "order", element: <MyOrders /> },
+      { path: "info", element: <OrderInfo /> },
+      { path: "checkout", element: <CheckOut /> },
     ],
   },
 ];

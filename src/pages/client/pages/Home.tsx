@@ -1,4 +1,3 @@
-import React from 'react'
 import Banner from '../components/Layout/Banner'
 import RenderImage from '../components/Product/RenderImage'
 import NewContent from '../components/Product/NewContent'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { HiMagnifyingGlass, HiMiniXMark } from 'react-icons/hi2';
 
 const SearchBar = () => {
@@ -9,7 +9,7 @@ const SearchBar = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleSearchToggle = (e) => {
+    const handleSearchToggle = (e:any) => {
         e.preventDefault();
         console.log("Search:", searchs);
         setIsOpen(false);

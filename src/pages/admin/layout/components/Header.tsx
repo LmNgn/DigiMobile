@@ -9,6 +9,7 @@ function Header() {
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       message.success("Đăng xuất thành công!");
       nav("/admin/login");
     }
@@ -22,14 +23,18 @@ function Header() {
     }
   }, []);
   const user = JSON.parse(localStorage.getItem("user") || "{}");
-
+  const returnClient = () => {
+    if (confirm("Quay về trang chính?")) {
+      nav("/");
+    }
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid d-flex justify-content-between">
         {/* Logo */}
         <div
           className="d-flex align-items-center logo-container"
-          onClick={() => nav("/admin")}
+          onClick={() => returnClient()}
           style={{ cursor: "pointer" }}
         >
           <img
