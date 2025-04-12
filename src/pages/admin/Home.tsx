@@ -1,8 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, LineChart, Line } from "recharts";
+import { useList } from "./hooks/useList";
 function Home() {
+  const { data: products = [] } = useList({ resource: "products" });
+  const { data: users = [] } = useList({ resource: "users" });
+  const { data: orders = [] } = useList({ resource: "orders" });
+
   const profitData = [
     { day: "Mon", profit: 8, expense: 3 },
     { day: "Tue", profit: 6, expense: 5 },
@@ -28,13 +32,9 @@ function Home() {
     { day: "Sun", sales: 620 },
   ];
 
-  const clients = [
-    { id: 1, name: "Sunil Joshi", address: "Số 1 Lê Thái Tổ, Quận Hoàn Kiếm, Hà Nội", priority: "Low", budget: "$3.9k" },
-    { id: 2, name: "Andrew McDownland", address: "Số 25 Tông Đản, Quận Hoàn Kiếm, Hà Nội", priority: "Medium", budget: "$24.5k" },
-    { id: 3, name: "Christopher Jamil", address: "Số 18 Ngọc Hà, Quận Ba Đình, Hà Nội", priority: "High", budget: "$12.8k" },
-    { id: 4, name: "Nirav Joshi", address: "Số 1 Tràng Tiền, Quận Hoàn Kiếm, Hà Nội", priority: "Critical", budget: "$2.4k" },
-    { id: 5, name: "Tim George", address: "Số 19C Hoàng Diệu, Quận Ba Đình, Hà Nội", priority: "Critical", budget: "$5.4k" },
-  ];
+  const topUsers = users.slice(0, 5); // hoặc lọc theo điều kiện cụ thể hơn nếu có
+  const totalRevenue = products.reduce((acc: any, item: any) => acc + Number(item.price || 0), 0);
+
   return (
     <Container fluid className="p-4">
       <Row>
@@ -54,8 +54,8 @@ function Home() {
         </Col>
         <Col md={4}>
           <Card className="p-3">
-            <h5>Lưu lượng truy cập</h5>
-            <h3>$36,358</h3>
+            <h5>Tổng doanh thu (từ sản phẩm)</h5>
+            <h3>${totalRevenue.toLocaleString()}</h3>
             <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie data={trafficData} dataKey="value" fill="#0088FE" label />
@@ -63,8 +63,7 @@ function Home() {
             </ResponsiveContainer>
           </Card>
           <Card className="p-3 mt-3">
-            <h5>Doanh số</h5>
-            <h3>$6,820</h3>
+            <h5>Tổng đơn hàng: {orders.length}</h5>
             <ResponsiveContainer width="100%" height={100}>
               <LineChart data={salesData}>
                 <XAxis dataKey="day" />
@@ -76,39 +75,38 @@ function Home() {
           </Card>
         </Col>
       </Row>
+
       <Row className="mt-4">
         <Col md={6}>
           <Card className="p-3">
             <h5>Lịch trình</h5>
             <ul>
-              <li>09:30 am - Đã nhận được thanh toán từ Nguyen Tuan</li>
-              <li>10:00 am - Đơn hàng mới</li>
-              <li>12:00 am - Đã thanh toán $64,95</li>
-              <li>09:30 am - Nguyen Tuan đã thanh toán: $60</li>
+              <li>09:30 am - Nhận được thanh toán từ khách hàng</li>
+              <li>10:00 am - Đơn hàng mới được tạo</li>
+              <li>12:00 pm - Đã xử lý thanh toán</li>
+              <li>02:30 pm - Khách hàng đăng ký mới</li>
             </ul>
           </Card>
         </Col>
         <Col md={6}>
           <Card className="p-3">
-            <h5>Khách hàng mua nhiều nhất</h5>
+            <h5>Khách hàng</h5>
             <Table striped bordered>
               <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Address</th>
-                  <th>Priority</th>
-                  <th>Budget</th>
+                  <th>ID</th>
+                  <th>Email</th>
+                  <th>Trạng thái</th>
+                  <th>Role</th>
                 </tr>
               </thead>
               <tbody>
-                {clients.map(client => (
-                  <tr key={client.id}>
-                    <td>{client.id}</td>
-                    <td>{client.name}</td>
-                    <td>{client.address}</td>
-                    <td>{client.priority}</td>
-                    <td>{client.budget}</td>
+                {topUsers.map((user: any) => (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.email}</td>
+                    <td>{user.status ? "Hoạt động" : "Khoá"}</td>
+                    <td>{user.role || "customer"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -119,4 +117,5 @@ function Home() {
     </Container>
   );
 }
+
 export default Home;
