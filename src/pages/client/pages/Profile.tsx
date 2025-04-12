@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const { logout } = useUser();
   const [user, setUser] = useState({
     email: "jonyaka@localhost.com",
     fullName: "Jony Aka",
@@ -11,7 +15,7 @@ const Profile = () => {
     country: "United States",
     avatar: "https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-cute-18.png", // Placeholder avatar
   });
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
@@ -28,6 +32,13 @@ const Profile = () => {
     }
   };
 
+  const handleLogout = () => {
+    // Xóa thông tin người dùng khỏi localStorage hoặc sessionStorage
+    localStorage.removeItem("user");
+    // Điều hướng về trang đăng nhập (hoặc trang khác)
+    navigate("/login");
+  };
+
   return (
     <Container className="mt-5 mb-5 d-flex justify-content-center">
       <Card className="p-4 shadow-lg w-75 rounded-4">
@@ -38,7 +49,26 @@ const Profile = () => {
               <li className="text-danger fw-bold">Dashboard</li>
               <li className="text-muted">Orders</li>
               <li className="text-muted">Wishlist</li>
-              <li className="text-muted">Log Out</li>
+              
+              <Button
+                variant="link"
+                onClick={logout}
+                className="text-muted p-0 d-flex align-items-center"
+                style={{
+                  fontWeight: 'bold',
+                  transition: 'color 0.3s, background-color 0.3s',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#dc3545'; // Màu đỏ khi hover
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#6c757d'; // Màu xám khi không hover
+                }}
+              >
+                <i className="bi bi-box-arrow-right me-2"></i> {/* Thêm biểu tượng */}
+                Log Out
+              </Button>
+
             </ul>
           </Col>
           <Col md={8}>
