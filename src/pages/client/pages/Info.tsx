@@ -42,10 +42,10 @@ const OrderInfo = () => {
         <div key={item.id} className="card p-3 mb-3">
           <div className="d-flex">
             <img
-              src={item.product.imageUrl}
+              src={item.product.images?.[0]?.url}
               alt="Product"
               className="me-3"
-              width={80}
+              width={100}
             />
             <div>
               <h5>{item.product.name}</h5>

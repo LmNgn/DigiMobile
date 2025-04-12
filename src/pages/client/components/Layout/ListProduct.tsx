@@ -126,7 +126,7 @@ const ProductList = () => {
 
               <Card.Img
                 variant="top"
-                src={product.imageUrl}
+                src={product.images?.[0]?.url}
                 className="p-3 img-fluid"
               />
 

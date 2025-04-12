@@ -56,7 +56,7 @@ const MyOrders = () => {
                 className="list-group-item d-flex align-items-center"
               >
                 <img
-                  src={item.product.imageUrl}
+                  src={item.product.images?.[0]?.url}
                   alt={item.product.name}
                   className="me-3 rounded"
                   width="80"
