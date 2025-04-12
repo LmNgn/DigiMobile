@@ -14,7 +14,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ drawOpen, toggleCart }) => {
 
   const handleCheckout = () => {
     toggleCart();
-    navigate('/client/order');
+    navigate('/order');
   };
 
   return (

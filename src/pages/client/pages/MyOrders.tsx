@@ -38,11 +38,7 @@ const MyOrders = () => {
   );
 
   const handleCheckout = () => {
-    if (cartItems.length === 0) {
-      message.error("Vui lòng chọn ít nhất một sản phẩm để thanh toán!");
-      return;
-    }
-    navigate("/client/checkout");
+    navigate("/checkout");
   };
 
   return (
@@ -99,7 +95,9 @@ const MyOrders = () => {
           </div>
 
           <div className="mt-4 d-flex justify-content-between align-items-center">
-            <h4 className="fw-bold">Tạm tính: {totalPrice.toLocaleString()}đ</h4>
+            <h4 className="fw-bold">
+              Tạm tính: {totalPrice.toLocaleString()}đ
+            </h4>
             <button className="btn btn-danger btn-lg" onClick={handleCheckout}>
               Mua ngay ({cartItems.length})
             </button>
