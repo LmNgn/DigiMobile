@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 
 const Profile = () => {
@@ -46,9 +46,13 @@ const Profile = () => {
           <Col md={2} className="border-end">
             <h4 className="fw-bold text-primary">My Profile</h4>
             <ul className="list-unstyled mt-3">
-              <li className="text-danger fw-bold">Dashboard</li>
-              <li className="text-muted">Orders</li>
-              <li className="text-muted">Wishlist</li>
+            <li>
+              <Link to="/profile" className="text-danger fw-bold text-decoration-none">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/prorder" className="text-muted text-decoration-none">Orders</Link>
+            </li>
+
               
               <Button
                 variant="link"
