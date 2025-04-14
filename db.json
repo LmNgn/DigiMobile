@@ -295,6 +295,15 @@
       "repassword": "123123",
       "terms": true,
       "id": 8
+    },
+    {
+      "email": "phuclam6987@gmail.com",
+      "password": "$2a$10$sI89v/qIc5x/DE6u2SntSOAwHjGoHH6VaOK7nHpiqzf3Xgwo2m8EG",
+      "name": "Lâm",
+      "phone": "123123",
+      "role": "customer",
+      "status": true,
+      "id": 9
     }
   ],
   "orders": [

@@ -60,7 +60,7 @@ export const useDelete = ({ resource = "products" }: Props) => {
   return useMutation({
     mutationFn: (id?: string | number) => deleteOne({ resource, id }),
     onSuccess: () => {
-      message.success("Xoa thanh cong");
+      message.success("Xoá thành công");
       qc.invalidateQueries({ queryKey: [resource] });
     },
   });
@@ -70,22 +70,34 @@ export const useDelete = ({ resource = "products" }: Props) => {
 export const useAuth = ({ resource = "register" }) => {
   const nav = useNavigate();
   const { setUser } = useUser();
-  // logout();
+
   return useMutation({
     mutationFn: (values: any) => auth({ resource, values }),
     onSuccess: (data) => {
-      message.success("thanh cong");
-      if (resource == "register") {
+      if (resource === "register") {
+        message.success("Đăng ký thành công");
         nav("/login");
         return;
       }
-      localStorage.setItem("token", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setUser(data.user);
-      data.user.role == "admin" ? nav("/admin") : nav("/");
+      
+      const { accessToken, user } = data;
+      console.log(user);
+
+      if (user.role !== "customer") {
+        message.error("Tài khoản không được phép đăng nhập ở trang người dùng");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        nav("/login");
+        return;
+      }
+      message.success("Đăng nhập thành công");
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user);
+      nav("/");
     },
     onError: () => {
-      message.error("error");
+      message.error("Đăng nhập thất bại");
     },
   });
 };

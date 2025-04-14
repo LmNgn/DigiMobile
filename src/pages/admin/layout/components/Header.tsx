@@ -18,7 +18,6 @@ function Header() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      console.log("Không tìm thấy token, đăng xuất...");
       nav("/admin/login");
     }
   }, []);
