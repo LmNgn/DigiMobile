@@ -1,42 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useUser } from "../context/userContext";
+import axios from "axios";
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const { logout } = useUser();
-  const [user, setUser] = useState({
-    email: "jonyaka@localhost.com",
-    fullName: "Jony Aka",
-    phone: "2134124124",
-    gender: "Male",
-    address: "New York",
-    country: "United States",
-    avatar: "https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-cute-18.png", // Placeholder avatar
+  const { user, logout } = useUser();  // Lấy thông tin user từ context
+  const [profileData, setProfileData] = useState({
+    id: "",
+    email: "",
+    name: "",
+    phone: "",
+    gender: "",
+    address: "",
+    country: ""
   });
-  
+
+  useEffect(() => {
+    if (user?.id) {
+      axios.get(`http://localhost:3000/users/${user.id}`)  // Dùng user.id thay vì hardcode
+        .then((res) => {
+          setProfileData(res.data);
+        })
+        .catch((err) => {
+          console.error("Lỗi khi load user:", err);
+        });
+    }
+  }, [user?.id]); // Thực hiện lại khi user.id thay đổi
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setProfileData({ ...profileData, [name]: value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUser({ ...user, avatar: reader.result });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleLogout = () => {
-    // Xóa thông tin người dùng khỏi localStorage hoặc sessionStorage
-    localStorage.removeItem("user");
-    // Điều hướng về trang đăng nhập (hoặc trang khác)
-    navigate("/login");
+  const handleSave = () => {
+    axios.put(`http://localhost:3000/users/${profileData.id}`, profileData)
+      .then(() => {
+        alert("Cập nhật thông tin thành công!");
+      })
+      .catch((err) => {
+        console.error("Lỗi khi cập nhật:", err);
+        alert("Có lỗi xảy ra khi lưu.");
+      });
   };
 
   return (
@@ -46,14 +51,12 @@ const Profile = () => {
           <Col md={2} className="border-end">
             <h4 className="fw-bold text-primary">My Profile</h4>
             <ul className="list-unstyled mt-3">
-            <li>
-              <Link to="/profile" className="text-danger fw-bold text-decoration-none">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/prorder" className="text-muted text-decoration-none">Orders</Link>
-            </li>
-
-              
+              <li>
+                <Link to="/profile" className="text-danger fw-bold text-decoration-none">Dashboard</Link>
+              </li>
+              <li>
+                <Link to="/prorder" className="text-muted text-decoration-none">Orders</Link>
+              </li>
               <Button
                 variant="link"
                 onClick={logout}
@@ -72,7 +75,6 @@ const Profile = () => {
                 <i className="bi bi-box-arrow-right me-2"></i> {/* Thêm biểu tượng */}
                 Log Out
               </Button>
-
             </ul>
           </Col>
           <Col md={8}>
@@ -82,13 +84,13 @@ const Profile = () => {
                 <Col md={6}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Name</Form.Label>
-                    <Form.Control type="text" name="fullName" value={user.fullName} onChange={handleChange} />
+                    <Form.Control type="text" name="name" value={profileData.name} onChange={handleChange} />
                   </Form.Group>
                 </Col>
                 <Col md={6}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Email</Form.Label>
-                    <Form.Control type="email" value={user.email} readOnly />
+                    <Form.Control type="email" value={profileData.email} readOnly />
                   </Form.Group>
                 </Col>
               </Row>
@@ -96,17 +98,18 @@ const Profile = () => {
                 <Col md={6}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Phone</Form.Label>
-                    <Form.Control type="text" name="phone" value={user.phone} onChange={handleChange} />
+                    <Form.Control type="text" name="phone" value={profileData.phone} onChange={handleChange} />
                   </Form.Group>
                 </Col>
                 <Col md={6}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Gender</Form.Label>
-                    <Form.Select name="gender" value={user.gender} onChange={handleChange}>
-                      <option>Male</option>
-                      <option>Female</option>
-                      <option>Other</option>
-                    </Form.Select>
+                    <Form.Control as="select" name="gender" value={profileData.gender} onChange={handleChange}>
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </Form.Control>
                   </Form.Group>
                 </Col>
               </Row>
@@ -114,24 +117,20 @@ const Profile = () => {
                 <Col md={6}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Address</Form.Label>
-                    <Form.Control type="text" name="address" value={user.address} onChange={handleChange} />
+                    <Form.Control type="text" name="address" value={profileData.address} onChange={handleChange} />
                   </Form.Group>
                 </Col>
                 <Col md={6}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Country</Form.Label>
-                    <Form.Control type="text" name="country" value={user.country} onChange={handleChange} />
+                    <Form.Control type="text" name="country" value={profileData.country} onChange={handleChange} />
                   </Form.Group>
                 </Col>
               </Row>
               <div className="text-end">
-                <Button variant="primary" className="rounded-pill px-4">Save</Button>
+                <Button onClick={handleSave} variant="primary" className="rounded-pill px-4">Save</Button>
               </div>
             </Form>
-          </Col>
-          <Col md={2} className="border-start d-flex flex-column align-items-center">
-            <img src={user.avatar} alt="Profile" className="rounded-circle mb-2" width="100" />
-            <Form.Control type="file" accept="image/*" onChange={handleImageChange} />
           </Col>
         </Row>
       </Card>
