@@ -40,6 +40,7 @@ import LoginUser from "./pages/client/pages/LoginUser";
 import RegisterUser from "./pages/client/pages/RegisterUser";
 import CheckOut from "./pages/client/pages/CheckOut";
 import OrderInfo from "./pages/client/pages/Info";
+import SearchPage from "./pages/client/components/Common/SearchPage";
 
 //============================00============================
 
@@ -89,6 +90,7 @@ const routeConfig = [
     element: <UserLayout />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/search", element: <SearchPage /> },
       { path: "login", element: <LoginUser /> },
       { path: "register", element: <RegisterUser /> },
       { path: "product", element: <ListProduct /> },

@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { HiMagnifyingGlass, HiMiniXMark } from 'react-icons/hi2';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
     const [searchs, setSearch] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate(); // dùng để chuyển trang
 
     const handleSearch = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleSearchToggle = (e:any) => {
+    const handleSearchToggle = (e: any) => {
         e.preventDefault();
-        console.log("Search:", searchs);
+        if (searchs.trim() !== "") {
+            navigate(`/search?query=${encodeURIComponent(searchs.trim())}`);
+        }
         setIsOpen(false);
     };
 
