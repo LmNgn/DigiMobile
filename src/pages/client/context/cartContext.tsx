@@ -106,12 +106,14 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             (item: Cart) => item.product.id === product.id
         );
 
+        const addQuantity = product.quantity || 1;
+
         mutate({
             id: existingCart?.id,
             cart: {
                 userId: user.id,
                 product,
-                quantity: (existingCart?.quantity || 0) + 1,
+                quantity: (existingCart?.quantity || 0) + addQuantity,
             },
         });
     };
