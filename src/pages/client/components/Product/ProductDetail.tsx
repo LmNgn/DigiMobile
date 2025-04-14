@@ -40,6 +40,13 @@ const ProductDetail = () => {
         }
     }, [selectedProduct]);
 
+    // Gán email người dùng vào đánh giá nếu đã đăng nhập
+    useEffect(() => {
+        if (user?.email) {
+            setNewReview((prev) => ({ ...prev, user: user.email }));
+        }
+    }, [user]);
+
     const handleQuantityChange = (action) => {
         if (action === 'plus') setQuantity((prev) => prev + 1);
         if (action === 'minus' && quantity > 1) setQuantity((prev) => prev - 1);
@@ -58,8 +65,13 @@ const ProductDetail = () => {
             return;
         }
 
-        if (newReview.user && newReview.comment) {
-            const updatedReviews = [...reviews, newReview];
+        const finalReview = {
+            ...newReview,
+            user: user.email || newReview.user,
+        };
+
+        if (finalReview.user && finalReview.comment) {
+            const updatedReviews = [...reviews, finalReview];
 
             try {
                 await fetch(`http://localhost:3000/products/${id}`, {
@@ -70,7 +82,7 @@ const ProductDetail = () => {
 
                 setReviews(updatedReviews);
                 
-                setNewReview({ user: '', rating: 5, comment: '' });
+                setNewReview({ user: user.email, rating: 5, comment: '' });
                 alert("Đánh giá đã được gửi thành công!");
             } catch (error) {
                 alert("Gửi đánh giá thất bại!");
@@ -192,51 +204,72 @@ const ProductDetail = () => {
                     </div>
 
                     {/* Review Form */}
-                    <div className="card mt-4 shadow-sm border-0">
-                        <div className="card-header bg-white">
-                            <h5 className="mb-0">Viết đánh giá của bạn</h5>
-                        </div>
-                        <div className="card-body">
-                            <form onSubmit={handleReviewSubmit}>
-                                <div className="mb-3">
-                                    <label className="form-label">Tên của bạn</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={newReview.user}
-                                        onChange={(e) => setNewReview({ ...newReview, user: e.target.value })}
-                                        placeholder="Nhập tên"
-                                    />
-                                </div>
+<div className="card mt-4 shadow-sm border-0">
+    <div className="card-header bg-white">
+        <h5 className="mb-0">Viết đánh giá của bạn</h5>
+    </div>
+    <div className="card-body">
+        <form onSubmit={handleReviewSubmit}>
+            {/* Nếu đã đăng nhập, hiển thị tên/email ở dạng chỉ đọc */}
+            {user?.email ? (
+                <div className="mb-3">
+                    <label className="form-label">Tài khoản</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={user.email}
+                        disabled
+                    />
+                </div>
+            ) : (
+                // Nếu chưa đăng nhập, yêu cầu nhập tên
+                <div className="mb-3">
+                    <label className="form-label">Tài khoản</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={newReview.user}
+                        onChange={(e) => setNewReview({ ...newReview, user: e.target.value })}
+                        placeholder="Nhập email"
+                    />
+                </div>
+            )}
 
-                                <div className="mb-3">
-                                    <label className="form-label">Đánh giá sao</label>
-                                    <select
-                                        className="form-select"
-                                        value={newReview.rating}
-                                        onChange={(e) => setNewReview({ ...newReview, rating: parseInt(e.target.value) })}
-                                    >
-                                        {[5, 4, 3, 2, 1].map((star) => (
-                                            <option key={star} value={star}>{star} sao</option>
-                                        ))}
-                                    </select>
-                                </div>
+            <div className="mb-3">
+                <label className="form-label">Đánh giá sao</label>
+                <select
+                    className="form-select"
+                    value={newReview.rating}
+                    onChange={(e) =>
+                        setNewReview({ ...newReview, rating: parseInt(e.target.value) })
+                    }
+                >
+                    {[5, 4, 3, 2, 1].map((star) => (
+                        <option key={star} value={star}>
+                            {star} sao
+                        </option>
+                    ))}
+                </select>
+            </div>
 
-                                <div className="mb-3">
-                                    <label className="form-label">Nhận xét</label>
-                                    <textarea
-                                        className="form-control"
-                                        rows="3"
-                                        value={newReview.comment}
-                                        onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                                        placeholder="Viết nhận xét tại đây..."
-                                    ></textarea>
-                                </div>
+            <div className="mb-3">
+                <label className="form-label">Nhận xét</label>
+                <textarea
+                    className="form-control"
+                    rows="3"
+                    value={newReview.comment}
+                    onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                    placeholder="Viết nhận xét tại đây..."
+                ></textarea>
+            </div>
 
-                                <button type="submit" className="btn btn-success">Gửi đánh giá</button>
-                            </form>
-                        </div>
-                    </div>
+            <button type="submit" className="btn btn-success">
+                Gửi đánh giá
+            </button>
+        </form>
+    </div>
+</div>
+
                 </div>
             </div>
         </div>
