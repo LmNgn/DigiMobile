@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useUser } from "../context/userContext";
@@ -28,7 +28,7 @@ const Profile = () => {
     }
   }, [user?.id]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setProfileData({ ...profileData, [name]: value });
   };
@@ -49,41 +49,33 @@ const Profile = () => {
       <Card className="p-4 shadow-lg w-75 rounded-4">
         <Row>
           <Col md={2} className="border-end">
-            <h4 className="fw-bold text-primary">My Profile</h4>
+            <h4 className="fw-bold text-primary">Thông tin tài khoản</h4>
             <ul className="list-unstyled mt-3">
               <li>
-                <Link to="/profile" className="text-danger fw-bold text-decoration-none">Dashboard</Link>
+                <Link to="/profile" className="text-danger fw-bold text-decoration-none">Tài khoản</Link>
               </li>
               <li>
-                <Link to="/prorder" className="text-muted text-decoration-none">Orders</Link>
+                <Link to="/prorder" className="text-muted text-decoration-none">Đơn hàng</Link>
               </li>
+              {/* Nút đăng xuất */}
               <Button
                 variant="link"
                 onClick={logout}
                 className="text-muted p-0 d-flex align-items-center"
-                style={{
-                  fontWeight: 'bold',
-                  transition: 'color 0.3s, background-color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.color = '#dc3545';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.color = '#6c757d';
-                }}
+                
               >
                 <i className="bi bi-box-arrow-right me-2"></i>
-                Log Out
+                Đăng xuất
               </Button>
             </ul>
           </Col>
           <Col md={8}>
-            <h4 className="fw-bold mb-4">Thông tin hồ sơ</h4>
+            <h4 className="fw-bold mb-4">Thông tin</h4>
             <Form>
               <Row className="mb-3">
                 <Col md={6}>
                   <Form.Group>
-                    <Form.Label className="fw-semibold">Name</Form.Label>
+                    <Form.Label className="fw-semibold">Họ và tên</Form.Label>
                     <Form.Control type="text" name="name" value={profileData.name} onChange={handleChange} />
                   </Form.Group>
                 </Col>
@@ -97,7 +89,7 @@ const Profile = () => {
               <Row className="mb-3">
                 <Col md={6}>
                   <Form.Group>
-                    <Form.Label className="fw-semibold">Phone</Form.Label>
+                    <Form.Label className="fw-semibold">Số điện thoại</Form.Label>
                     <Form.Control type="text" name="phone" value={profileData.phone} onChange={handleChange} />
                   </Form.Group>
                 </Col>
@@ -105,10 +97,10 @@ const Profile = () => {
                   <Form.Group>
                     <Form.Label className="fw-semibold">Gender</Form.Label>
                     <Form.Control as="select" name="gender" value={profileData.gender} onChange={handleChange}>
-                      <option value="">Select Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
+                      <option value="">Giới tính</option>
+                      <option value="Male">Nam</option>
+                      <option value="Female">Nữ</option>
+                      <option value="Other">Khác</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
@@ -116,13 +108,13 @@ const Profile = () => {
               <Row className="mb-3">
                 <Col md={6}>
                   <Form.Group>
-                    <Form.Label className="fw-semibold">Address</Form.Label>
+                    <Form.Label className="fw-semibold">Địa chỉ</Form.Label>
                     <Form.Control type="text" name="address" value={profileData.address} onChange={handleChange} />
                   </Form.Group>
                 </Col>
                 <Col md={6}>
                   <Form.Group>
-                    <Form.Label className="fw-semibold">Country</Form.Label>
+                    <Form.Label className="fw-semibold">Quốc gia</Form.Label>
                     <Form.Control type="text" name="country" value={profileData.country} onChange={handleChange} />
                   </Form.Group>
                 </Col>

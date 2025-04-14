@@ -1,4 +1,3 @@
-import React from 'react'
 import bannerImg from '../../../../assets/image1.png'
 import { Link } from 'react-router-dom'
 const Banner = () => {
@@ -16,9 +15,9 @@ const Banner = () => {
           <h1 className="display-3 fw-bold text-uppercase text-white">
             SMART<br />LIVING
           </h1>
-          <p className="fs-5 text-white">Worldwide shipping</p>
+          <p className="fs-5 text-white">Giao hàng toàn quốc</p>
           <Link to="#" className="btn btn-light text-dark fw-semibold px-4 py-2 mt-3">
-            Shop Now
+            Mua ngay
           </Link>
         </div>
       </div>

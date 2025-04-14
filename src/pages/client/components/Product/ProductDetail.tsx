@@ -100,7 +100,7 @@ const ProductDetail = () => {
             <div className="row">
                 {/* Thumbnails */}
                 <div className="col-md-1 d-flex flex-column gap-2">
-                    {selectedProduct.images?.map((img, index) => (
+                    {selectedProduct.images?.map((img:any, index:number) => (
                         <img
                             key={index}
                             src={img.url}

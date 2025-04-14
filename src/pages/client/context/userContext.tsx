@@ -29,7 +29,7 @@ import {
   export const useUser = (): UserContextType => {
     const context = useContext(UserContext);
     if (context === undefined) {
-      throw new Error("useUser must be used within a UserProvider");
+      throw new Error("useUser phải được nằm trong UserProvider");
     }
     return context;
   };

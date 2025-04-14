@@ -27,7 +27,7 @@ function Home() {
     { day: "Tue", sales: 700 },
     { day: "Wed", sales: 600 },
     { day: "Thu", sales: 800 },
-    { day: "Fri", sales: 750 },
+    { day: "Fri", sales: 750 }, 
     { day: "Sat", sales: 500 },
     { day: "Sun", sales: 620 },
   ];
