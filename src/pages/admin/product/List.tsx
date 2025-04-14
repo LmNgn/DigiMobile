@@ -1,14 +1,25 @@
+import { useState } from "react"; // ✅ Thêm useState
 import { Product } from "../../../types/Product";
 import { Link } from "react-router-dom";
 import { Popconfirm } from "antd";
 import { useDelete } from "../hooks/useDelete";
 import { useList } from "../hooks/useList";
+
 function List() {
   const { data } = useList({ resource: "products" });
   const { mutate } = useDelete({ resource: "products" });
-  // if (isLoading) return <p>Đang tải dữ liệu...</p>;
-  const token = localStorage.getItem("token");
-  console.log(token);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+
+  const filteredData = data?.filter((p: Product) => {
+    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = categoryFilter ? p.category === categoryFilter : true;
+    return matchesSearch && matchesCategory;
+  });
+
+  const uniqueCategories = Array.from(new Set(data?.map((p: Product) => p.category)));
+
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -21,6 +32,35 @@ function List() {
           </div>
         </div>
       </div>
+
+      {/* 🔍 Tìm kiếm & lọc */}
+      <div className="row mb-3">
+        <div className="col-md-6 mb-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Tìm theo tên sản phẩm..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="col-md-6">
+          <select
+            className="form-select"
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <option value="">Tất cả danh mục</option>
+            {uniqueCategories.map((cat:any) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Bảng sản phẩm */}
       <table className="table table-hover">
         <thead>
           <tr>
@@ -33,7 +73,7 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {data?.map((p: Product, index: number) => (
+          {filteredData?.map((p: Product, index: number) => (
             <tr key={p.id}>
               <td>{index + 1}</td>
               <td>{p.name}</td>
@@ -47,16 +87,10 @@ function List() {
                 )}
               </td>
               <td>
-                <Link
-                  className="btn btn-outline-primary"
-                  to={`/admin/products/detail/${p.id}`}
-                >
+                <Link className="btn btn-outline-primary" to={`/admin/products/detail/${p.id}`}>
                   <i className="fas fa-info-circle" />
                 </Link>
-                <Link
-                  className="btn btn-outline-warning mx-2"
-                  to={`/admin/products/update/${p.id}`}
-                >
+                <Link className="btn btn-outline-warning mx-2" to={`/admin/products/update/${p.id}`}>
                   <i className="fa-solid fa-gear" />
                 </Link>
                 <Popconfirm

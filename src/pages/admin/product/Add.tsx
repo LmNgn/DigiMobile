@@ -5,6 +5,7 @@ import { useList } from "../hooks/useList";
 import { Category } from "../../../types/Category";
 import { ProductForm } from "../providers/dataProvider";
 import { message } from "antd";
+
 const ProductAdd = () => {
   const {
     register,
@@ -12,9 +13,11 @@ const ProductAdd = () => {
     watch,
     formState: { errors },
   } = useForm<ProductForm>();
+
   const { data: categories } = useList({ resource: "categories" });
   const { data: productList } = useList({ resource: "products" });
   const { mutate } = useCreate({ resource: "products" });
+
   const onFinish = (values: any) => {
     const isExist = productList?.some(
       (p: ProductForm) => p.name.toLowerCase() === values.name.toLowerCase()
@@ -26,6 +29,7 @@ const ProductAdd = () => {
     }
     mutate(values);
   };
+
   return (
     <div className="container-fluid">
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -59,6 +63,7 @@ const ProductAdd = () => {
             )}
           </div>
         </div>
+
         <div className="mb-3 row">
           <label htmlFor="price" className="col-sm-2 col-form-label text-end">
             Giá
@@ -69,7 +74,7 @@ const ProductAdd = () => {
               className="form-control"
               id="price"
               {...register("price", {
-                required: "Không bỏ trống tên",
+                required: "Không bỏ trống giá",
                 min: {
                   value: 0,
                   message: "Gía sản phẩm phải lớn hơn 0.",
@@ -83,6 +88,7 @@ const ProductAdd = () => {
             )}
           </div>
         </div>
+
         <div className="mb-3 row">
           <label
             htmlFor="quantity"
@@ -103,13 +109,14 @@ const ProductAdd = () => {
                 },
               })}
             />
-            {errors.price && (
+            {errors.quantity && (
               <div className="invalid-feedback d-block">
-                {errors.price.message}
+                {errors.quantity.message}
               </div>
             )}
           </div>
         </div>
+
         <div className="mb-3 row">
           <label htmlFor="imageUrl" className="col-sm-2 col-form-labe text-end">
             URL Hình ảnh
@@ -130,6 +137,7 @@ const ProductAdd = () => {
             )}
           </div>
         </div>
+
         <div className="mb-3 row">
           <div className="col-sm-2 text-end">Tình trạng</div>
           <div className="col-sm-10">
@@ -145,11 +153,9 @@ const ProductAdd = () => {
             </div>
           </div>
         </div>
+
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="category" className="col-sm-2 col-form-label text-end">
             Danh mục
           </label>
           <div className="col-sm-10">
@@ -169,10 +175,7 @@ const ProductAdd = () => {
         </div>
 
         <div className="mb-3 row">
-          <label
-            htmlFor="description"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="description" className="col-sm-2 col-form-label text-end">
             Mô tả
           </label>
           <div className="col-sm-10">
@@ -183,18 +186,18 @@ const ProductAdd = () => {
             />
           </div>
         </div>
-        {/* Thông số kỹ thuật */}
+
         <h5 className="text-center mb-3">Thông số kỹ thuật</h5>
 
         <div className="mb-3 row">
-          <label htmlFor="screen" className="col-sm-2 col-form-label text-end">
+          <label htmlFor="screenSize" className="col-sm-2 col-form-label text-end">
             Màn hình
           </label>
           <div className="col-sm-3">
             <input
               type="number"
               className="form-control"
-              id="name"
+              id="screenSize"
               placeholder="Kích thước (inch)"
               {...register("screen.size")}
             />
@@ -202,7 +205,6 @@ const ProductAdd = () => {
           <div className="col-sm-4">
             <select
               className="form-control"
-              id="category"
               {...register("screen.resolution")}
             >
               <option value="">Độ phân giải</option>
@@ -215,7 +217,6 @@ const ProductAdd = () => {
           <div className="col-sm-3">
             <select
               className="form-control"
-              id="category"
               {...register("screen.rate")}
             >
               <option value="">Tần số quét</option>
@@ -226,11 +227,9 @@ const ProductAdd = () => {
             </select>
           </div>
         </div>
+
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="ram" className="col-sm-2 col-form-label text-end">
             RAM
           </label>
           <div className="col-sm-10">
@@ -241,15 +240,12 @@ const ProductAdd = () => {
               <option value="8">8GB</option>
               <option value="12">12GB</option>
               <option value="24">24GB</option>
-              {/* <option value="">Khác</option> */}
             </select>
           </div>
         </div>
+
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="memory" className="col-sm-2 col-form-label text-end">
             Bộ nhớ
           </label>
           <div className="col-sm-10">
@@ -267,11 +263,9 @@ const ProductAdd = () => {
             </select>
           </div>
         </div>
+
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="battery" className="col-sm-2 col-form-label text-end">
             Pin (mAh)
           </label>
           <div className="col-sm-10">
@@ -283,7 +277,7 @@ const ProductAdd = () => {
             />
           </div>
         </div>
-        
+
         <div className="row d-flex justify-content-center">
           <div className="col-sm-10 offset-8">
             <button type="submit" className="btn btn-primary">

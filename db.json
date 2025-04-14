@@ -176,7 +176,17 @@
           "comment": "Nice"
         }
       ],
-      "id": 3
+      "id": 3,
+      "imageUrl": "https://picsum.photos/id/3/200/300",
+      "category": "Iphone",
+      "ram": "4",
+      "memory": "32",
+      "battery": "123123",
+      "screen": {
+        "size": "60",
+        "resolution": "HD+",
+        "rate": "120"
+      }
     },
     {
       "name": "sản phẩm 2",

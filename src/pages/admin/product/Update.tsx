@@ -12,6 +12,7 @@ const UpdateProduct = () => {
   const { data: product } = useOne({ resource: "products", id });
   const { data: categories } = useList({ resource: "categories" });
   const { mutate } = useUpdate({ resource: "products", id });
+
   const {
     register,
     handleSubmit,
@@ -30,15 +31,15 @@ const UpdateProduct = () => {
         inStock: product.inStock,
         ram: product.ram,
         memory: product.memory,
-        battery: product.batery,
+        battery: product.battery, // sửa lỗi chính tả từ batery
         screen: {
-          size: product.screen.size,
-          resolution: product.screen.resolution,
-          rate: product.screen.rate,
-        }
+          size: product.screen?.size || 0,
+          resolution: product.screen?.resolution || "",
+          rate: product.screen?.rate || 60,
+        },
       });
     }
-  }, [product]);
+  }, [product, reset]);
 
   const onFinish = (values: ProductForm) => {
     mutate(values);
@@ -88,7 +89,7 @@ const UpdateProduct = () => {
               className="form-control"
               id="price"
               {...register("price", {
-                required: "Không bỏ trống tên",
+                required: "Không bỏ trống giá",
                 min: {
                   value: 0,
                   message: "Gía sản phẩm phải lớn hơn 0.",
@@ -138,10 +139,7 @@ const UpdateProduct = () => {
           </div>
         </div>
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="category" className="col-sm-2 col-form-label text-end">
             Danh mục
           </label>
           <div className="col-sm-10">
@@ -160,22 +158,17 @@ const UpdateProduct = () => {
           </div>
         </div>
 
-
         {/* Thông số kỹ thuật */}
         <h5 className="text-center mb-3">Thông số kỹ thuật</h5>
 
         <div className="mb-3 row">
-          <label
-            htmlFor="screen"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="screen" className="col-sm-2 col-form-label text-end">
             Màn hình
           </label>
           <div className="col-sm-3">
             <input
               type="number"
               className="form-control"
-              id="name"
               placeholder="Kích thước (inch)"
               {...register("screen.size")}
             />
@@ -183,7 +176,6 @@ const UpdateProduct = () => {
           <div className="col-sm-4">
             <select
               className="form-control"
-              id="category"
               {...register("screen.resolution")}
             >
               <option value="">Độ phân giải</option>
@@ -196,7 +188,6 @@ const UpdateProduct = () => {
           <div className="col-sm-3">
             <select
               className="form-control"
-              id="category"
               {...register("screen.rate")}
             >
               <option value="">Tần số quét</option>
@@ -207,11 +198,9 @@ const UpdateProduct = () => {
             </select>
           </div>
         </div>
+
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="ram" className="col-sm-2 col-form-label text-end">
             RAM
           </label>
           <div className="col-sm-10">
@@ -226,15 +215,12 @@ const UpdateProduct = () => {
               <option value="8">8GB</option>
               <option value="12">12GB</option>
               <option value="24">24GB</option>
-              {/* <option value="">Khác</option> */}
             </select>
           </div>
         </div>
+
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="memory" className="col-sm-2 col-form-label text-end">
             Bộ nhớ
           </label>
           <div className="col-sm-10">
@@ -252,11 +238,9 @@ const UpdateProduct = () => {
             </select>
           </div>
         </div>
+
         <div className="mb-3 row">
-          <label
-            htmlFor="category"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="battery" className="col-sm-2 col-form-label text-end">
             Pin (mAh)
           </label>
           <div className="col-sm-10">
@@ -268,6 +252,7 @@ const UpdateProduct = () => {
             />
           </div>
         </div>
+
         {/* nút xác nhận */}
         <div className="row d-flex justify-content-center">
           <div className="col-sm-10 offset-8">

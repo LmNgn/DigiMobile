@@ -63,6 +63,10 @@ function Detail() {
                 <td>{data?.price}</td>
               </tr>
               <tr>
+                <th>Số lượng:</th>
+                <td>{data?.quantity}</td>
+              </tr>
+              <tr>
                 <th>Tình trạng:</th>
                 <td>
                   {data?.inStock ? (
@@ -75,6 +79,10 @@ function Detail() {
               <tr>
                 <th>Danh mục sản phẩm:</th>
                 <td>{data?.category}</td>
+              </tr>
+              <tr>
+                <th>Mô tả:</th>
+                <td>{data?.description}</td>
               </tr>
             </tbody>
 
