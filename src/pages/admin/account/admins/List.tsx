@@ -50,7 +50,7 @@ function List() {
       return;
     }
     if (window.confirm("Thêm tài khoản mới?")) {
-      const newValue = { ...values, password: "123123", status: 1, role: Role.ADMIN1 };
+      const newValue = { ...values, password: "123123", status: true, role: Role.ADMIN1 };
       addOne(newValue);
       reset();
     }

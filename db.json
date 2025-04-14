@@ -262,28 +262,28 @@
     {
       "email": "test23@gmail.com",
       "password": "123123",
-      "status": 1,
+      "status": true,
       "role": "admin1",
       "id": 4
     },
     {
       "email": "test67@gmail.com",
       "password": "$2a$10$nJPAxLjcij5SzdXXEllVH.dq8rV8SVI//N2Arw/rlFxJpCIDt9j.C",
-      "status": 1,
+      "status": true,
       "role": "admin1",
       "id": 5
     },
     {
       "email": "test68@gmail.com",
       "password": "$2a$10$04UomtiBptVXpr/OnDJ.Pe60Uz8QA7y92GrYH0eWAE6q7JF3WNna.",
-      "status": 1,
+      "status": true,
       "role": "admin0",
       "id": 6
     },
     {
       "email": "test685@gmail.com",
       "password": "$2a$10$v9lhAJMesN/DEgAC0sMCCO6Nz2joS.l9H80inrZjqccDAQJuypwYS",
-      "status": 1,
+      "status": true,
       "role": "admin1",
       "id": 7
     },

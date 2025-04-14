@@ -1,0 +1,35 @@
+.login-wrapper {
+    background: #d9d9d9;
+    background: linear-gradient(160deg, rgba(217, 217, 217, 1) 0%, rgba(255, 255, 255, 1) 39%, rgba(70, 148, 242, 1) 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.login-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 400px;
+    color: #000;
+}
+
+.login-header img {
+    filter: brightness(0) saturate(100%) invert(28%) sepia(99%) saturate(749%) hue-rotate(185deg) brightness(97%) contrast(104%);
+}
+
+.form-control {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: #0066cc;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #005bb5;
+}
