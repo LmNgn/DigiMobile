@@ -19,232 +19,56 @@
   ],
   "products": [
     {
-      "name": "Phone 1",
-      "price": 120,
-      "originalPrice": 150,
-      "inStock": true,
-      "description": "Đây là một chiếc điện thoại thông minh thời trang hoàn hảo cho mọi dịp",
-      "brand": "TechBrand",
-      "material": "Aluminum",
-      "colors": [
-        "#800000",
-        "#000000"
-      ],
-      "storages": [
-        "128",
-        "256",
-        "512"
-      ],
-      "images": [
-        {
-          "url": "https://picsum.photos/id/237/500/500",
-          "altText": "Phone Front"
-        },
-        {
-          "url": "https://picsum.photos/id/238/500/500",
-          "altText": "Phone Side"
-        }
-      ],
-      "specifications": {
-        "processor": "Snapdragon 8 Gen 2",
-        "ram": "8GB",
-        "storage": "128GB / 256GB / 512GB",
-        "screen": "6.5-inch OLED, 120Hz",
-        "battery": "4500mAh, Fast Charging 65W",
-        "camera": "50MP + 12MP + 10MP",
-        "os": "Android 13"
-      },
-      "reviews": [
-        {
-          "user": "Jack",
-          "rating": 5,
-          "comment": "Good!"
-        },
-        {
-          "user": "Drake",
-          "rating": 4,
-          "comment": "Nice"
-        },
-        {
-          "user": "Admin",
-          "rating": 5,
-          "comment": "dfggdfg"
-        },
-        {
-          "user": "User",
-          "rating": 5,
-          "comment": "adadad"
-        }
-      ],
-      "id": 1,
-      "imageUrl": "https://picsum.photos/id/5/200/300",
-      "category": "Huawei",
-      "ram": "",
-      "memory": "",
-      "battery": "",
-      "screen": {
-        "size": 0,
-        "resolution": "",
-        "rate": 60
-      }
-    },
-    {
-      "name": "Phone 2",
-      "price": 120,
-      "originalPrice": 150,
-      "inStock": true,
-      "description": "Đây là một chiếc điện thoại thông minh thời trang hoàn hảo cho mọi dịp",
-      "brand": "TechBrand",
-      "material": "Aluminum",
-      "colors": [
-        "#800000",
-        "#000000"
-      ],
-      "storages": [
-        "128",
-        "256",
-        "512"
-      ],
-      "images": [
-        {
-          "url": "https://picsum.photos/id/237/500/500",
-          "altText": "Phone Front"
-        },
-        {
-          "url": "https://picsum.photos/id/238/500/500",
-          "altText": "Phone Side"
-        }
-      ],
-      "specifications": {
-        "processor": "Snapdragon 8 Gen 2",
-        "ram": "8GB",
-        "storage": "128GB / 256GB / 512GB",
-        "screen": "6.5-inch OLED, 120Hz",
-        "battery": "4500mAh, Fast Charging 65W",
-        "camera": "50MP + 12MP + 10MP",
-        "os": "Android 13"
-      },
-      "reviews": [
-        {
-          "user": "Jack",
-          "rating": 5,
-          "comment": "Amazing phone!"
-        },
-        {
-          "user": "Jane",
-          "rating": 4,
-          "comment": "Very Good!"
-        }
-      ],
-      "id": 2,
+      "name": "Product 4",
+      "price": "123",
       "imageUrl": "https://picsum.photos/id/3/200/300",
+      "inStock": true,
       "category": "Xiaomi",
-      "ram": "",
-      "memory": "",
-      "battery": "",
+      "description": "Mô tả sản phẩm",
       "screen": {
-        "size": 0,
-        "resolution": "",
-        "rate": 60
-      }
-    },
-    {
-      "name": "Phone 3",
-      "price": 120,
-      "originalPrice": 150,
-      "inStock": false,
-      "description": "Đây là một chiếc điện thoại thông minh thời trang hoàn hảo cho mọi dịp",
-      "brand": "TechBrand",
-      "material": "Aluminum",
-      "colors": [
-        "#800000",
-        "#000000"
-      ],
-      "storages": [
-        "128",
-        "256",
-        "512"
-      ],
-      "images": [
-        {
-          "url": "https://picsum.photos/id/237/500/500",
-          "altText": "Phone Front"
-        },
-        {
-          "url": "https://picsum.photos/id/238/500/500",
-          "altText": "Phone Side"
-        }
-      ],
-      "specifications": {
-        "processor": "Snapdragon 8 Gen 2",
-        "ram": "8GB",
-        "storage": "128GB / 256GB / 512GB",
-        "screen": "6.5-inch OLED, 120Hz",
-        "battery": "4500mAh, Fast Charging 65W",
-        "camera": "50MP + 12MP + 10MP",
-        "os": "Android 13"
+        "size": "78",
+        "resolution": "HD",
+        "rate": "60"
       },
-      "reviews": [
-        {
-          "user": "John",
-          "rating": 5,
-          "comment": "Good!"
-        },
-        {
-          "user": "Admin",
-          "rating": 4,
-          "comment": "Nice"
-        }
-      ],
-      "id": 3,
-      "imageUrl": "https://picsum.photos/id/3/200/300",
-      "category": "Iphone",
-      "ram": "4",
+      "ram": "6",
       "memory": "32",
-      "battery": "123123",
+      "battery": "6700",
+      "id": 1
+    },
+    {
+      "name": "Product 42",
+      "price": "123",
+      "imageUrl": "https://picsum.photos/id/5/200/300",
+      "inStock": true,
+      "category": "Xiaomi",
+      "description": "123",
       "screen": {
-        "size": "60",
+        "size": "123",
         "resolution": "HD+",
-        "rate": "120"
-      }
-    },
-    {
-      "name": "sản phẩm 2",
-      "price": "123123",
-      "quantity": "123123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
-      "inStock": true,
-      "category": "Samsung",
-      "screen": {
-        "size": "123",
-        "resolution": "HD",
-        "rate": "60"
+        "rate": "90"
       },
-      "ram": "4",
-      "memory": "256",
-      "battery": "7000",
-      "Desc": "",
-      "Description": "",
-      "description": "mô tả",
-      "id": 4
+      "ram": "6",
+      "memory": "64",
+      "battery": "7800",
+      "id": 2
     },
     {
-      "name": "123123",
-      "price": "123123",
+      "name": "Product 422",
+      "price": "123",
       "quantity": "123",
-      "imageUrl": "https://picsum.photos/id/237/200/300",
+      "imageUrl": "https://picsum.photos/id/4/200/300",
       "inStock": true,
-      "category": "Samsung",
-      "description": "mô tả",
+      "category": "Xiaomi",
+      "description": "123",
       "screen": {
         "size": "123",
         "resolution": "HD",
         "rate": "60"
       },
-      "ram": "8",
-      "memory": "256",
-      "battery": "7000",
-      "id": 5
+      "ram": "6",
+      "memory": "64",
+      "battery": "123",
+      "id": 3
     }
   ],
   "users": [
@@ -330,140 +154,146 @@
       "image": "https://picsum.photos/id/237/500/500",
       "quantity": 1,
       "selected": false
+    },
+    {
+      "id": 1744659467680,
+      "userId": 9,
+      "date": "2025-04-14T19:37:47.680Z",
+      "status": "pending",
+      "address": "ád",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744659650870,
+      "userId": 9,
+      "date": "2025-04-14T19:40:50.870Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744659675831,
+      "userId": 9,
+      "date": "2025-04-14T19:41:15.831Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "momo"
+    },
+    {
+      "id": 1744659760452,
+      "userId": 9,
+      "date": "2025-04-14T19:42:40.452Z",
+      "status": "pending",
+      "address": "Trịnh Văn Bô",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744659770252,
+      "userId": 9,
+      "date": "2025-04-14T19:42:50.252Z",
+      "status": "pending",
+      "address": "Trịnh Văn Bô",
+      "paymentMethod": "momo"
+    },
+    {
+      "id": 1744659972333,
+      "userId": 9,
+      "date": "2025-04-14T19:46:12.333Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660266564,
+      "userId": 9,
+      "date": "2025-04-14T19:51:06.564Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660267574,
+      "userId": 9,
+      "date": "2025-04-14T19:51:07.574Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660268064,
+      "userId": 9,
+      "date": "2025-04-14T19:51:08.064Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660268634,
+      "userId": 9,
+      "date": "2025-04-14T19:51:08.634Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660269084,
+      "userId": 9,
+      "date": "2025-04-14T19:51:09.084Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660269454,
+      "userId": 9,
+      "date": "2025-04-14T19:51:09.454Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660269824,
+      "userId": 9,
+      "date": "2025-04-14T19:51:09.824Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660276885,
+      "userId": 9,
+      "date": "2025-04-14T19:51:16.885Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
+    },
+    {
+      "id": 1744660374083,
+      "userId": 9,
+      "date": "2025-04-14T19:52:54.083Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "offline"
     }
   ],
   "carts": [
     {
-      "id": 1,
-      "userId": 7,
-      "productId": 1,
-      "quantity": 1
+      "userId": 9,
+      "productId": 3,
+      "quantity": 9,
+      "id": 1
     },
     {
-      "id": 2,
-      "userId": 7,
+      "userId": 9,
       "productId": 2,
-      "quantity": 1
+      "quantity": 2,
+      "id": 2
     },
     {
-      "userId": 5,
-      "product": {
-        "name": "Phone 1",
-        "price": 120,
-        "originalPrice": 150,
-        "inStock": true,
-        "description": "Đây là một chiếc điện thoại thông minh thời trang hoàn hảo cho mọi dịp",
-        "brand": "TechBrand",
-        "material": "Aluminum",
-        "colors": [
-          "#800000",
-          "#000000"
-        ],
-        "storages": [
-          "128",
-          "256",
-          "512"
-        ],
-        "images": [
-          {
-            "url": "https://picsum.photos/id/237/500/500",
-            "altText": "Phone Front"
-          },
-          {
-            "url": "https://picsum.photos/id/238/500/500",
-            "altText": "Phone Side"
-          }
-        ],
-        "specifications": {
-          "processor": "Snapdragon 8 Gen 2",
-          "ram": "8GB",
-          "storage": "128GB / 256GB / 512GB",
-          "screen": "6.5-inch OLED, 120Hz",
-          "battery": "4500mAh, Fast Charging 65W",
-          "camera": "50MP + 12MP + 10MP",
-          "os": "Android 13"
-        },
-        "reviews": [
-          {
-            "user": "Jack",
-            "rating": 5,
-            "comment": "Good!"
-          },
-          {
-            "user": "Drake",
-            "rating": 4,
-            "comment": "Nice"
-          },
-          {
-            "user": "Admin",
-            "rating": 5,
-            "comment": "dfggdfg"
-          },
-          {
-            "user": "User",
-            "rating": 5,
-            "comment": "adadad"
-          }
-        ],
-        "id": 1
-      },
+      "userId": 9,
+      "productId": 1,
       "quantity": 1,
-      "id": 5
-    },
-    {
-      "userId": 5,
-      "product": {
-        "name": "Phone 2",
-        "price": 120,
-        "originalPrice": 150,
-        "inStock": true,
-        "description": "Đây là một chiếc điện thoại thông minh thời trang hoàn hảo cho mọi dịp",
-        "brand": "TechBrand",
-        "material": "Aluminum",
-        "colors": [
-          "#800000",
-          "#000000"
-        ],
-        "storages": [
-          "128",
-          "256",
-          "512"
-        ],
-        "images": [
-          {
-            "url": "https://picsum.photos/id/237/500/500",
-            "altText": "Phone Front"
-          },
-          {
-            "url": "https://picsum.photos/id/238/500/500",
-            "altText": "Phone Side"
-          }
-        ],
-        "specifications": {
-          "processor": "Snapdragon 8 Gen 2",
-          "ram": "8GB",
-          "storage": "128GB / 256GB / 512GB",
-          "screen": "6.5-inch OLED, 120Hz",
-          "battery": "4500mAh, Fast Charging 65W",
-          "camera": "50MP + 12MP + 10MP",
-          "os": "Android 13"
-        },
-        "reviews": [
-          {
-            "user": "Jack",
-            "rating": 5,
-            "comment": "Amazing phone!"
-          },
-          {
-            "user": "Jane",
-            "rating": 4,
-            "comment": "Very Good!"
-          }
-        ],
-        "id": 2
-      },
-      "quantity": 1,
-      "id": 6
+      "id": 3
     }
   ]
 }

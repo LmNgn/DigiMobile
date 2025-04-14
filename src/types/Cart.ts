@@ -1,8 +1,7 @@
-import { Product } from "./Product";
 export type Cart = {
     id?: number;
     userId: number;
-    product: Product;
+    productId: number;
     quantity: number;
 };
 

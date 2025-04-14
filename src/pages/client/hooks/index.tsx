@@ -33,7 +33,7 @@ export const useCreate = ({ resource = "products" }) => {
   return useMutation({
     mutationFn: (values: any) => create({ resource, values }),
     onSuccess: () => {
-      message.success("them thanh cong");
+      message.success("Thêm thành công");
       // chuyen sang trang list: /products
       nav(`/admin/${resource}`);
     },
@@ -47,7 +47,7 @@ export const useUpdate = ({ resource = "products", id }: Props) => {
   return useMutation({
     mutationFn: (values: any) => update({ resource, id, values }),
     onSuccess: (data) => {
-      message.success("update thanh cong");
+      message.success("Cập nhật thành");
       console.log({ data });
       // chuyen sang trang list: /products
       nav(`/admin/${resource}`);
@@ -67,6 +67,7 @@ export const useDelete = ({ resource = "products" }: Props) => {
 };
 
 // useAuth
+// useAuth
 export const useAuth = ({ resource = "register" }) => {
   const nav = useNavigate();
   const { setUser } = useUser();
@@ -79,10 +80,16 @@ export const useAuth = ({ resource = "register" }) => {
         nav("/login");
         return;
       }
-      
-      const { accessToken, user } = data;
-      console.log(user);
 
+      const { accessToken, user } = data;
+
+      // Kiểm tra trạng thái tài khoản
+      if (!user.status) {
+        message.error("Tài khoản của bạn đã bị khóa hoặc chưa được kích hoạt.");
+        return;
+      }
+
+      //  Kiểm tra role phải là "customer"
       if (user.role !== "customer") {
         message.error("Tài khoản không được phép đăng nhập ở trang người dùng");
         localStorage.removeItem("token");
@@ -90,6 +97,8 @@ export const useAuth = ({ resource = "register" }) => {
         nav("/login");
         return;
       }
+
+      // Đăng nhập thành công
       message.success("Đăng nhập thành công");
       localStorage.setItem("token", accessToken);
       localStorage.setItem("user", JSON.stringify(user));

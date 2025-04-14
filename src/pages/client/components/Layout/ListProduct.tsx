@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Container,
   Row,
@@ -11,11 +11,13 @@ import {
   Collapse,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFilter, FaMemory, FaMobileAlt, FaMoneyBillWave, FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { useCart } from "../../context/cartContext";
 import { Product } from "../../../../types/Product";
 import { useList } from "../../hooks";
+import { useUser } from "../../context/userContext";
+import { message } from "antd";
 
 const ProductList = () => {
   const [showFilters, setShowFilters] = useState(false);
@@ -37,19 +39,19 @@ const ProductList = () => {
       (filters.inStock ? product.inStock : true) &&
       (filters.price
         ? product.price >= parseInt(filters.price.split("-")[0]) &&
-          (filters.price.includes("-")
-            ? product.price <= parseInt(filters.price.split("-")[1] || "999999999")
-            : true)
+        (filters.price.includes("-")
+          ? product.price <= parseInt(filters.price.split("-")[1] || "999999999")
+          : true)
         : true) &&
-      (filters.ram ? product.ram === parseInt(filters.ram) : true) &&
-      (filters.memory ? product.memory === filters.memory : true) &&
+      (filters.ram ? product.ram === parseInt(filters.ram, 10) : true) &&
+      (filters.memory ? product.memory === parseInt(filters.memory, 10) : true) &&
       (filters.screenSize
-        ? product.screenSize === parseFloat(filters.screenSize)
+        ? product.screen.size === parseFloat(filters.screenSize)
         : true)
     );
   });
 
-  const sortedProducts = filteredProducts.sort((a, b) =>
+  const sortedProducts = filteredProducts.sort((a: any, b: any) =>
     sortOrder === "asc" ? a.price - b.price : b.price - a.price
   );
 
@@ -66,13 +68,17 @@ const ProductList = () => {
       inStock: true,
     });
   };
-
+  const { user } = useUser();
   const handleAddToCart = (product: Product) => {
+
+    if (!user) {
+      message.error('Vui lòng đăng nhập để mua hàng');
+      return;
+    }
     setAddingToCart(product.id);
     addToCart(product);
     setTimeout(() => setAddingToCart(null), 1000);
   };
-
   return (
     <Container className="mt-4">
       <style>{`
@@ -186,7 +192,7 @@ const ProductList = () => {
       </Collapse>
 
       <div className="d-flex gap-2 mb-3 justify-content-center">
-      <Button
+        <Button
           variant="light"
           onClick={() => setSortOrder("asc")}
           className="shadow-sm d-flex align-items-center gap-2 px-3 py-2 fw-semibold"
@@ -226,34 +232,33 @@ const ProductList = () => {
           Giá Cao - Thấp
         </Button>
         <Button
-        variant="info"
-        onClick={handleViewAllProducts}
-        className="fw-bold shadow d-flex align-items-center justify-content-center gap-2 px-4 py-2"
-        style={{
-          borderRadius: "30px",
-          background: "linear-gradient(135deg, #17a2b8, #0dcaf0)",
-          color: "#fff",
-          border: "none",
-          fontSize: "15px",
-          transition: "all 0.3s ease-in-out",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-        }}
-      >
-        <FaMobileAlt />
-        Xem tất cả sản phẩm
-      </Button>
+          variant="info"
+          onClick={handleViewAllProducts}
+          className="fw-bold shadow d-flex align-items-center justify-content-center gap-2 px-4 py-2"
+          style={{
+            borderRadius: "30px",
+            background: "linear-gradient(135deg, #17a2b8, #0dcaf0)",
+            color: "#fff",
+            border: "none",
+            fontSize: "15px",
+            transition: "all 0.3s ease-in-out",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.transform = "scale(1)";
+          }}
+        >
+          <FaMobileAlt />
+          Xem tất cả sản phẩm
+        </Button>
 
       </div>
 
       {sortedProducts.length === 0 ? (
         <div className="text-center text-muted my-5">
-          <h5>😥 Không tìm thấy sản phẩm phù hợp</h5>
-          <p>Vui lòng thử thay đổi bộ lọc</p>
+          <h5>Không tìm thấy sản phẩm phù hợp</h5>
         </div>
       ) : (
         <Row className="g-3">
@@ -271,7 +276,7 @@ const ProductList = () => {
 
                 <Card.Img
                   variant="top"
-                  src={product.images?.[0]?.url}
+                  src={product.imageUrl}
                   className="p-3 img-fluid"
                 />
 
@@ -292,11 +297,6 @@ const ProductList = () => {
                   </div>
 
                   <Card.Text className="fw-bold">
-                    {product.oldPrice && (
-                      <span className="text-muted text-decoration-line-through me-2">
-                        {product.oldPrice.toLocaleString()}đ
-                      </span>
-                    )}
                     <span className="text-danger fs-5">
                       {product.price.toLocaleString()}đ
                     </span>

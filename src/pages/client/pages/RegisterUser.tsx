@@ -19,6 +19,7 @@ function RegisterUser() {
     const { register, handleSubmit, watch } = useForm<RegisterInput>();
     const nav = useNavigate();
     const password = watch("password");
+    const phonehoneRegex = /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/;
 
     const onSubmit: SubmitHandler<RegisterInput> = async (data) => {
         if (!data.terms) {
@@ -29,6 +30,10 @@ function RegisterUser() {
             toast.error("Email không hợp lệ. Vui lòng nhập đúng định dạng email.");
             return;
         }
+        if (!phonehoneRegex.test(data.phone)) {
+            toast.error("Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.");
+            return;
+        }
         if (data.password.length < 6) {
             toast.error("Mật khẩu phải có ít nhất 6 ký tự.");
             return;
@@ -37,13 +42,14 @@ function RegisterUser() {
             toast.error("Mật khẩu nhập lại không khớp.");
             return;
         }
+
         const userData = {
             name: data.name,
             phone: data.phone,
             email: data.email,
             password: data.password,
             role: "customer",
-            status: true      
+            status: true
         };
 
         try {
@@ -126,7 +132,7 @@ function RegisterUser() {
 
                 <div className="text-center mt-4">
                     <p className="small">
-                        Bạn đã có tài khoản? <a href="/client/login" className="text-danger fw-bold" onClick={() => nav("/login")}>Đăng nhập ngay</a>
+                        Bạn đã có tài khoản? <a href="/login" className="text-danger fw-bold" onClick={() => nav("/login")}>Đăng nhập ngay</a>
                     </p>
                     <a href="#" className="text-danger fw-bold small">Xem chính sách ưu đãi</a>
                 </div>

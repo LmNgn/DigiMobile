@@ -10,7 +10,7 @@ import { create, getList, update, deleteOne } from "../providers"; // 👈 đã 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { message } from "antd";
 import { cartReducer, initialState } from "../reducer/cartReducer";
-import { Cart, CartState } from "../../../types/Cart";
+import { Cart, CartAction, CartState } from "../../../types/Cart";
 import { Product } from "../../../types/Product";
 
 // Kiểu dữ liệu cho Context
@@ -18,6 +18,7 @@ type CartContextType = {
     state: CartState;
     addToCart: (product: Product) => void;
     updateQuantity: (id: number, quantity: number) => void;
+    dispatch: React.Dispatch<CartAction>; 
 };
 
 // Tạo Context
@@ -103,23 +104,23 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if (!user) return;
 
         const existingCart = state.carts.find(
-            (item: Cart) => item.product.id === product.id
+            (item: Cart) => item.productId === product.id
         );
 
-        const addQuantity = product.quantity || 1;
+        const addQuantity = 1;
 
         mutate({
             id: existingCart?.id,
             cart: {
                 userId: user.id,
-                product,
+                productId: product.id,
                 quantity: (existingCart?.quantity || 0) + addQuantity,
             },
         });
     };
 
     return (
-        <CartContext.Provider value={{ state, addToCart, updateQuantity }}>
+        <CartContext.Provider value={{ state, addToCart, updateQuantity, dispatch }}>
             {children}
         </CartContext.Provider>
     );

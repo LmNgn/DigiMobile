@@ -4,12 +4,27 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cartContext";
 import { Cart } from "../../../types/Cart";
 import { message } from "antd";
-
+import { useQuery } from "@tanstack/react-query";
+import { getList } from "../providers";
 const MyOrders = () => {
   const { state, updateQuantity } = useCart();
   const cartItems = state.carts as Cart[];
 
   const navigate = useNavigate();
+
+  // Lấy danh sách sản phẩm
+  const { data: products = [] } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => getList({ resource: "products" }),
+  });
+
+  // Gắn product thực vào từng cart item
+  const enrichedItems = cartItems
+    .map((item) => {
+      const product = products.find((p:any) => p.id === item.productId);
+      return { ...item, product };
+    })
+    .filter((item) => item.product); // Bỏ item nếu không tìm thấy product
 
   const handleQuantityChange = (id: number, change: number) => {
     const item = cartItems.find((i) => i.id === id);
@@ -18,7 +33,6 @@ const MyOrders = () => {
     const newQuantity = item.quantity + change;
 
     if (newQuantity < 1) {
-      // Nếu giảm xuống 0 thì tự xoá sản phẩm
       updateQuantity(id, 0);
       message.info("Đã xoá sản phẩm khỏi giỏ hàng.");
       return;
@@ -32,7 +46,7 @@ const MyOrders = () => {
     message.success("Đã xoá sản phẩm.");
   };
 
-  const totalPrice = cartItems.reduce(
+  const totalPrice = enrichedItems.reduce(
     (acc, item) => acc + item.product.price * item.quantity,
     0
   );
@@ -45,18 +59,18 @@ const MyOrders = () => {
     <div className="container py-4">
       <h2 className="mb-4">Giỏ hàng của bạn</h2>
 
-      {cartItems.length === 0 ? (
+      {enrichedItems.length === 0 ? (
         <p className="text-muted text-center">Giỏ hàng hiện đang trống.</p>
       ) : (
         <>
           <div className="list-group shadow-sm">
-            {cartItems.map((item) => (
+            {enrichedItems.map((item) => (
               <div
                 key={item.id}
                 className="list-group-item d-flex align-items-center"
               >
                 <img
-                  src={item.product.images?.[0]?.url}
+                  src={item.product.imageUrl || "https://via.placeholder.com/80"}
                   alt={item.product.name}
                   className="me-3 rounded"
                   width="80"
@@ -83,7 +97,6 @@ const MyOrders = () => {
                   </div>
                 </div>
 
-                {/* Nút xoá */}
                 <button
                   className="btn btn-outline-danger btn-sm ms-3"
                   onClick={() => handleRemoveItem(item.id!)}
@@ -99,7 +112,7 @@ const MyOrders = () => {
               Tạm tính: {totalPrice.toLocaleString()}đ
             </h4>
             <button className="btn btn-danger btn-lg" onClick={handleCheckout}>
-              Mua ngay ({cartItems.length})
+              Mua ngay ({enrichedItems.length})
             </button>
           </div>
         </>

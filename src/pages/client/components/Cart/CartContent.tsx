@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { RiDeleteBin3Line } from "react-icons/ri";
 import { useCart } from "../../context/cartContext";
+import { useQuery } from "@tanstack/react-query";
+import { getList } from "../../providers";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const CartContent = () => {
@@ -9,21 +11,36 @@ const CartContent = () => {
     updateQuantity,
   } = useCart();
 
+  // Lấy toàn bộ danh sách sản phẩm
+  const { data: products = [] } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => getList({ resource: "products" }),
+  });
+
+  // Kết hợp cart + product (join)
+  const cartItems = useMemo(() => {
+    return carts.map((item) => {
+      const product = products.find((p:any) => p.id === item.productId);
+      return { ...item, product };
+    });
+  }, [carts, products]);
+
   const total = useMemo(() => {
-    return carts.reduce(
-      (sum: number, item: any) => sum + item.product.price * item.quantity,
-      0
-    );
-  }, [carts]);
+    return cartItems.reduce((sum: number, item: any) => {
+      return sum + (item.product?.price || 0) * item.quantity;
+    }, 0);
+  }, [cartItems]);
 
   return (
     <div className="container">
-      {carts.length === 0 ? (
+      {cartItems.length === 0 ? (
         <p className="text-center text-muted">Giỏ hàng trống</p>
       ) : (
         <>
-          {carts.map((item: any) => {
+          {cartItems.map((item: any) => {
             const product = item.product;
+            if (!product) return null;
+
             const imageUrl =
               product.images?.[0]?.url || product.imageUrl || "https://via.placeholder.com/80";
 
