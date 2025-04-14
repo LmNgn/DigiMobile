@@ -1,26 +1,60 @@
+import { useState } from "react";
 import { Product } from "../../../types/Product";
 import { Link } from "react-router-dom";
 import { Popconfirm } from "antd";
 import { useDelete } from "../hooks/useDelete";
 import { useList } from "../hooks/useList";
+
 function List() {
   const { data } = useList({ resource: "products" });
   const { mutate } = useDelete({ resource: "products" });
-  // if (isLoading) return <p>Đang tải dữ liệu...</p>;
+  const [searchTerm, setSearchTerm] = useState("");
   const token = localStorage.getItem("token");
-  console.log(token);
+
+  const removeVietnameseTones = (str: string): string => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // loại bỏ dấu
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "D")
+      .replace(/\s+/g, ""); // loại bỏ khoảng trắng
+  };
+  
+
+  const filteredData = data?.filter((p: Product) =>
+    removeVietnameseTones(p.name.toLowerCase()).includes(
+      removeVietnameseTones(searchTerm.toLowerCase())
+    )
+  );
+
   return (
     <div>
+      {/* Header */}
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 className="h2">Danh sách sản phẩm</h1>
-        <div className="btn-toolbar mb-2 mb-md-0">
-          <div className="btn-group me-2">
-            <Link to="/admin/products/add" className="btn btn-outline-primary">
-              Thêm sản phẩm
-            </Link>
+        <div className="btn-toolbar mb-2 mb-md-0 d-flex align-items-center gap-3">
+          {/* Tìm kiếm */}
+          <div className="input-group w-50">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Tìm kiếm sản phẩm..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <span className="input-group-text">
+              <i className="fas fa-search" />
+            </span>
           </div>
+
+          {/* Nút thêm */}
+          <Link to="/admin/products/add" className="btn btn-outline-primary">
+            Thêm sản phẩm
+          </Link>
         </div>
       </div>
+
+      {/* Bảng sản phẩm */}
       <table className="table table-hover">
         <thead>
           <tr>
@@ -33,11 +67,11 @@ function List() {
           </tr>
         </thead>
         <tbody>
-          {data?.map((p: Product, index: number) => (
+          {filteredData?.map((p: Product, index: number) => (
             <tr key={p.id}>
               <td>{index + 1}</td>
               <td>{p.name}</td>
-              <td>{p.price}</td>
+              <td>{p.price.toLocaleString()}₫</td>
               <td>{p.category}</td>
               <td>
                 {p.inStock ? (
