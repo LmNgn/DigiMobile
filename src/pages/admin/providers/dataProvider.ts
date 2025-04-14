@@ -7,6 +7,8 @@ export type ProductForm = {
   category: string;
   imageUrl: string;
   inStock: boolean;
+  quantity: number;
+  description: string;
   screen: {
     size: number,
     resolution: string,

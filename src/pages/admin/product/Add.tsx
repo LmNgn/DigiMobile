@@ -16,7 +16,9 @@ const ProductAdd = () => {
   const { data: productList } = useList({ resource: "products" });
   const { mutate } = useCreate({ resource: "products" });
   const onFinish = (values: any) => {
-    const isExist = productList?.some((p: ProductForm) => p.name.toLowerCase() === values.name.toLowerCase());
+    const isExist = productList?.some(
+      (p: ProductForm) => p.name.toLowerCase() === values.name.toLowerCase()
+    );
 
     if (isExist) {
       message.error("Sản phẩm đã tồn tại!");
@@ -72,6 +74,33 @@ const ProductAdd = () => {
                 min: {
                   value: 0,
                   message: "Gía sản phẩm phải lớn hơn 0.",
+                },
+              })}
+            />
+            {errors.price && (
+              <div className="invalid-feedback d-block">
+                {errors.price.message}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="mb-3 row">
+          <label
+            htmlFor="quantity"
+            className="col-sm-2 col-form-label text-end"
+          >
+            Số lượng
+          </label>
+          <div className="col-sm-10">
+            <input
+              type="number"
+              className="form-control"
+              id="quantity"
+              {...register("quantity", {
+                required: "Không bỏ trống số lượng",
+                min: {
+                  value: 0,
+                  message: "Số lượng sản phẩm phải lớn hơn 0.",
                 },
               })}
             />
@@ -140,15 +169,26 @@ const ProductAdd = () => {
           </div>
         </div>
 
-
+        <div className="mb-3 row">
+          <label
+            htmlFor="description"
+            className="col-sm-2 col-form-label text-end"
+          >
+            Mô tả
+          </label>
+          <div className="col-sm-10">
+            <textarea
+              className="form-control"
+              id="description"
+              {...register("description")}
+            />
+          </div>
+        </div>
         {/* Thông số kỹ thuật */}
         <h5 className="text-center mb-3">Thông số kỹ thuật</h5>
 
         <div className="mb-3 row">
-          <label
-            htmlFor="screen"
-            className="col-sm-2 col-form-label text-end"
-          >
+          <label htmlFor="screen" className="col-sm-2 col-form-label text-end">
             Màn hình
           </label>
           <div className="col-sm-3">
@@ -195,11 +235,7 @@ const ProductAdd = () => {
             RAM
           </label>
           <div className="col-sm-10">
-            <select
-              className="form-control"
-              id="ram"
-              {...register("ram")}
-            >
+            <select className="form-control" id="ram" {...register("ram")}>
               <option value="">Chọn thông số</option>
               <option value="4">4GB</option>
               <option value="6">6GB</option>

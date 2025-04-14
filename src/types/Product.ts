@@ -5,6 +5,8 @@ export type Product = {
     price: number,
     imageUrl: string,
     category: string,
+    quantity: number,
+    description?: string,
     inStock: boolean,
     screen: {
         size: number,

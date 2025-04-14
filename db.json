@@ -177,6 +177,44 @@
         }
       ],
       "id": 3
+    },
+    {
+      "name": "sản phẩm 2",
+      "price": "123123",
+      "quantity": "123123",
+      "imageUrl": "https://picsum.photos/id/237/200/300",
+      "inStock": true,
+      "category": "Samsung",
+      "screen": {
+        "size": "123",
+        "resolution": "HD",
+        "rate": "60"
+      },
+      "ram": "4",
+      "memory": "256",
+      "battery": "7000",
+      "Desc": "",
+      "Description": "",
+      "description": "mô tả",
+      "id": 4
+    },
+    {
+      "name": "123123",
+      "price": "123123",
+      "quantity": "123",
+      "imageUrl": "https://picsum.photos/id/237/200/300",
+      "inStock": true,
+      "category": "Samsung",
+      "description": "mô tả",
+      "screen": {
+        "size": "123",
+        "resolution": "HD",
+        "rate": "60"
+      },
+      "ram": "8",
+      "memory": "256",
+      "battery": "7000",
+      "id": 5
     }
   ],
   "users": [
@@ -271,7 +309,7 @@
     {
       "userId": 5,
       "product": {
-        "name": "Phone 3",
+        "name": "Phone 1",
         "price": 120,
         "originalPrice": 150,
         "inStock": true,
@@ -308,20 +346,30 @@
         },
         "reviews": [
           {
-            "user": "John",
+            "user": "Jack",
             "rating": 5,
             "comment": "Good!"
           },
           {
-            "user": "Admin",
+            "user": "Drake",
             "rating": 4,
             "comment": "Nice"
+          },
+          {
+            "user": "Admin",
+            "rating": 5,
+            "comment": "dfggdfg"
+          },
+          {
+            "user": "User",
+            "rating": 5,
+            "comment": "adadad"
           }
         ],
-        "id": 3
+        "id": 1
       },
-      "quantity": 3,
-      "id": 3
+      "quantity": 1,
+      "id": 5
     },
     {
       "userId": 5,
@@ -375,8 +423,8 @@
         ],
         "id": 2
       },
-      "quantity": 2,
-      "id": 4
+      "quantity": 1,
+      "id": 6
     }
   ]
 }
