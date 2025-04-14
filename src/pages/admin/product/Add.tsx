@@ -40,7 +40,6 @@ const ProductAdd = () => {
       </div>
 
       <form className="offset-2 col-md-8 " onSubmit={handleSubmit(onFinish)}>
-        {/* Thông tin cơ bản */}
         <div className="mb-3 row">
           <h5 className="text-center mb-3">Thông tin cơ bản</h5>
           <label htmlFor="name" className="col-sm-2 col-form-label text-end">
@@ -284,7 +283,7 @@ const ProductAdd = () => {
             />
           </div>
         </div>
-        {/* nút xác nhận */}
+        
         <div className="row d-flex justify-content-center">
           <div className="col-sm-10 offset-8">
             <button type="submit" className="btn btn-primary">

@@ -5,7 +5,7 @@ import { useUser } from "../context/userContext";
 import axios from "axios";
 
 const Profile = () => {
-  const { user, logout } = useUser();  // Lấy thông tin user từ context
+  const { user, logout } = useUser();
   const [profileData, setProfileData] = useState({
     id: "",
     email: "",
@@ -18,7 +18,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (user?.id) {
-      axios.get(`http://localhost:3000/users/${user.id}`)  // Dùng user.id thay vì hardcode
+      axios.get(`http://localhost:3000/users/${user.id}`)
         .then((res) => {
           setProfileData(res.data);
         })
@@ -26,7 +26,7 @@ const Profile = () => {
           console.error("Lỗi khi load user:", err);
         });
     }
-  }, [user?.id]); // Thực hiện lại khi user.id thay đổi
+  }, [user?.id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,13 +66,13 @@ const Profile = () => {
                   transition: 'color 0.3s, background-color 0.3s',
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.color = '#dc3545'; // Màu đỏ khi hover
+                  e.target.style.color = '#dc3545';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.color = '#6c757d'; // Màu xám khi không hover
+                  e.target.style.color = '#6c757d';
                 }}
               >
-                <i className="bi bi-box-arrow-right me-2"></i> {/* Thêm biểu tượng */}
+                <i className="bi bi-box-arrow-right me-2"></i>
                 Log Out
               </Button>
             </ul>

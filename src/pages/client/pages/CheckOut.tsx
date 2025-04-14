@@ -79,7 +79,6 @@ const CheckOut = () => {
       <div className="card p-3 mb-3">
         <p className="fw-bold">{user?.email?.split("@")[0]}</p>
         <p>Email: {user?.email}</p>
-        {/* không phải lỗi */}
         <p>Số điện thoại: {user?.phone || "Chưa có"}</p>  
         <div className="form-check">
           <input type="checkbox" className="form-check-input" id="subscribe" />

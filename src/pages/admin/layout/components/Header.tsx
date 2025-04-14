@@ -19,7 +19,7 @@ function Header() {
 
     if (!token) {
       console.log("Không tìm thấy token, đăng xuất...");
-      nav("/admin/login"); // Chuyển về trang đăng nhập
+      nav("/admin/login");
     }
   }, []);
   const user = JSON.parse(localStorage.getItem("user") || "{}");

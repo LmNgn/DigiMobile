@@ -64,7 +64,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         },
     });
 
-    // 👉 Mutation xoá sản phẩm
+    // Mutation xoá sản phẩm
     const { mutate: deleteCart } = useMutation({
         mutationFn: (id: number) => deleteOne({ resource: "carts", id }),
         onSuccess: (_, id) => {
@@ -73,7 +73,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         },
     });
 
-    // 👉 Hàm cập nhật số lượng
+    // Hàm cập nhật số lượng
     const updateQuantity = (id: number, quantity: number) => {
         if (!user) return;
         const cartItem = state.carts.find((item) => item.id === id);
@@ -83,7 +83,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const confirmDelete = window.confirm("Bạn có muốn xoá sản phẩm này khỏi giỏ?");
             if (!confirmDelete) return;
 
-            deleteCart(id); // 👈 gọi xoá server
+            deleteCart(id);
             return;
         }
 
@@ -98,7 +98,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         });
     };
 
-    // 👉 Hàm thêm vào giỏ hàng
+    // Hàm thêm vào giỏ hàng
     const addToCart = (product: Product) => {
         if (!user) return;
 

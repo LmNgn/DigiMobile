@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useOne } from "../hooks/useOne";
 import { useList } from "../hooks/useList";
-import { useUpdate } from "../hooks/useUpdate"; // Thêm hook cập nhật dữ liệu
+import { useUpdate } from "../hooks/useUpdate"; 
 import { ProductForm } from "../providers/dataProvider";
 
 const UpdateProduct = () => {

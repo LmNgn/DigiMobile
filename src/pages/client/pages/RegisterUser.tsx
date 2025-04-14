@@ -42,8 +42,8 @@ function RegisterUser() {
             phone: data.phone,
             email: data.email,
             password: data.password,
-            role: "customer", // thêm role
-            status: true       // thêm status
+            role: "customer",
+            status: true      
         };
 
         try {

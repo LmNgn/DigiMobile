@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const SearchBar = () => {
     const [searchs, setSearch] = useState("");
     const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate(); // dùng để chuyển trang
+    const navigate = useNavigate();
 
     const handleSearch = () => {
         setIsOpen(!isOpen);
