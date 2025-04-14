@@ -1,4 +1,5 @@
-import { useState } from "react"; // ✅ Thêm useState
+
+import { useState } from "react";
 import { Product } from "../../../types/Product";
 import { Link } from "react-router-dom";
 import { Popconfirm } from "antd";
@@ -22,18 +23,17 @@ function List() {
 
   return (
     <div>
+      {/* Header */}
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 className="h2">Danh sách sản phẩm</h1>
-        <div className="btn-toolbar mb-2 mb-md-0">
-          <div className="btn-group me-2">
-            <Link to="/admin/products/add" className="btn btn-outline-primary">
-              Thêm sản phẩm
-            </Link>
-          </div>
+        <div className="btn-toolbar mb-2 mb-md-0 d-flex align-items-center gap-3">
+          {/* Nút thêm */}
+          <Link to="/admin/products/add" className="btn btn-outline-primary">
+            Thêm sản phẩm
+          </Link>
         </div>
       </div>
 
-      {/* 🔍 Tìm kiếm & lọc */}
       <div className="row mb-3">
         <div className="col-md-6 mb-2">
           <input
@@ -60,6 +60,7 @@ function List() {
         </div>
       </div>
 
+
       {/* Bảng sản phẩm */}
       <table className="table table-hover">
         <thead>
@@ -77,7 +78,7 @@ function List() {
             <tr key={p.id}>
               <td>{index + 1}</td>
               <td>{p.name}</td>
-              <td>{p.price}</td>
+              <td>{p.price.toLocaleString()}₫</td>
               <td>{p.category}</td>
               <td>
                 {p.inStock ? (
