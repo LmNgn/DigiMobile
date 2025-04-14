@@ -76,7 +76,17 @@
           "comment": "adadad"
         }
       ],
-      "id": 1
+      "id": 1,
+      "imageUrl": "https://picsum.photos/id/5/200/300",
+      "category": "Huawei",
+      "ram": "",
+      "memory": "",
+      "battery": "",
+      "screen": {
+        "size": 0,
+        "resolution": "",
+        "rate": 60
+      }
     },
     {
       "name": "Phone 2",
@@ -126,13 +136,23 @@
           "comment": "Very Good!"
         }
       ],
-      "id": 2
+      "id": 2,
+      "imageUrl": "https://picsum.photos/id/3/200/300",
+      "category": "Xiaomi",
+      "ram": "",
+      "memory": "",
+      "battery": "",
+      "screen": {
+        "size": 0,
+        "resolution": "",
+        "rate": 60
+      }
     },
     {
       "name": "Phone 3",
       "price": 120,
       "originalPrice": 150,
-      "inStock": true,
+      "inStock": false,
       "description": "Đây là một chiếc điện thoại thông minh thời trang hoàn hảo cho mọi dịp",
       "brand": "TechBrand",
       "material": "Aluminum",

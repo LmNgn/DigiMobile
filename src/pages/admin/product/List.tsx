@@ -68,6 +68,7 @@ function List() {
             <th>STT</th>
             <th>Tên</th>
             <th>Giá</th>
+            <th>Số lượng</th>
             <th>Danh mục</th>
             <th>Trạng thái</th>
             <th>Thao tác</th>
@@ -79,6 +80,7 @@ function List() {
               <td>{index + 1}</td>
               <td>{p.name}</td>
               <td>{p.price.toLocaleString()}₫</td>
+              <td>{p.quantity || 'Chưa nhập'}</td>
               <td>{p.category}</td>
               <td>
                 {p.inStock ? (
