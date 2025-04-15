@@ -93,6 +93,8 @@ const OrderDetail = () => {
         (sum: number, item: any) => sum + item.price * item.quantity,
         0
     );
+    const isStatusLocked =
+        order && statusOrderFlow.indexOf(order.status) >= statusOrderFlow.indexOf(OrderStatus.SHIPPED);
     return (
         <Container className="mt-5 mb-5 d-flex justify-content-center">
             <Card className="p-4 shadow-lg w-75 rounded-4">
@@ -156,38 +158,45 @@ const OrderDetail = () => {
                                 </table>
                             </div>
 
-                            {/* Form cập nhật trạng thái */}
-                            <form className="offset-2 col-md-8" onSubmit={handleSubmit(onFinish)}>
-                                <h5 className="text-center mb-3">Cập nhật trạng thái</h5>
-                                <div className="mb-3 row">
-                                    <label htmlFor="status" className="col-sm-2 col-form-label text-end">
-                                        Trạng thái đơn hàng
-                                    </label>
-                                    <div className="col-sm-10">
-                                        <select
-                                            className="form-control"
-                                            id="status"
-                                            {...register("status", { required: true })}
-                                        >
-                                            <option value="">-- Chọn trạng thái --</option>
-                                            {orderStatusOptions.map(([key, value]) => (
-                                                <option key={key} value={value}>
-                                                    {key.charAt(0) + key.slice(1).toLowerCase()}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        {errors.status && <p className="text-danger">Vui lòng chọn trạng thái</p>}
-                                    </div>
-                                </div>
+                            {isStatusLocked && (
+                                <p className="text-center text-danger fw-bold">
+                                    Đơn hàng đã được chuyển đi. Không thể cập nhật trạng thái nữa.
+                                </p>
+                            )}
 
-                                <div className="row d-flex justify-content-center">
-                                    <div className="col-sm-10 offset-8">
-                                        <button type="submit" className="btn btn-primary">
-                                            Cập nhật
-                                        </button>
+                            {!isStatusLocked && (
+                                <form className="offset-2 col-md-8" onSubmit={handleSubmit(onFinish)}>
+                                    <h5 className="text-center mb-3">Cập nhật trạng thái</h5>
+                                    <div className="mb-3 row">
+                                        <label htmlFor="status" className="col-sm-2 col-form-label text-end">
+                                            Trạng thái đơn hàng
+                                        </label>
+                                        <div className="col-sm-10">
+                                            <select
+                                                className="form-control"
+                                                id="status"
+                                                {...register("status", { required: true })}
+                                            >
+                                                <option value="">-- Chọn trạng thái --</option>
+                                                {orderStatusOptions.map(([key, value]) => (
+                                                    <option key={key} value={value}>
+                                                        {key.charAt(0) + key.slice(1).toLowerCase()}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {errors.status && <p className="text-danger">Vui lòng chọn trạng thái</p>}
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+
+                                    <div className="row d-flex justify-content-center">
+                                        <div className="col-sm-10 offset-8">
+                                            <button type="submit" className="btn btn-primary">
+                                                Cập nhật
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            )}
 
                             {/* Thông tin sản phẩm */}
                             <div className="mx-auto mb-3 row col-md-8">
