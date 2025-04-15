@@ -128,6 +128,15 @@
       "role": "customer",
       "status": true,
       "id": 9
+    },
+    {
+      "email": "test65@gmail.com",
+      "password": "$2a$10$NORKgS2ZP8CmJ0YNOybLH.Nyq0fMD6Id3SZgbgMcIuiScgbvVBqBa",
+      "name": "Product 4",
+      "phone": "0977599812",
+      "role": "customer",
+      "status": true,
+      "id": 10
     }
   ],
   "orders": [
@@ -135,7 +144,7 @@
       "id": 1744663436251,
       "userId": 9,
       "date": "2025-04-14T20:43:56.251Z",
-      "status": "pending",
+      "status": "Hoàn tất",
       "address": "Trịnh Văn Bô",
       "paymentMethod": "momo",
       "items": [
@@ -347,6 +356,57 @@
         },
         {
           "productId": 1,
+          "quantity": 1,
+          "price": "123"
+        },
+        {
+          "productId": 3,
+          "quantity": 1,
+          "price": "123"
+        }
+      ]
+    },
+    {
+      "id": 1744681006882,
+      "userId": 9,
+      "date": "2025-04-15T01:36:46.882Z",
+      "status": "Chờ xác nhận",
+      "address": "",
+      "paymentMethod": "offline",
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": "123"
+        },
+        {
+          "productId": 2,
+          "quantity": 3,
+          "price": "123"
+        },
+        {
+          "productId": 3,
+          "quantity": 1,
+          "price": "123"
+        }
+      ]
+    },
+    {
+      "id": 1744681325604,
+      "userId": 10,
+      "date": "2025-04-15T01:42:05.604Z",
+      "status": "Bị huỷ",
+      "address": "Trịnh Văn Bô",
+      "paymentMethod": "vnpay",
+      "totalAmount": 369,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": "123"
+        },
+        {
+          "productId": 2,
           "quantity": 1,
           "price": "123"
         },

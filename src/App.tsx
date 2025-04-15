@@ -42,6 +42,7 @@ import CheckOut from "./pages/client/pages/CheckOut";
 import OrderInfo from "./pages/client/pages/Info";
 import SearchPage from "./pages/client/components/Common/SearchPage";
 import ProfileOrder from "./pages/client/pages/ProfileOrder";
+import OrderDetail from "./pages/client/pages/OrderDetail";
 
 //============================00============================
 
@@ -97,7 +98,8 @@ const routeConfig = [
       { path: "product", element: <ListProduct /> },
       { path: "/product/:id", element: <ProductDetailId /> },
       { path: "profile", element: <Profile /> },
-      { path: "prorder", element: <ProfileOrder /> },
+      { path: "my_orders", element: <ProfileOrder /> },
+      { path: "order-detail/:id", element: <OrderDetail /> },
       { path: "order", element: <MyOrders /> },
       { path: "info", element: <OrderInfo /> },
       { path: "checkout", element: <CheckOut /> },

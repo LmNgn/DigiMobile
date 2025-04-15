@@ -1,14 +1,32 @@
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useOne } from "../hooks/useOne";
 import { OrderStatus } from "../../../types/Order";
+import { message } from "antd";
+
+const statusOrderFlow = [
+  OrderStatus.PENDING,
+  OrderStatus.PROCESSING,
+  OrderStatus.SHIPPED,
+  OrderStatus.DELIVERED,
+  OrderStatus.COMPLETED,
+  OrderStatus.RETURNED,
+  OrderStatus.CANCELED,
+];
 
 const UpdateOrder = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: order } = useOne({ resource: "orders", id });
 
   const [products, setProducts] = useState<any[]>([]);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<any>();
 
   // Lấy thông tin người dùng
   const userId = order?.userId;
@@ -20,37 +38,53 @@ const UpdateOrder = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       if (order?.items?.length) {
-        const productPromises = order.items.map((item: any) =>
-          useOne({ resource: "products", id: item.productId }).data
-        );
+        const productPromises = order.items.map(async (item: any) => {
+          const res = await fetch(`http://localhost:3000/products/${item.productId}`);
+          return res.json();
+        });
 
         const result = await Promise.all(productPromises);
         setProducts(result);
+        reset({
+          status: order.status,
+        });
       }
     };
 
     fetchProducts();
-  }, [order]);
-
-  // React Hook Form setup
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<any>();
-
-  useEffect(() => {
-    if (order) {
-      reset({
-        status: order.status,
-      });
-    }
   }, [order, reset]);
 
-  const onFinish = (values: any) => {
-    console.log("Cập nhật:", values);
-    // mutate(values);
+  // Khi submit form
+  const onFinish = async (values: any) => {
+    if (!id || !order) return;
+
+    const currentIndex = statusOrderFlow.indexOf(order.status);
+    const nextIndex = statusOrderFlow.indexOf(values.status);
+
+    // Không cho phép cập nhật lùi trạng thái
+    if (nextIndex < currentIndex) {
+      alert("Không thể cập nhật về trạng thái trước đó!");
+      return;
+    }
+
+    try {
+      const res = await fetch(`http://localhost:3000/orders/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!res.ok) throw new Error("Cập nhật thất bại");
+
+      const updatedOrder = await res.json();
+      message.success("Cập nhật thành công:", updatedOrder);
+      navigate("/admin/orders");
+    } catch (error) {
+      console.error("Lỗi khi cập nhật:", error);
+      alert("Cập nhật thất bại!");
+    }
   };
 
   const orderStatusOptions = Object.entries(OrderStatus);
@@ -93,7 +127,9 @@ const UpdateOrder = () => {
             </tr>
             <tr>
               <th>Ngày đặt hàng:</th>
-              <td>{order?.date}</td>
+              <td>
+                {new Date(order?.date)
+                  .toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" })}</td>
             </tr>
             <tr>
               <th>Phương thức thanh toán:</th>
@@ -114,7 +150,7 @@ const UpdateOrder = () => {
             <select
               className="form-control"
               id="status"
-              {...register("status")}
+              {...register("status", { required: true })}
             >
               <option value="">-- Chọn trạng thái --</option>
               {orderStatusOptions.map(([key, value]) => (
@@ -123,7 +159,7 @@ const UpdateOrder = () => {
                 </option>
               ))}
             </select>
-
+            {errors.status && <p className="text-danger">Vui lòng chọn trạng thái</p>}
           </div>
         </div>
 
@@ -150,15 +186,13 @@ const UpdateOrder = () => {
           </thead>
           <tbody>
             {order?.items?.map((item: any, index: number) => {
-              const product = products.find(p => p?.id === item.productId);
+              const product = products.find((p) => p?.id === item.productId);
               return (
                 <tr key={index}>
                   <td>{product?.name || "N/A"}</td>
                   <td>{item.quantity}</td>
                   <td>{product?.price?.toLocaleString()} đ</td>
-                  <td>
-                    {(product?.price * item.quantity)?.toLocaleString()} đ
-                  </td>
+                  <td>{(product?.price * item.quantity)?.toLocaleString()} đ</td>
                 </tr>
               );
             })}

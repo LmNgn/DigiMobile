@@ -14,7 +14,7 @@ const OrderSuccess: React.FC = () => {
                 <p>Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi.</p>
               </Alert>
               <div className="d-flex justify-content-between">
-                <Button variant="primary" href="/orders">
+                <Button variant="primary" href="/my_orders">
                   Xem đơn hàng của tôi
                 </Button>
                 <Button variant="secondary" href="/">

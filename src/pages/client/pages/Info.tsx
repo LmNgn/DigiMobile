@@ -97,6 +97,7 @@ const OrderInfo = () => {
       status: OrderStatus.PENDING,
       address: shippingMethod === "store" ? selectedStore : deliveryAddress,
       paymentMethod: selected,
+      totalAmount: finalTotal,
       items: enrichedCarts.map(item => ({
         productId: item.product.id,
         quantity: item.quantity,

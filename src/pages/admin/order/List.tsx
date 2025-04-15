@@ -1,5 +1,4 @@
 
-import { Product } from "../../../types/Product";
 import { Link } from "react-router-dom";
 import { useList } from "../hooks/useList";
 
@@ -19,7 +18,7 @@ function List() {
         <thead>
           <tr>
             <th>STT</th>
-            <th>Tên</th>
+            <th>Mã đơn hàng</th>
             <th>Tổng giá</th>
             <th>Trạng thái</th>
             <th>Thao tác</th>
@@ -29,7 +28,7 @@ function List() {
           {data?.map((p: any, index: number) => (
             <tr key={p.id}>
               <td>{index + 1}</td>
-              <td>{p.name}</td>
+              <td>#{p.id}</td>
               <td>{p.totalAmount} ₫</td>
               <td>{p.status}</td>
               <td>

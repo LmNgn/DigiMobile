@@ -55,7 +55,7 @@ const Profile = () => {
                 <Link to="/profile" className="text-danger fw-bold text-decoration-none">Tài khoản</Link>
               </li>
               <li>
-                <Link to="/prorder" className="text-muted text-decoration-none">Đơn hàng</Link>
+                <Link to="/my_orders" className="text-muted text-decoration-none">Đơn hàng</Link>
               </li>
               {/* Nút đăng xuất */}
               <Button
