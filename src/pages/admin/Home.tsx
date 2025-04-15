@@ -32,9 +32,10 @@ function Home() {
     { day: "Sun", sales: 620 },
   ];
 
-  const topUsers = users.slice(0, 5); // hoặc lọc theo điều kiện cụ thể hơn nếu có
+  //const topUsers = users.slice(0, 5); // hoặc lọc theo điều kiện cụ thể hơn nếu có
   const totalRevenue = products.reduce((acc: any, item: any) => acc + Number(item.price || 0), 0);
-
+  const filteredUsers = users.filter((user: any) => user.status === true && (user.role === 'customer' || user.role === 'admin'));
+  const topUsers = filteredUsers.slice(0, 5);
   return (
     <Container fluid className="p-4">
       <Row>
