@@ -89,6 +89,20 @@ const OrderInfo = () => {
   });
 
   const handleCheckout = () => {
+    if (enrichedCarts.length === 0) {
+      alert("Giỏ hàng của bạn đang trống.");
+      return;
+    }
+  
+    if (shippingMethod === "store" && !selectedStore) {
+      alert("Vui lòng chọn cửa hàng nhận hàng.");
+      return;
+    }
+  
+    if (shippingMethod === "home" && !deliveryAddress.trim()) {
+      alert("Vui lòng nhập địa chỉ giao hàng.");
+      return;
+    }
     // Create the order object
     const order: Order = {
       id: Date.now(),
