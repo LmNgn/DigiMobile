@@ -87,7 +87,10 @@ const OrderDetail = () => {
         }
     };
 
-    const orderStatusOptions = Object.entries(OrderStatus);
+    const orderStatusOptions = Object.entries(OrderStatus).filter(
+        ([key, value]) => value === OrderStatus.PENDING || value === OrderStatus.CANCELED
+    );
+    
 
     const totalAmount = order?.items?.reduce(
         (sum: number, item: any) => sum + item.price * item.quantity,
@@ -172,18 +175,19 @@ const OrderDetail = () => {
                                             Trạng thái đơn hàng
                                         </label>
                                         <div className="col-sm-10">
-                                            <select
-                                                className="form-control"
-                                                id="status"
-                                                {...register("status", { required: true })}
-                                            >
-                                                <option value="">-- Chọn trạng thái --</option>
-                                                {orderStatusOptions.map(([key, value]) => (
-                                                    <option key={key} value={value}>
-                                                        {key.charAt(0) + key.slice(1).toLowerCase()}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                        <select
+                                            className="form-control"
+                                            id="status"
+                                            {...register("status", { required: true })}
+                                        >
+                                            <option value="">-- Chọn trạng thái --</option>
+                                            {orderStatusOptions.map(([key, value]) => (
+                                                <option key={key} value={value}>
+                                                    {key.charAt(0) + key.slice(1).toLowerCase()}
+                                                </option>
+                                            ))}
+                                        </select>
+
                                             {errors.status && <p className="text-danger">Vui lòng chọn trạng thái</p>}
                                         </div>
                                     </div>
