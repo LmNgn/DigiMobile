@@ -25,43 +25,50 @@ const SearchPage = () => {
       };
 
     return (
-        <div className="container py-4">
-    <h4 className="mb-4 text-center text-primary">Kết quả tìm kiếm cho: <strong>{keyword}</strong></h4>
-    <div className="row justify-content-center g-4">
-        {results.length ? results.map(product => (
-            <div key={product.id} className="col-md-4">
-                <div className="card shadow-lg h-100 transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl border border-light rounded-3">
-                    <Link to={`/product/${product.id}`} className="text-decoration-none">
-                    <img src={product.images?.[0]?.url} alt={product.name} className="card-img-top img-fluid transition-transform duration-300 ease-in-out hover:scale-110 rounded-top" />
-                    <div className="card-body bg-light">
-                        <h5 className="card-title text-truncate">{product.name}</h5>
-                        <p className="card-text text-primary fw-bold">
-                            ${product.price} <del className="text-muted">${product.originalPrice}</del>
-                        </p>
-                        <div className="d-flex flex-wrap mb-3">
-                            {product.colors.map((color, index) => (
-                                <span key={index} className="badge me-2 mb-2" style={{ backgroundColor: color }}>
-                                    {color}
-                                </span>
-                            ))}
-                        </div>
-                        <div className="mb-3">
-                            <strong>Bộ nhớ: </strong>{product.storages.join(", ")}
-                        </div>
-                        <button
-                            onClick={() => handleAddToCart(product)}
-                            disabled={addingToCart === product.id}
-                            className="btn btn-primary w-100 transform transition duration-200 ease-in-out hover:bg-blue-700 hover:scale-105"
-                        >
-                            {addingToCart === product.id ? "Đang thêm..." : "Mua ngay"}
-                        </button>
-                    </div>
-                    </Link>
-                </div>
+        <div className="container py-5">
+  <h4 className="mb-4 text-center text-primary fs-4">
+    Kết quả tìm kiếm cho: <strong className="text-dark">{keyword}</strong>
+  </h4>
+
+  <div className="row justify-content-center g-4">
+    {results.length ? (
+      results.map(product => (
+        <div key={product.id} className="col-md-4">
+          <div className="card shadow-lg h-100 transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl border-0 rounded-3 overflow-hidden">
+            <Link to={`/product/${product.id}`} className="text-decoration-none">
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="card-img-top img-fluid transition-transform duration-300 ease-in-out hover:scale-110"
+              />
+            </Link>
+            <div className="card-body bg-white p-4">
+              <Link to={`/product/${product.id}`} className="text-decoration-none text-dark">
+                <h5 className="card-title text-truncate">{product.name}</h5>
+              </Link>
+              <p className="card-text text-primary fw-bold mb-2">
+                ${product.price}{" "}
+                <del className="text-muted">${product.originalPrice}</del>
+              </p>
+
+              <button
+                onClick={() => handleAddToCart(product)}
+                disabled={addingToCart === product.id}
+                className="btn btn-primary w-100 transform transition-all duration-300 ease-in-out hover:bg-blue-700 hover:scale-105"
+              >
+                {addingToCart === product.id ? "Đang thêm..." : "Mua ngay"}
+              </button>
             </div>
-        )) : <p className="text-center w-100">Không tìm thấy sản phẩm nào.</p>}
-    </div>
+          </div>
+        </div>
+      ))
+    ) : (
+      <p className="text-center w-100 text-muted">Không tìm thấy sản phẩm nào.</p>
+    )}
+  </div>
 </div>
+
+
 
 
     );
