@@ -122,8 +122,8 @@
     },
     {
       "email": "phuclam6987@gmail.com",
-      "password": "$2a$10$sI89v/qIc5x/DE6u2SntSOAwHjGoHH6VaOK7nHpiqzf3Xgwo2m8EG",
-      "name": "Lâm",
+      "password": "$2a$10$zxExbeabb5OTceMcwaJGquSFwA2HhVxvCB2aObqWxTA6Ss3OYRNrG",
+      "name": "Lâm update 2",
       "phone": "123123",
       "role": "customer",
       "status": true,
@@ -132,168 +132,231 @@
   ],
   "orders": [
     {
-      "id": 1,
-      "user": "user1",
-      "product": "Samsung Galaxy S24 Ultra 12GB 256GB",
-      "address": "123 Main",
-      "price": 30000,
-      "oldPrice": 33990000,
-      "status": "Processing",
-      "image": "https://picsum.photos/id/237/500/500",
-      "quantity": 1,
-      "selected": false
-    },
-    {
-      "id": 2,
-      "user": "user2",
-      "product": "Xiaomi 14T Pro - Xám",
-      "address": "456 Main",
-      "price": 22990000,
-      "oldPrice": 25990000,
-      "status": "Shipped",
-      "image": "https://picsum.photos/id/237/500/500",
-      "quantity": 1,
-      "selected": false
-    },
-    {
-      "id": 1744659467680,
+      "id": 1744663436251,
       "userId": 9,
-      "date": "2025-04-14T19:37:47.680Z",
+      "date": "2025-04-14T20:43:56.251Z",
       "status": "pending",
-      "address": "ád",
-      "paymentMethod": "offline"
+      "address": "Trịnh Văn Bô",
+      "paymentMethod": "momo",
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "productId": 3,
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 4560000
     },
     {
-      "id": 1744659650870,
+      "id": 1744663906993,
       "userId": 9,
-      "date": "2025-04-14T19:40:50.870Z",
+      "date": "2025-04-14T20:51:46.993Z",
       "status": "pending",
       "address": "",
       "paymentMethod": "offline"
     },
     {
-      "id": 1744659675831,
+      "id": 1744664115214,
       "userId": 9,
-      "date": "2025-04-14T19:41:15.831Z",
+      "date": "2025-04-14T20:55:15.214Z",
       "status": "pending",
       "address": "",
       "paymentMethod": "momo"
     },
     {
-      "id": 1744659760452,
+      "id": 1744664144264,
       "userId": 9,
-      "date": "2025-04-14T19:42:40.452Z",
+      "date": "2025-04-14T20:55:44.264Z",
       "status": "pending",
-      "address": "Trịnh Văn Bô",
+      "address": "",
       "paymentMethod": "offline"
     },
     {
-      "id": 1744659770252,
+      "id": 1744664159665,
       "userId": 9,
-      "date": "2025-04-14T19:42:50.252Z",
+      "date": "2025-04-14T20:55:59.665Z",
       "status": "pending",
-      "address": "Trịnh Văn Bô",
+      "address": "",
+      "paymentMethod": "vnpay"
+    },
+    {
+      "id": 1744664344015,
+      "userId": 9,
+      "date": "2025-04-14T20:59:04.015Z",
+      "status": "pending",
+      "address": "",
       "paymentMethod": "momo"
     },
     {
-      "id": 1744659972333,
+      "id": 1744664368176,
       "userId": 9,
-      "date": "2025-04-14T19:46:12.333Z",
+      "date": "2025-04-14T20:59:28.176Z",
+      "status": "pending",
+      "address": "",
+      "paymentMethod": "vnpay"
+    },
+    {
+      "id": 1744664758508,
+      "userId": 9,
+      "date": "2025-04-14T21:05:58.508Z",
       "status": "pending",
       "address": "",
       "paymentMethod": "offline"
     },
     {
-      "id": 1744660266564,
+      "id": 1744664782818,
       "userId": 9,
-      "date": "2025-04-14T19:51:06.564Z",
+      "date": "2025-04-14T21:06:22.818Z",
       "status": "pending",
       "address": "",
       "paymentMethod": "offline"
     },
     {
-      "id": 1744660267574,
+      "id": 1744664869568,
       "userId": 9,
-      "date": "2025-04-14T19:51:07.574Z",
+      "date": "2025-04-14T21:07:49.568Z",
       "status": "pending",
       "address": "",
       "paymentMethod": "offline"
     },
     {
-      "id": 1744660268064,
+      "id": 1744665039569,
       "userId": 9,
-      "date": "2025-04-14T19:51:08.064Z",
+      "date": "2025-04-14T21:10:39.569Z",
       "status": "pending",
       "address": "",
-      "paymentMethod": "offline"
+      "paymentMethod": "offline",
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 3,
+          "price": "123"
+        },
+        {
+          "productId": 3,
+          "quantity": 2,
+          "price": "123"
+        },
+        {
+          "productId": 1,
+          "quantity": 2,
+          "price": "123"
+        }
+      ]
     },
     {
-      "id": 1744660268634,
+      "id": 1744665267290,
       "userId": 9,
-      "date": "2025-04-14T19:51:08.634Z",
+      "date": "2025-04-14T21:14:27.290Z",
       "status": "pending",
       "address": "",
-      "paymentMethod": "offline"
+      "paymentMethod": "offline",
+      "items": [
+        {
+          "productId": 3,
+          "quantity": 3,
+          "price": "123"
+        },
+        {
+          "productId": 1,
+          "quantity": 5,
+          "price": "123"
+        },
+        {
+          "productId": 2,
+          "quantity": 1,
+          "price": "123"
+        }
+      ]
     },
     {
-      "id": 1744660269084,
+      "id": 1744665361011,
       "userId": 9,
-      "date": "2025-04-14T19:51:09.084Z",
+      "date": "2025-04-14T21:16:01.011Z",
       "status": "pending",
       "address": "",
-      "paymentMethod": "offline"
+      "paymentMethod": "offline",
+      "items": [],
+      "totalAmount": 0
     },
     {
-      "id": 1744660269454,
+      "id": 1744665583542,
       "userId": 9,
-      "date": "2025-04-14T19:51:09.454Z",
+      "date": "2025-04-14T21:19:43.542Z",
       "status": "pending",
       "address": "",
-      "paymentMethod": "offline"
+      "paymentMethod": "offline",
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 2,
+          "price": "123"
+        },
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": "123"
+        },
+        {
+          "productId": 3,
+          "quantity": 2,
+          "price": "123"
+        }
+      ]
     },
     {
-      "id": 1744660269824,
+      "id": 1744665929074,
       "userId": 9,
-      "date": "2025-04-14T19:51:09.824Z",
+      "date": "2025-04-14T21:25:29.074Z",
       "status": "pending",
       "address": "",
-      "paymentMethod": "offline"
+      "paymentMethod": "momo",
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 2,
+          "price": "123"
+        },
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": "123"
+        },
+        {
+          "productId": 3,
+          "quantity": 2,
+          "price": "123"
+        }
+      ]
     },
     {
-      "id": 1744660276885,
+      "id": 1744665950124,
       "userId": 9,
-      "date": "2025-04-14T19:51:16.885Z",
+      "date": "2025-04-14T21:25:50.124Z",
       "status": "pending",
       "address": "",
-      "paymentMethod": "offline"
-    },
-    {
-      "id": 1744660374083,
-      "userId": 9,
-      "date": "2025-04-14T19:52:54.083Z",
-      "status": "pending",
-      "address": "",
-      "paymentMethod": "offline"
+      "paymentMethod": "momo",
+      "items": [
+        {
+          "productId": 2,
+          "quantity": 1,
+          "price": "123"
+        },
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": "123"
+        },
+        {
+          "productId": 3,
+          "quantity": 1,
+          "price": "123"
+        }
+      ]
     }
   ],
-  "carts": [
-    {
-      "userId": 9,
-      "productId": 3,
-      "quantity": 9,
-      "id": 1
-    },
-    {
-      "userId": 9,
-      "productId": 2,
-      "quantity": 2,
-      "id": 2
-    },
-    {
-      "userId": 9,
-      "productId": 1,
-      "quantity": 1,
-      "id": 3
-    }
-  ]
+  "carts": []
 }

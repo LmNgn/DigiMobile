@@ -35,7 +35,7 @@ const OrderInfo = () => {
     },
   ];
 
-  const { state: { carts }, dispatch } = useCart();
+  const { state: { carts }, clearUserCart, deleteCart } = useCart(); // Destructure deleteCart from useCart
   const { user } = useUser();
   const nav = useNavigate();
 
@@ -61,7 +61,6 @@ const OrderInfo = () => {
   const shippingFee = shippingMethod === "home" ? 30000 : 0;
   const finalTotal = total + shippingFee;
 
-  // Function to create order in the database
   const createOrder = async (order: Order): Promise<Order> => {
     try {
       setLoading(true); // Set loading to true when the request starts
@@ -81,7 +80,7 @@ const OrderInfo = () => {
   const { mutate } = useMutation<Order, Error, Order>({
     mutationFn: createOrder,
     onSuccess: () => {
-      dispatch({ type: "CLEAR_CART" }); // Clear the cart after a successful order
+      clearUserCart(); // Clear the cart after a successful order
       nav("/checkout");
     },
     onError: (error) => {
@@ -92,16 +91,30 @@ const OrderInfo = () => {
   const handleCheckout = () => {
     // Create the order object
     const order: Order = {
-      id: Date.now(), // Or use any other logic for unique ID
+      id: Date.now(),
       userId: user?.id || 0,
-      date: new Date(),
+      date: new Date().toISOString(),
       status: OrderStatus.PENDING,
       address: shippingMethod === "store" ? selectedStore : deliveryAddress,
       paymentMethod: selected,
+      items: enrichedCarts.map(item => ({
+        productId: item.product.id,
+        quantity: item.quantity,
+        price: item.product.price,
+      })),
     };
 
-    // Send the order to the database
-    mutate(order);
+    mutate(order, {
+      onSuccess: () => {
+        // Delete cart items after successful order
+        enrichedCarts.forEach(item => deleteCart(item.id));
+        clearUserCart(); // Clear cart on client
+        nav("/checkout");
+      },
+      onError: (error) => {
+        console.log("Error creating order: " + error.message);
+      },
+    });
   };
 
   return (

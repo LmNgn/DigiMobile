@@ -62,7 +62,7 @@ const Profile = () => {
                 variant="link"
                 onClick={logout}
                 className="text-muted p-0 d-flex align-items-center"
-                
+
               >
                 <i className="bi bi-box-arrow-right me-2"></i>
                 Đăng xuất
@@ -73,13 +73,13 @@ const Profile = () => {
             <h4 className="fw-bold mb-4">Thông tin</h4>
             <Form>
               <Row className="mb-3">
-                <Col md={6}>
+                <Col md={12}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Họ và tên</Form.Label>
                     <Form.Control type="text" name="name" value={profileData.name} onChange={handleChange} />
                   </Form.Group>
                 </Col>
-                <Col md={6}>
+                <Col md={12}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Email</Form.Label>
                     <Form.Control type="email" value={profileData.email} readOnly />
@@ -87,13 +87,13 @@ const Profile = () => {
                 </Col>
               </Row>
               <Row className="mb-3">
-                <Col md={6}>
+                <Col md={12}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Số điện thoại</Form.Label>
                     <Form.Control type="text" name="phone" value={profileData.phone} onChange={handleChange} />
                   </Form.Group>
                 </Col>
-                <Col md={6}>
+                <Col md={12}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Gender</Form.Label>
                     <Form.Control as="select" name="gender" value={profileData.gender} onChange={handleChange}>
@@ -106,21 +106,15 @@ const Profile = () => {
                 </Col>
               </Row>
               <Row className="mb-3">
-                <Col md={6}>
+                <Col md={12}>
                   <Form.Group>
                     <Form.Label className="fw-semibold">Địa chỉ</Form.Label>
                     <Form.Control type="text" name="address" value={profileData.address} onChange={handleChange} />
                   </Form.Group>
                 </Col>
-                <Col md={6}>
-                  <Form.Group>
-                    <Form.Label className="fw-semibold">Quốc gia</Form.Label>
-                    <Form.Control type="text" name="country" value={profileData.country} onChange={handleChange} />
-                  </Form.Group>
-                </Col>
               </Row>
-              <div className="text-end">
-                <Button onClick={handleSave} variant="primary" className="rounded-pill px-4">Save</Button>
+              <div className="text-end d-flex justify-content-center">
+                <Button onClick={handleSave} variant="primary" className="rounded-pill px-4">Lưu</Button>
               </div>
             </Form>
           </Col>

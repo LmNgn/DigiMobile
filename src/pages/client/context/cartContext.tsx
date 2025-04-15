@@ -6,7 +6,7 @@ import {
     useReducer,
 } from "react";
 import { useUser } from "./userContext";
-import { create, getList, update, deleteOne } from "../providers"; // 👈 đã thêm 'deleteOne'
+import { create, getList, update, deleteOne } from "../providers"; // đã thêm 'deleteOne'
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { message } from "antd";
 import { cartReducer, initialState } from "../reducer/cartReducer";
@@ -18,7 +18,9 @@ type CartContextType = {
     state: CartState;
     addToCart: (product: Product) => void;
     updateQuantity: (id: number, quantity: number) => void;
-    dispatch: React.Dispatch<CartAction>; 
+    dispatch: React.Dispatch<CartAction>;
+    clearUserCart: () => void; // Thêm phương thức xoá giỏ hàng
+    deleteCart: (id: number) => void; // Thêm phương thức xoá giỏ hàng
 };
 
 // Tạo Context
@@ -67,12 +69,27 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     // Mutation xoá sản phẩm
     const { mutate: deleteCart } = useMutation({
-        mutationFn: (id: number) => deleteOne({ resource: "carts", id }),
+        mutationFn: (id: number) => deleteOne({ resource: "carts", id }), // Gửi yêu cầu xóa sản phẩm
         onSuccess: (_, id) => {
-            message.success("Đã xoá sản phẩm khỏi giỏ hàng");
-            dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity: 0 } });
+            dispatch({ type: "REMOVE_FROM_CART", payload: id });
         },
     });
+
+    // Xoá thông tin giỏ hàng
+    const clearUserCart = async () => {
+        if (!user || !userCart) return;
+
+        // Xóa tất cả các sản phẩm trong giỏ hàng của người dùng
+        dispatch({ type: "CLEAR_CART" });
+
+        // Sử dụng Promise.all để đợi tất cả các yêu cầu xóa hoàn tất
+        await Promise.all(
+            userCart.map((cartItem: any) => deleteCart(cartItem.id)) // Gửi yêu cầu xóa từng sản phẩm trong giỏ hàng
+        );
+
+        // Sau khi tất cả các sản phẩm đã được xóa, có thể thực hiện các thao tác khác như điều hướng
+        message.success("Đã xóa toàn bộ giỏ hàng");
+    };
 
     // Hàm cập nhật số lượng
     const updateQuantity = (id: number, quantity: number) => {
@@ -120,7 +137,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     return (
-        <CartContext.Provider value={{ state, addToCart, updateQuantity, dispatch }}>
+        <CartContext.Provider value={{ state, addToCart, updateQuantity, dispatch, clearUserCart, deleteCart }}>
             {children}
         </CartContext.Provider>
     );

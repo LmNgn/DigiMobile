@@ -1,20 +1,28 @@
 export enum OrderStatus {
-    PENDING = "pending", // chờ xử lý
-    PROCESSING = "processing", // được xử lý
-    SHIPPED = "shipped", // được giao
-    DELIVERED = "delivered", // được nhận
-    CANCELED = "canceled", // bị hủy
-    COMPLETED = "completed", // hoàn tất
-    RETURNED = "returned", // trả lại
-  }
-  
-  // Order type
-  export type Order = {
+    PENDING = "Chờ xác nhận", // chờ xử lý
+    PROCESSING = "Đã xác nhận", // được xử lý
+    SHIPPED = "Đang giao hàng", // được giao
+    DELIVERED = "Đã nhận hàng", // được nhận
+    CANCELED = "Bị huỷ", // bị hủy
+    COMPLETED = "Hoàn tất", // hoàn tất
+    RETURNED = "Trả hàng", // trả lại
+}
+
+
+export type OrderItem = {
+    productId: number;
+    quantity: number;
+};
+
+
+export type Order = {
     id: number;
     userId: number;
-    date: Date;
+    date: string;      
     status: OrderStatus;
     address: string;
-    paymentMethod: string;
-  };
-  
+    paymentMethod: "cod" | "banking" | "momo" | string;
+    items: OrderItem[];          // Danh sách sản phẩm trong đơn hàng
+    totalAmount?: number;
+    note?: string;
+};

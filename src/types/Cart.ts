@@ -13,4 +13,6 @@ export type CartAction =
     | { type: "SET_CART"; payload: Cart[] }
     | { type: "ADD_TO_CART"; payload: Cart }
     | { type: "CLEAR_CART" }
-    | { type: "UPDATE_QUANTITY"; payload: { id: number; quantity: number } };
+    | { type: "UPDATE_QUANTITY"; payload: { id: number; quantity: number } }
+    | { type: "REMOVE_FROM_CART"; payload: number }; 
+

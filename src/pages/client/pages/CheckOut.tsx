@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 
 const OrderSuccess: React.FC = () => {
+
   return (
     <Container className="my-5">
       <Row className="justify-content-center">

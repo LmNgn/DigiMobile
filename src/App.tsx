@@ -78,7 +78,7 @@ const routeConfig = [
 
       // Order
       { path: "/admin/orders", element: <OrderList /> },
-      { path: "/admin/orders/update/:id", element: <OrderUpdate /> },
+      { path: "/admin/orders/detail/:id", element: <OrderUpdate /> },
     ],
   },
 
